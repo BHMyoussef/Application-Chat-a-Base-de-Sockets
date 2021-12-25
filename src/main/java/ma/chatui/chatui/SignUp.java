@@ -9,6 +9,7 @@ import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import org.springframework.stereotype.Component;
 
+import java.io.IOException;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -38,8 +39,14 @@ public class SignUp {
     @FXML
     private PasswordField repeatPassword;
 
-    public void SignUpHandler(ActionEvent event) {
+    private boolean isUserValid = false;
+
+    public void SignUpHandler(ActionEvent event) throws IOException {
         updateBoxes();
+        if(isUserValid){
+            ScenesController scenesController = new ScenesController();
+            scenesController.switchScene(event, "/SignInUi.fxml");
+        }
     }
 
     public void updateBoxes(){
@@ -62,6 +69,8 @@ public class SignUp {
         if(isEmptyBox(field)){
             changeBoxStyle(field, errorBorder,true);
             getAttribute(field.getId()).setText(field.getId()+" cannot be empty");
+
+            isUserValid=false;
         } else{
             changeBoxStyle(field, validBorder,false);
         }
@@ -70,9 +79,11 @@ public class SignUp {
     public void updateEmailBox(){
         if(isEmailValid(this.email)){
             changeBoxStyle(this.email, validBorder,false);
+            isUserValid=true;
         } else{
             changeBoxStyle(this.email, errorBorder,true);
             this.emailErrorMessage.setText("Email entered is invalid");
+            isUserValid=false;
         }
     }
 
@@ -80,12 +91,14 @@ public class SignUp {
         if(isPasswordsMatch(this.password, this.repeatPassword)){
             changeBoxStyle(this.password, validBorder,false);
             changeBoxStyle(this.repeatPassword, validBorder,false);
+            isUserValid=true;
         }else {
             changeBoxStyle(this.password, errorBorder,true);
             changeBoxStyle(this.repeatPassword, errorBorder,true);
 
             this.passwordErrorMessage.setText("Passwords must be matched");
             this.repeatPasswordErrorMessage.setText("Passwords must be matched");
+            isUserValid=false;
         }
     }
 

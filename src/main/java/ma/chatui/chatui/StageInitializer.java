@@ -15,7 +15,7 @@ import java.io.IOException;
 @Component
 public class StageInitializer implements ApplicationListener<StageReadyEvent> {
     @Value("classpath:/SignUpUi.fxml")
-    private Resource resource;
+    private Resource resourceSignUp;
     private String applicationTitle;
     private ApplicationContext applicationContext;
 
@@ -27,7 +27,7 @@ public class StageInitializer implements ApplicationListener<StageReadyEvent> {
     @Override
     public void onApplicationEvent(StageReadyEvent event) {
         try {
-            FXMLLoader fxmlLoader = new FXMLLoader(resource.getURL());
+            FXMLLoader fxmlLoader = new FXMLLoader(resourceSignUp.getURL());
             fxmlLoader.setControllerFactory(aClass -> applicationContext.getBean(aClass));
             Parent parent = fxmlLoader.load();
             Stage stage = event.getStage();
@@ -40,4 +40,6 @@ public class StageInitializer implements ApplicationListener<StageReadyEvent> {
             throw new RuntimeException(e);
         }
     }
+
+
 }
