@@ -14,8 +14,8 @@ import java.io.IOException;
 
 @Component
 public class StageInitializer implements ApplicationListener<StageReadyEvent> {
-    @Value("classpath:/SignUpUI.fxml")
-    private Resource resource;
+    @Value("classpath:/SignUpUi.fxml")
+    private Resource resourceSignUp;
     private String applicationTitle;
     private ApplicationContext applicationContext;
 
@@ -27,16 +27,19 @@ public class StageInitializer implements ApplicationListener<StageReadyEvent> {
     @Override
     public void onApplicationEvent(StageReadyEvent event) {
         try {
-            FXMLLoader fxmlLoader = new FXMLLoader(resource.getURL());
+            FXMLLoader fxmlLoader = new FXMLLoader(resourceSignUp.getURL());
             fxmlLoader.setControllerFactory(aClass -> applicationContext.getBean(aClass));
             Parent parent = fxmlLoader.load();
             Stage stage = event.getStage();
             Scene scene = new Scene(parent, 1100, 600);
             stage.setScene(scene);
             stage.setTitle(applicationTitle);
+            stage.setMaximized(true);
             stage.show();
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
     }
+
+
 }
