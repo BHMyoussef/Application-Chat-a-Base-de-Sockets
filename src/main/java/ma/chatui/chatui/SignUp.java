@@ -5,8 +5,6 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
-import javafx.scene.layout.*;
-import javafx.scene.paint.Color;
 import org.springframework.stereotype.Component;
 
 @Component
@@ -26,14 +24,29 @@ public class SignUp {
         CheckBoxes();
     }
     public void CheckBoxes() {
-        String style;
-        if(name.getText().isEmpty() || email.getText().isEmpty() || password.getText().isEmpty() || repeatPassword.getText().isEmpty() )
-            style = "-fx-border-color: #f00;";
+        String styleName;
+        String styleEmail;
+        String stylePassword;
+        String styleRepeatPassword;
+        if(name.getText().isEmpty())
+            styleName = "-fx-border-color: #f00;";
         else
-            style = "-fx-border-color: #d5dfec;";
-        name.setStyle(name.getStyle() + style);
-        email.setStyle(name.getStyle() + style);
-        password.setStyle(name.getStyle() + style);
-        repeatPassword.setStyle(name.getStyle() + style);
+            styleName = "-fx-border-color: #d5dfec;";
+        if(email.getText().isEmpty())
+            styleEmail = "-fx-border-color: #f00;";
+        else
+            styleEmail = "-fx-border-color: #d5dfec;";
+        if(password.getText().isEmpty())
+            stylePassword = "-fx-border-color: #f00;";
+        else
+            stylePassword = "-fx-border-color: #d5dfec;";
+        if(repeatPassword.getText().isEmpty())
+            styleRepeatPassword = "-fx-border-color: #f00;";
+        else
+            styleRepeatPassword = "-fx-border-color: #d5dfec;";
+        name.setStyle(name.getStyle() + styleName);
+        email.setStyle(email.getStyle() + styleEmail);
+        password.setStyle(password.getStyle() + stylePassword);
+        repeatPassword.setStyle(repeatPassword.getStyle() + styleRepeatPassword);
     }
 }
