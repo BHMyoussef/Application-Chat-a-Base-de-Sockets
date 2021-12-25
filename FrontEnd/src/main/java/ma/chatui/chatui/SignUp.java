@@ -14,11 +14,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 @Component
-public class SignUp {
-
-    public final static String EMAIL_REGEX = "^[a-zA-Z0-9_!#$%&'*+/=?`{|}~^.-]+@[a-zA-Z0-9.-]+$";
-    public final static String validBorder = "-fx-border-color: #d5dfec;";
-    public final static String errorBorder ="-fx-border-color: #dc3545;";
+public class SignUp extends Registration{
 
     @FXML
     private Button button;
@@ -39,22 +35,25 @@ public class SignUp {
     @FXML
     private PasswordField repeatPassword;
 
-    private boolean isUserValid = false;
-
     public void SignUpHandler(ActionEvent event) throws IOException {
-        updateBoxes();
-        if(isUserValid){
-            GoSignIn(event);
-        }
-    }
-    public void GoSignIn(ActionEvent event) {
-        ScenesController scenesController = new ScenesController();
-        scenesController.switchScene(event, "/SignInUi.fxml");
+        registrationHandler(event,"/SignInUi.fxml");
     }
 
+    public void goSignIn(ActionEvent event){
+        goTo(event, "/SignInUi.fxml");
+    }
+
+    private boolean isPasswordsMatch(PasswordField firstPasswordField, PasswordField secondPasswordField){
+        String firstPassword = firstPasswordField.getText().trim();
+        String secondPassword = secondPasswordField.getText().trim();
+
+        return !isEmptyBox(firstPasswordField) && !isEmptyBox(secondPasswordField) && firstPassword.equals(secondPassword);
+    }
+
+    @Override
     public void updateBoxes(){
         if(!isEmptyBox(this.email)){
-            updateEmailBox();
+            updateEmailBox(this.email, this.emailErrorMessage);
         }else {
             updateEmptyBox(this.email);
         }
@@ -68,28 +67,7 @@ public class SignUp {
         updateEmptyBox(this.name);
     }
 
-    public void updateEmptyBox(TextField field) {
-        if(isEmptyBox(field)){
-            changeBoxStyle(field, errorBorder,true);
-            getAttribute(field.getId()).setText(field.getId()+" cannot be empty");
-
-            isUserValid=false;
-        } else{
-            changeBoxStyle(field, validBorder,false);
-        }
-    }
-
-    public void updateEmailBox(){
-        if(isEmailValid(this.email)){
-            changeBoxStyle(this.email, validBorder,false);
-            isUserValid=true;
-        } else{
-            changeBoxStyle(this.email, errorBorder,true);
-            this.emailErrorMessage.setText("Email entered is invalid");
-            isUserValid=false;
-        }
-    }
-
+    @Override
     public void updatePasswordBoxes(){
         if(isPasswordsMatch(this.password, this.repeatPassword)){
             changeBoxStyle(this.password, validBorder,false);
@@ -105,30 +83,8 @@ public class SignUp {
         }
     }
 
-    private void changeBoxStyle(TextField field, String color, boolean visibility){
-        field.setStyle(field.getStyle() + color);
-        getAttribute(field.getId()).setVisible(visibility);
-
-    }
-
-    private boolean isEmptyBox(TextField field){
-        return field.getText().trim().isEmpty();
-    }
-
-    private  boolean isEmailValid(TextField email) {
-        Pattern VALID_EMAIL_ADDRESS_REGEX = Pattern.compile(EMAIL_REGEX, Pattern.CASE_INSENSITIVE);
-        Matcher matcher = VALID_EMAIL_ADDRESS_REGEX.matcher(email.getText());
-        return matcher.find();
-    }
-
-    private boolean isPasswordsMatch(PasswordField firstPasswordField, PasswordField secondPasswordField){
-        String firstPassword = firstPasswordField.getText().trim();
-        String secondPassword = secondPasswordField.getText().trim();
-
-        return !isEmptyBox(firstPasswordField) && !isEmptyBox(secondPasswordField) && firstPassword.equals(secondPassword);
-    }
-
-    private Label getAttribute(String attribute) {
+    @Override
+    public Label getAttribute(String attribute) {
         switch (attribute) {
             case "name": return this.nameErrorMessage;
             case "email": return this.emailErrorMessage;

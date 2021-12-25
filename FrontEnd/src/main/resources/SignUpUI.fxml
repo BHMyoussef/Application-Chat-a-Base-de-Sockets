@@ -15,7 +15,7 @@
                   <Image url="@img/chat.jpg" />
                </image>
             </ImageView>
-            <Button fx:id="button1" layoutX="23.0" layoutY="52.0" mnemonicParsing="false" onAction="#GoSignIn" prefHeight="35.0" prefWidth="101.0" style="-fx-background-radius: 50; -fx-background-color: #fff;" text="Sign in" textFill="#3084f2">
+            <Button fx:id="button1" layoutX="23.0" layoutY="52.0" mnemonicParsing="false" onAction="#goSignIn" prefHeight="35.0" prefWidth="101.0" style="-fx-background-radius: 50; -fx-background-color: #fff;" text="Sign in" textFill="#3084f2">
                <font>
                   <Font name="Oswald Regular" size="20.0" />
                </font>
