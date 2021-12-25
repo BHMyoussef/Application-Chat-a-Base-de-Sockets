@@ -16,9 +16,9 @@ import java.util.regex.Pattern;
 @Component
 public class SignUp {
 
-    private final static String EMAIL_REGEX = "^[a-zA-Z0-9_!#$%&'*+/=?`{|}~^.-]+@[a-zA-Z0-9.-]+$";
-    private final static String validBorder = "-fx-border-color: #d5dfec;";
-    private final static String errorBorder ="-fx-border-color: #dc3545;";
+    public final static String EMAIL_REGEX = "^[a-zA-Z0-9_!#$%&'*+/=?`{|}~^.-]+@[a-zA-Z0-9.-]+$";
+    public final static String validBorder = "-fx-border-color: #d5dfec;";
+    public final static String errorBorder ="-fx-border-color: #dc3545;";
 
     @FXML
     private Button button;
@@ -44,9 +44,12 @@ public class SignUp {
     public void SignUpHandler(ActionEvent event) throws IOException {
         updateBoxes();
         if(isUserValid){
-            ScenesController scenesController = new ScenesController();
-            scenesController.switchScene(event, "/SignInUi.fxml");
+            GoSignIn(event);
         }
+    }
+    public void GoSignIn(ActionEvent event) {
+        ScenesController scenesController = new ScenesController();
+        scenesController.switchScene(event, "/SignInUi.fxml");
     }
 
     public void updateBoxes(){
