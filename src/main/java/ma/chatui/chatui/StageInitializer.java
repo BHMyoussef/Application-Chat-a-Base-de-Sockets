@@ -33,7 +33,6 @@ public class StageInitializer implements ApplicationListener<StageReadyEvent> {
             Stage stage = event.getStage();
             Scene scene = new Scene(parent, 1100, 600);
             stage.setScene(scene);
-            scene.getStylesheets().add("../resources/StyleCss/style.css");
             stage.setTitle(applicationTitle);
             stage.setMaximized(true);
             stage.show();
