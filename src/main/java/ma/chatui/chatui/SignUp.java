@@ -23,17 +23,27 @@ public class SignUp {
     private PasswordField repeatPassword;
 
     public void SignUpHandler(ActionEvent event) {
-        CheckBoxes();
+        updateBoxes();
     }
-    public void CheckBoxes() {
+
+    public void updateBoxes(){
+        updateBoxStyles(name);
+        updateBoxStyles(email);
+        updateBoxStyles(password);
+        updateBoxStyles(repeatPassword);
+    }
+
+    public void updateBoxStyles(TextField field) {
         String style;
-        if(name.getText().isEmpty() || email.getText().isEmpty() || password.getText().isEmpty() || repeatPassword.getText().isEmpty() )
+        if(isEmptyBox(field))
             style = "-fx-border-color: #f00;";
         else
             style = "-fx-border-color: #d5dfec;";
-        name.setStyle(name.getStyle() + style);
-        email.setStyle(name.getStyle() + style);
-        password.setStyle(name.getStyle() + style);
-        repeatPassword.setStyle(name.getStyle() + style);
+        field.setStyle(field.getStyle() + style);
+    }
+
+    private boolean isEmptyBox(TextField field){
+        if(field.getText().isEmpty()) return true;
+        else return false;
     }
 }
