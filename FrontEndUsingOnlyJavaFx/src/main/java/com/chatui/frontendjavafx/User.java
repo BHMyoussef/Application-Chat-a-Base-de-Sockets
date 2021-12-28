@@ -5,13 +5,13 @@ public class User {
     private String name;
     private String email;
     private String password;
-    private String repassword;
+    private String repeatPassword;
 
     public User(Long id, String name, String email, String password, String repeatPassword) {
         this.name = name;
         this.email = email;
         this.password = password;
-        this.repassword = repeatPassword;
+        this.repeatPassword = repeatPassword;
     }
 
     public User() {
@@ -43,11 +43,11 @@ public class User {
     }
 
     public String getRepeatPassword() {
-        return repassword;
+        return repeatPassword;
     }
 
     public void setRepeatPassword(String repeatPassword) {
-        this.repassword = repeatPassword;
+        this.repeatPassword = repeatPassword;
     }
 
     @Override
@@ -56,7 +56,7 @@ public class User {
                 ", name='" + name + '\'' +
                 ", email='" + email + '\'' +
                 ", password='" + password + '\'' +
-                ", repeatPassword='" + repassword + '\'' +
+                ", repeatPassword='" + repeatPassword + '\'' +
                 '}';
     }
 }
