@@ -11,22 +11,26 @@ import java.net.http.HttpResponse;
 public class PostUserHandler extends Task<Void> {
     private Gson gson = new Gson();
     private User user;
-    private String url;
+    private final static String url = "http://localhost:1947/api/v1/registration";
 
     public PostUserHandler(User user) {
         this.user = user;
-        this.url = "http://localhost:8080/api/chat/users";
     }
 
     @Override
-    public Void call() throws Exception {
-        HttpClient client = HttpClient.newHttpClient();
-        HttpRequest request = HttpRequest.newBuilder()
-                .uri(URI.create(url))
-                .header("Content-Type", "application/json")
-                .POST(HttpRequest.BodyPublishers.ofString(gson.toJson(user)))
-                .build();
-        HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
+    public Void call()  {
+        try {
+            HttpClient client = HttpClient.newHttpClient();
+            HttpRequest request = HttpRequest.newBuilder()
+                    .uri(URI.create(url))
+                    .header("Content-Type", "application/json")
+                    .POST(HttpRequest.BodyPublishers.ofString(gson.toJson(user)))
+                    .build();
+            HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
+        }catch(Exception e) {
+            System.out.println(e.getMessage());
+        }
         return null;
+
     }
 }

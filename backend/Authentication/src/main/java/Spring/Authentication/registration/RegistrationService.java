@@ -32,8 +32,7 @@ public class RegistrationService {
         }
         return appUserService.SignUpUser(
                 new AppUser(
-                        request.getFirstName(),
-                        request.getLastName(),
+                        request.getName(),
                         request.getEmail(),
                         request.getPassword()
                 )

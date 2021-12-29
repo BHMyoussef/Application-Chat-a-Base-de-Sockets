@@ -19,13 +19,23 @@ public class SignIn extends Registration{
     @FXML
     private Label passwordErrorMessage;
 
-
     public void SignInHandler(ActionEvent event) throws IOException {
-        registrationHandler(event, "/com/chatui/frontendjavafx/SignUpUI.fxml");
+        registrationHandler(event, SIGN_UP_PATH);
     }
 
     public void goSignUp(ActionEvent event){
-        goTo(event, "/com/chatui/frontendjavafx/SignUpUI.fxml");
+        goTo(event, SIGN_UP_PATH);
+    }
+
+    @Override
+    public void postToServer(ActionEvent event)  {
+        User user = new User();
+        user.setEmail(email.getText());
+        user.setPassword(password.getText());
+
+        PostUserHandler postUser = new PostUserHandler(user);
+        postUser.setOnSucceeded(e -> System.out.println("Succeeded"));
+        new Thread(postUser).start();
     }
 
     @Override
@@ -43,7 +53,7 @@ public class SignIn extends Registration{
 
     @Override
     public void updatePasswordBoxes(){
-        changeBoxStyle(this.password, SignUp.validBorder,false);
+        changeBoxStyle(this.password, validBorder,false);
     }
 
     @Override

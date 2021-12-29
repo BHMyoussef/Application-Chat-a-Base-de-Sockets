@@ -5,25 +5,22 @@ public class User {
     private String name;
     private String email;
     private String password;
-    private String repeatPassword;
 
-    public User(Long id, String name, String email, String password, String repeatPassword) {
-        this.name = name;
-        this.email = email;
-        this.password = password;
-        this.repeatPassword = repeatPassword;
+    public User(String name, String email, String password) {
+        this.name = name.trim().toLowerCase();
+        this.email = email.trim().toLowerCase();
+        this.password = password.trim().toLowerCase();
     }
 
     public User() {
     }
-
 
     public String getName() {
         return name;
     }
 
     public void setName(String name) {
-        this.name = name;
+        this.name = name.trim().toLowerCase();
     }
 
     public String getEmail() {
@@ -31,7 +28,7 @@ public class User {
     }
 
     public void setEmail(String email) {
-        this.email = email;
+        this.email = email.trim().toLowerCase();
     }
 
     public String getPassword() {
@@ -39,16 +36,9 @@ public class User {
     }
 
     public void setPassword(String password) {
-        this.password = password;
+        this.password = password.trim().toLowerCase();
     }
 
-    public String getRepeatPassword() {
-        return repeatPassword;
-    }
-
-    public void setRepeatPassword(String repeatPassword) {
-        this.repeatPassword = repeatPassword;
-    }
 
     @Override
     public String toString() {
@@ -56,7 +46,6 @@ public class User {
                 ", name='" + name + '\'' +
                 ", email='" + email + '\'' +
                 ", password='" + password + '\'' +
-                ", repeatPassword='" + repeatPassword + '\'' +
                 '}';
     }
 }

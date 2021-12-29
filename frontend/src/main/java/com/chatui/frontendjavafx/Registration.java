@@ -13,11 +13,15 @@ public abstract class Registration {
     public final static String validBorder = "-fx-border-color: #d5dfec;";
     public final static String errorBorder ="-fx-border-color: #dc3545;";
 
+    public final static String SIGN_UP_PATH = "/com/chatui/frontendjavafx/SignUpUI.fxml";
+    public final static String SIGN_IN_PATH = "/com/chatui/frontendjavafx/SignInUI.fxml";
+
     public boolean isUserValid = false;
 
     public void registrationHandler(ActionEvent event, String fileName){
         updateBoxes();
         if(isUserValid) {
+            postToServer(event);
             goTo(event, fileName);
         }
     }
@@ -70,4 +74,6 @@ public abstract class Registration {
     public abstract  void updatePasswordBoxes();
 
     public abstract Label getAttribute(String attribute);
+
+    public abstract void postToServer(ActionEvent event);
 }

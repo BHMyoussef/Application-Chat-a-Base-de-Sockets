@@ -12,8 +12,6 @@ import java.io.IOException;
 public class SignUp extends Registration{
 
     @FXML
-    private Button button;
-    @FXML
     private TextField name;
     @FXML
     private Label nameErrorMessage;
@@ -29,25 +27,13 @@ public class SignUp extends Registration{
     private Label repeatPasswordErrorMessage;
     @FXML
     private PasswordField repeatPassword;
-    @FXML
-    private void postToServer(ActionEvent event)  {
-        User user = new User();
-        user.setName(name.getText());
-        user.setEmail(email.getText());
-        user.setPassword(password.getText());
-        user.setRepeatPassword(repeatPassword.getText());
-        PostUserHandler postUser = new PostUserHandler(user);
-        postUser.setOnSucceeded(e -> System.out.println("Succeeded"));
-        new Thread(postUser).start();
-    }
+
     public void SignUpHandler(ActionEvent event) throws IOException {
-        registrationHandler(event, "/com/chatui/frontendjavafx/SignInUI.fxml");
-        if(isUserValid)
-            postToServer(event);
+        registrationHandler(event, SIGN_IN_PATH);
     }
 
     public void goSignIn(ActionEvent event){
-        goTo(event, "/com/chatui/frontendjavafx/SignInUI.fxml");
+        goTo(event, SIGN_IN_PATH);
     }
 
     private boolean isPasswordsMatch(PasswordField firstPasswordField, PasswordField secondPasswordField){
@@ -55,6 +41,20 @@ public class SignUp extends Registration{
         String secondPassword = secondPasswordField.getText().trim();
 
         return !isEmptyBox(firstPasswordField) && !isEmptyBox(secondPasswordField) && firstPassword.equals(secondPassword);
+    }
+
+    @Override
+    public void postToServer(ActionEvent event)  {
+        User user = new User();
+        user.setName(name.getText());
+        user.setEmail(email.getText());
+        user.setPassword(password.getText());
+
+        PostUserHandler postUser = new PostUserHandler(user);
+        postUser.setOnSucceeded(e -> System.out.println("Succeeded"));
+        postUser.setOnFailed(e -> System.out.println("failed"));
+        postUser.setOnCancelled(e -> System.out.println("cancelled"));
+        new Thread(postUser).start();
     }
 
     @Override
