@@ -27,9 +27,12 @@ public class SignUp extends Registration{
     private Label repeatPasswordErrorMessage;
     @FXML
     private PasswordField repeatPassword;
+    @FXML
+    private Label welcomeMessage;
 
     public void SignUpHandler(ActionEvent event) throws IOException {
         registrationHandler(event, SIGN_IN_PATH);
+
     }
 
     public void goSignIn(ActionEvent event){
@@ -50,8 +53,14 @@ public class SignUp extends Registration{
         user.setEmail(email.getText());
         user.setPassword(password.getText());
 
-        PostUserHandler postUser = new PostUserHandler(user);
-        postUser.setOnSucceeded(e -> System.out.println("Succeeded"));
+        PostUserHandler postUser = new PostUserHandler(user, REGISTRATION_URL);
+        postUser.setOnSucceeded(e -> {
+            if(postUser.isSuccess()){
+                welcomeMessage.setText("Welcome " + name.getText() + ", please sign in.");
+                welcomeMessage.setVisible(true);
+            }
+            System.out.println("Succeeded");
+        });
         postUser.setOnFailed(e -> System.out.println("failed"));
         postUser.setOnCancelled(e -> System.out.println("cancelled"));
         new Thread(postUser).start();

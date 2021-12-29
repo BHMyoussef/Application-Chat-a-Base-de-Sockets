@@ -19,6 +19,11 @@ public class AppUser{
     private String email;
     private String password;
 
+    public AppUser(String email, String password) {
+        this.email = email;
+        this.password = password;
+    }
+
     public AppUser(String name, String email, String password) {
         this.name = name;
         this.email = email;

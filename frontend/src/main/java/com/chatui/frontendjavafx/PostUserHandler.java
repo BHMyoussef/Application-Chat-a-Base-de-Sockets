@@ -11,10 +11,17 @@ import java.net.http.HttpResponse;
 public class PostUserHandler extends Task<Void> {
     private Gson gson = new Gson();
     private User user;
-    private final static String url = "http://localhost:1947/api/v1/registration";
+    private String url;
 
-    public PostUserHandler(User user) {
+    private boolean isSuccess = false;
+
+    public PostUserHandler(User user, String url) {
         this.user = user;
+        this.url = url;
+    }
+
+    public boolean isSuccess() {
+        return isSuccess;
     }
 
     @Override
@@ -27,6 +34,8 @@ public class PostUserHandler extends Task<Void> {
                     .POST(HttpRequest.BodyPublishers.ofString(gson.toJson(user)))
                     .build();
             HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
+            //TODO: change isUserExists property based on response
+            this.isSuccess = true;
         }catch(Exception e) {
             System.out.println(e.getMessage());
         }

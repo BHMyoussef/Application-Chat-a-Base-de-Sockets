@@ -30,6 +30,7 @@ public class RegistrationService {
         if(!is_valid_email){
             throw new IllegalStateException("email entred is not valid");
         }
+
         return appUserService.SignUpUser(
                 new AppUser(
                         request.getName(),

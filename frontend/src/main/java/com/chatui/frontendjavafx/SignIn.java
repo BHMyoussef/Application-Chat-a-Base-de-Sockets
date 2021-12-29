@@ -5,6 +5,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
+import javafx.scene.paint.Color;
 
 import java.io.IOException;
 
@@ -18,9 +19,12 @@ public class SignIn extends Registration{
     private PasswordField password;
     @FXML
     private Label passwordErrorMessage;
+    @FXML
+    private Label signInMessage;
 
     public void SignInHandler(ActionEvent event) throws IOException {
         registrationHandler(event, SIGN_UP_PATH);
+
     }
 
     public void goSignUp(ActionEvent event){
@@ -33,8 +37,20 @@ public class SignIn extends Registration{
         user.setEmail(email.getText());
         user.setPassword(password.getText());
 
-        PostUserHandler postUser = new PostUserHandler(user);
-        postUser.setOnSucceeded(e -> System.out.println("Succeeded"));
+        PostUserHandler postUser = new PostUserHandler(user, SIGN_IN_URL);
+        postUser.setOnSucceeded(e -> {
+            if(postUser.isSuccess()){
+                signInMessage.setText("You have access");
+                signInMessage.setStyle(signInMessage.getStyle() + validColor + "visibility: visible");
+             }
+            else {
+                signInMessage.setText("Email or password invalid");
+                signInMessage.setStyle(signInMessage.getStyle() + errorColor);
+                signInMessage.setVisible(true);
+            }
+
+            System.out.println("Succeeded");
+        });
         new Thread(postUser).start();
     }
 

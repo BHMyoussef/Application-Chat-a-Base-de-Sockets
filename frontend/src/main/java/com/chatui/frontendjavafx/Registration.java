@@ -12,17 +12,24 @@ public abstract class Registration {
     public final static String EMAIL_REGEX = "^[a-zA-Z0-9_!#$%&'*+/=?`{|}~^.-]+@[a-zA-Z0-9.-]+$";
     public final static String validBorder = "-fx-border-color: #d5dfec;";
     public final static String errorBorder ="-fx-border-color: #dc3545;";
+    public final static String errorColor ="-fx-text-fill: #dc3545;";
+    public final static String validColor ="-fx-text-fill: #35b874;";
 
-    public final static String SIGN_UP_PATH = "/com/chatui/frontendjavafx/SignUpUI.fxml";
-    public final static String SIGN_IN_PATH = "/com/chatui/frontendjavafx/SignInUI.fxml";
+    public final static String SIGN_UP_PATH = "SignUpUI.fxml";
+    public final static String SIGN_IN_PATH = "SignInUI.fxml";
+
+    public final static String REGISTRATION_URL = "http://localhost:1947/api/v1/registration";
+    public final static String SIGN_IN_URL = "http://localhost:1947/api/v1/signin";
+
 
     public boolean isUserValid = false;
+
 
     public void registrationHandler(ActionEvent event, String fileName){
         updateBoxes();
         if(isUserValid) {
             postToServer(event);
-            goTo(event, fileName);
+            //goTo(event, fileName);
         }
     }
 
