@@ -18,8 +18,8 @@ public abstract class Registration {
     public final static String SIGN_UP_PATH = "SignUpUI.fxml";
     public final static String SIGN_IN_PATH = "SignInUI.fxml";
 
-    public final static String REGISTRATION_URL = "http://localhost:1947/api/v1/registration";
-    public final static String SIGN_IN_URL = "http://localhost:1947/api/v1/signin";
+    public final static String REGISTRATION_URL = "http://localhost:8080/api/v1/registration";
+    public final static String SIGN_IN_URL = "http://localhost:8080/api/v1/signin";
 
 
     public boolean isUserValid = false;

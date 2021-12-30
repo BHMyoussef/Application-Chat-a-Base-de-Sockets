@@ -9,10 +9,10 @@
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>Spring</groupId>
-	<artifactId>Authentication</artifactId>
+	<artifactId>Backend</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>Authentication</name>
-	<description>Spring Authentication Project</description>
+	<name>Backend</name>
+	<description>Spring Backend Project</description>
 	<properties>
 		<java.version>11</java.version>
 	</properties>

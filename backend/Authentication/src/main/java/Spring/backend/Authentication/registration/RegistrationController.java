@@ -1,6 +1,6 @@
-package Spring.Authentication.registration;
+package Spring.backend.Authentication.registration;
 
-import Spring.Authentication.appuser.AppUser;
+import Spring.backend.Authentication.appuser.AppUser;
 import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 

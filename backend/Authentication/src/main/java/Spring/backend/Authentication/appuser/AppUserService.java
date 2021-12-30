@@ -1,4 +1,4 @@
-package Spring.Authentication.appuser;
+package Spring.backend.Authentication.appuser;
 
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;

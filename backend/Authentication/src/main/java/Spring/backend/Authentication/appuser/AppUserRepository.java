@@ -1,4 +1,4 @@
-package Spring.Authentication.appuser;
+package Spring.backend.Authentication.appuser;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;

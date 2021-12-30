@@ -1,7 +1,7 @@
-package Spring.Authentication.signin;
+package Spring.backend.Authentication.signin;
 
-import Spring.Authentication.appuser.AppUser;
-import Spring.Authentication.appuser.AppUserService;
+import Spring.backend.Authentication.appuser.AppUser;
+import Spring.backend.Authentication.appuser.AppUserService;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
