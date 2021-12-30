@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.PasswordField?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.text.Font?>
+
+<BorderPane id="container" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1280.0" style="-fx-background-color: #91bbf2;" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.chatui.frontendjavafx.SignIn">
+   <left>
+      <AnchorPane prefHeight="800.0" prefWidth="475.0" BorderPane.alignment="CENTER">
+         <children>
+            <ImageView fitHeight="655.0" fitWidth="614.0" layoutX="-11.0" layoutY="60.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@img/chat.jpg" />
+               </image>
+            </ImageView>
+            <Button fx:id="button1" layoutX="22.0" layoutY="67.0" mnemonicParsing="false" onAction="#goSignUp" prefHeight="42.0" prefWidth="127.0" style="-fx-background-radius: 50; -fx-background-color: #3084F2;" text="Sign up" textFill="WHITE">
+               <font>
+                  <Font name="Oswald Regular" size="20.0" />
+               </font>
+            </Button>
+         </children>
+      </AnchorPane>
+   </left>
+   <right>
+      <AnchorPane prefHeight="600.0" prefWidth="2.0" BorderPane.alignment="CENTER">
+         <children>
+            <ImageView fitHeight="599.0" fitWidth="733.0" layoutX="-668.0" layoutY="-2.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@img/ChatLog.jpg" />
+               </image>
+            </ImageView>
+
+            <Label layoutX="-571.0" layoutY="406.0" text="Password" textFill="#f0f0f2">
+               <font>
+                  <Font name="Oswald Regular" size="22.0" />
+               </font>
+            </Label>
+            <PasswordField id="password" fx:id="password" layoutX="-586.0" layoutY="450.0" prefHeight="54.0" prefWidth="337.0" style="-fx-background-color: #91bbf2; -fx-border-color: #d5dfec; -fx-border-radius: 50; -fx-text-fill: #3084F2; -fx-font-weight: 700; -fx-font-size: 14;" />
+            <Label fx:id="passwordErrorMessage" layoutX="-563.0" layoutY="505.0" prefHeight="17.0" prefWidth="206.0" style="-fx-font-weight: bold; visibility: hidden;" text="Passwords must be matched" textFill="#dc3545" />
+
+            <Label layoutX="-571.0" layoutY="274.0" text="Email Adress" textFill="#f0f0f2">
+               <font>
+                  <Font name="Oswald Regular" size="22.0" />
+               </font>
+            </Label>
+            <TextField id="email" fx:id="email" layoutX="-586.0" layoutY="320.0" prefHeight="52.0" prefWidth="337.0" style="-fx-background-color: #91bbf2; -fx-border-color: #d5dfec; -fx-border-radius: 50; -fx-text-fill: #3084F2; -fx-font-weight: 700; -fx-font-size: 14;" />
+            <Label fx:id="emailErrorMessage" layoutX="-563.0" layoutY="372.0" style="-fx-font-weight: bold; visibility: hidden;" text="Email entered is invalid" textFill="#dc3545" />
+
+            <Button fx:id="button" layoutX="-478.0" layoutY="547.0" mnemonicParsing="false" onAction="#SignInHandler" prefHeight="63.0" prefWidth="122.0" style="-fx-background-radius: 50; -fx-background-color: #fff;" text="Sign in" textFill="#3084f2">
+               <font>
+                  <Font name="Oswald Regular" size="24.0" />
+               </font>
+            </Button>
+            <Label fx:id="signInMessage" layoutX="-586.0" layoutY="650.0" style="visibility: hidden;" text="You have access" textFill="#35b874">
+               <font>
+                  <Font size="26.0" />
+               </font>
+            </Label>
+
+            
+         </children>
+      </AnchorPane>
+   </right>
+</BorderPane>

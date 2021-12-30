@@ -1,5 +1,7 @@
 package com.chatui.frontendjavafx;
 
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
@@ -22,15 +24,39 @@ public class SignIn extends Registration{
     @FXML
     private Label signInMessage;
 
+    private boolean isSuccess = false;
+
+    private User user = new User();
+    private User [] users = GetUserHandler.getUsers();
+
     public void SignInHandler(ActionEvent event) throws IOException {
+        user.setEmail(email.getText());
+        user.setPassword(password.getText());
         registrationHandler(event, SIGN_UP_PATH);
+        SuccessSignIn();
 
     }
-
+    public void SuccessSignIn() {
+        for (int i = 0; i < users.length; i++) {
+            if (users[i].equals(user)) {
+                isSuccess = true;
+                break;
+            }
+            else
+                isSuccess = false;
+        }
+        if(isSuccess){
+            signInMessage.setText("You have access");
+            signInMessage.setStyle(signInMessage.getStyle() + " visibility: visible; " + validColor );
+        }
+        else {
+            signInMessage.setText("Email or password invalid");
+            signInMessage.setStyle(signInMessage.getStyle() + " visibility: visible; " + errorColor);
+        }
+    }
     public void goSignUp(ActionEvent event){
         goTo(event, SIGN_UP_PATH);
     }
-
     @Override
     public void postToServer(ActionEvent event)  {
         User user = new User();
@@ -39,17 +65,8 @@ public class SignIn extends Registration{
 
         PostUserHandler postUser = new PostUserHandler(user, SIGN_IN_URL);
         postUser.setOnSucceeded(e -> {
-            if(postUser.isSuccess()){
-                signInMessage.setText("You have access");
-                signInMessage.setStyle(signInMessage.getStyle() + validColor + "visibility: visible");
-             }
-            else {
-                signInMessage.setText("Email or password invalid");
-                signInMessage.setStyle(signInMessage.getStyle() + errorColor);
-                signInMessage.setVisible(true);
-            }
-
-            System.out.println("Succeeded");
+            if(postUser.isSuccess() && isSuccess)
+                System.out.println("Succeeded");
         });
         new Thread(postUser).start();
     }
