@@ -1,12 +1,9 @@
 package Spring.backend.chat.friends;
 
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping(path = "api/v1/friends")
+@RequestMapping(path = "api/v1/friends/friendship")
 public class FriendsController {
     private final FriendsService friendsService;
 
@@ -14,15 +11,15 @@ public class FriendsController {
         this.friendsService = friendsService;
     }
 
-    @PostMapping(path = "/invite")
+    @PostMapping
     public Friends inviteFriend(@RequestBody FriendsKey friendsKey){
         return friendsService.sendRequestFriendship(friendsKey);
     }
-    @PostMapping(path = "/accept")
+    @PutMapping
     public Friends acceptFriend(@RequestBody FriendsKey friendsKey){
         return friendsService.acceptRequestFriendship(friendsKey);
     }
-    @PostMapping(path = "/delete")
+    @DeleteMapping
     public String deleteFriend(@RequestBody FriendsKey friendsKey){
         return friendsService.deleteRequestFriendship(friendsKey);
     }
