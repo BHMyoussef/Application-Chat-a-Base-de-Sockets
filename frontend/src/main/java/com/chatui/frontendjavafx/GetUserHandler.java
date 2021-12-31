@@ -13,7 +13,7 @@ public class GetUserHandler {
         Gson gson = new Gson();
         User[] Users = null;
         try {
-            URL url = new URL("http://localhost:8080/api/v1/registration");
+            URL url = new URL(Registration.REGISTRATION_URL);
             HttpURLConnection httpConnection = (HttpURLConnection) url.openConnection();
             InputStreamReader reader = new InputStreamReader(httpConnection.getInputStream());
             Users = gson.fromJson(reader, User[].class);
