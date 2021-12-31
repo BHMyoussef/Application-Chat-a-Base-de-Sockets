@@ -30,9 +30,12 @@ public class SignUp extends Registration{
     @FXML
     private Label welcomeMessage;
 
+    private boolean isSuccess = false;
+
+
     public void SignUpHandler(ActionEvent event) throws IOException {
         registrationHandler(event, SIGN_IN_PATH);
-
+        authSuccess();
     }
 
     public void goSignIn(ActionEvent event){
@@ -47,6 +50,16 @@ public class SignUp extends Registration{
     }
 
     @Override
+    public void authSuccess() {
+        User user = new User();
+        user.setEmail(email.getText());
+        validateUserSuccess(user);
+        String validMsg = "Welcome, user " + name.getText() + " is created successfully";
+        String errMsg = "Email already exists";
+        showResponseMessage(welcomeMessage,validMsg, errMsg, getClass().getSimpleName());
+    }
+
+    @Override
     public void postToServer(ActionEvent event)  {
         User user = new User();
         user.setName(name.getText());
@@ -54,13 +67,7 @@ public class SignUp extends Registration{
         user.setPassword(password.getText());
 
         PostUserHandler postUser = new PostUserHandler(user, REGISTRATION_URL);
-        postUser.setOnSucceeded(e -> {
-            if(postUser.isSuccess()){
-                welcomeMessage.setText("Welcome " + name.getText() + ", please sign in.");
-                welcomeMessage.setVisible(true);
-            }
-            System.out.println("Succeeded");
-        });
+        postUser.setOnSucceeded(e -> System.out.println("Succeeded"));
         postUser.setOnFailed(e -> System.out.println("failed"));
         postUser.setOnCancelled(e -> System.out.println("cancelled"));
         new Thread(postUser).start();

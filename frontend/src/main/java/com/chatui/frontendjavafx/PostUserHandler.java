@@ -13,15 +13,9 @@ public class PostUserHandler extends Task<Void> {
     private User user;
     private String url;
 
-    private boolean isSuccess = false;
-
     public PostUserHandler(User user, String url) {
         this.user = user;
         this.url = url;
-    }
-
-    public boolean isSuccess() {
-        return isSuccess;
     }
 
     @Override
@@ -34,8 +28,6 @@ public class PostUserHandler extends Task<Void> {
                     .POST(HttpRequest.BodyPublishers.ofString(gson.toJson(user)))
                     .build();
             HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
-            //TODO: change isUserExists property based on response
-            this.isSuccess = true;
         }catch(Exception e) {
             System.out.println(e.getMessage());
         }

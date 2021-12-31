@@ -21,9 +21,8 @@ public abstract class Registration {
     public final static String REGISTRATION_URL = "http://localhost:8080/api/v1/registration";
     public final static String SIGN_IN_URL = "http://localhost:8080/api/v1/signin";
 
-
     public boolean isUserValid = false;
-
+    private boolean isSuccess = false;
 
     public void registrationHandler(ActionEvent event, String fileName){
         updateBoxes();
@@ -36,6 +35,31 @@ public abstract class Registration {
     public void goTo(ActionEvent event, String fileName) {
         ScenesController scenesController = new ScenesController();
         scenesController.switchScene(event, fileName);
+    }
+
+    public void validateUserSuccess(User user){
+        User [] users = GetUserHandler.getUsers();
+        for (int i = 0; i < users.length; i++) {
+            if (users[i].equals(user)) {
+                isSuccess =  true;
+                break;
+            }
+            isSuccess = false;
+        }
+    }
+
+    public void showResponseMessage(Label label, String validMsg, String errMsg, String className){
+        // if we are in SignUp class success means user doesn't exist in db
+        if(className.equals("SignUp")) isSuccess = !isSuccess;
+
+        if(isSuccess){
+            label.setText(validMsg);
+            label.setStyle(label.getStyle() + " visibility: visible; " + validColor );
+        }
+        else {
+            label.setText(errMsg);
+            label.setStyle(label.getStyle() + " visibility: visible; " + errorColor);
+        }
     }
 
     public void changeBoxStyle(TextField field, String color, boolean visibility){
@@ -83,4 +107,6 @@ public abstract class Registration {
     public abstract Label getAttribute(String attribute);
 
     public abstract void postToServer(ActionEvent event);
+
+    public abstract void authSuccess();
 }

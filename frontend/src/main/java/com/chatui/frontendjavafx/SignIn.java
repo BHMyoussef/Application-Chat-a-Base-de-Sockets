@@ -24,39 +24,27 @@ public class SignIn extends Registration{
     @FXML
     private Label signInMessage;
 
-    private boolean isSuccess = false;
-
-    private User user = new User();
-    private User [] users = GetUserHandler.getUsers();
-
     public void SignInHandler(ActionEvent event) throws IOException {
-        user.setEmail(email.getText());
-        user.setPassword(password.getText());
         registrationHandler(event, SIGN_UP_PATH);
-        SuccessSignIn();
+        authSuccess();
 
     }
-    public void SuccessSignIn() {
-        for (int i = 0; i < users.length; i++) {
-            if (users[i].equals(user)) {
-                isSuccess = true;
-                break;
-            }
-            else
-                isSuccess = false;
-        }
-        if(isSuccess){
-            signInMessage.setText("You have access");
-            signInMessage.setStyle(signInMessage.getStyle() + " visibility: visible; " + validColor );
-        }
-        else {
-            signInMessage.setText("Email or password invalid");
-            signInMessage.setStyle(signInMessage.getStyle() + " visibility: visible; " + errorColor);
-        }
-    }
+
     public void goSignUp(ActionEvent event){
         goTo(event, SIGN_UP_PATH);
     }
+
+    @Override
+    public void authSuccess() {
+        User user = new User();
+        user.setEmail(email.getText());
+        user.setPassword(password.getText());
+        validateUserSuccess(user);
+        String validMsg = "You have access";
+        String errMsg = "Email or password invalid";
+        showResponseMessage(signInMessage,validMsg, errMsg, getClass().getSimpleName());
+    }
+
     @Override
     public void postToServer(ActionEvent event)  {
         User user = new User();
@@ -64,10 +52,7 @@ public class SignIn extends Registration{
         user.setPassword(password.getText());
 
         PostUserHandler postUser = new PostUserHandler(user, SIGN_IN_URL);
-        postUser.setOnSucceeded(e -> {
-            if(postUser.isSuccess() && isSuccess)
-                System.out.println("Succeeded");
-        });
+        postUser.setOnSucceeded(e -> System.out.println("Succeeded"));
         new Thread(postUser).start();
     }
 
