@@ -1,5 +1,6 @@
 package Spring.backend.chat.friends;
 
+import Spring.backend.Authentication.appuser.AppUser;
 import Spring.backend.Authentication.appuser.AppUserRepository;
 import org.springframework.stereotype.Service;
 
@@ -28,6 +29,7 @@ public class FriendsService {
         if(isValidFriendship(friendsKey)){
             //TODO: check before accept request if auth user is the one who has receiver_id
             if(isPendingInvitation(friendsKey)){
+                updateFriendsList(friendsKey, "ADD");
                 Friends friends = new Friends(friendsKey, Status.ACCEPTED);
                 return friendsRepository.save(friends);
             }
@@ -38,6 +40,7 @@ public class FriendsService {
 
     public String deleteRequestFriendship(FriendsKey friendsKey){
         if(isValidFriendship(friendsKey)){
+            updateFriendsList(friendsKey, "REMOVE");
             friendsRepository.deleteById(friendsKey);
             return "friendship deleted";
         }else {
@@ -84,5 +87,24 @@ public class FriendsService {
             }
         }
         return false;
+    }
+
+    private void removeFriend(AppUser user1, AppUser user2){
+        user1.setTotalFriends(user1.getTotalFriends()-1);
+        user2.setTotalFriends(user2.getTotalFriends()-1);
+    }
+    private void addFriend(AppUser user1, AppUser user2){
+        user1.setTotalFriends(user1.getTotalFriends()+1);
+        user2.setTotalFriends(user2.getTotalFriends()+1);
+    }
+
+    private void updateFriendsList(FriendsKey friendsKey, String operation){
+        AppUser user1 = appUserRepository.findById(friendsKey.getSenderId()).get();
+        AppUser user2 = appUserRepository.findById(friendsKey.getReceiverId()).get();
+        if(operation.equals("ADD")){
+            addFriend(user1, user2);
+        }else if(operation.equals("REMOVE")){
+            removeFriend(user1, user2);
+        }
     }
 }
