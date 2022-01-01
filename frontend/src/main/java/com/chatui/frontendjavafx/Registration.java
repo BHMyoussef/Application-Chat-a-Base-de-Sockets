@@ -4,6 +4,7 @@ import javafx.event.ActionEvent;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 
+import java.io.FileNotFoundException;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -37,16 +38,14 @@ public abstract class Registration {
         scenesController.switchScene(event, fileName);
     }
 
-    public void validateUserSuccess(User user){
-        User [] users = GetUserHandler.getUsers();
-        for (int i = 0; i < users.length; i++) {
-            if (users[i].equals(user)) {
+    public void validateUserSuccess(User user) {
+        User userFromServer = GetUserHandler.getUser(user.getEmail());
+            if (userFromServer != null && userFromServer.equals(user)) {
                 isSuccess =  true;
-                break;
             }
-            isSuccess = false;
+            else
+                isSuccess = false;
         }
-    }
 
     public void showResponseMessage(Label label, String validMsg, String errMsg, String className){
         // if we are in SignUp class success means user doesn't exist in db
@@ -108,5 +107,5 @@ public abstract class Registration {
 
     public abstract void postToServer(ActionEvent event);
 
-    public abstract void authSuccess();
+    public abstract void authSuccess() throws FileNotFoundException;
 }

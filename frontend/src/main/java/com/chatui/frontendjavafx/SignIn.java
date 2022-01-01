@@ -9,6 +9,7 @@ import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.paint.Color;
 
+import java.io.FileNotFoundException;
 import java.io.IOException;
 
 
@@ -39,7 +40,8 @@ public class SignIn extends Registration{
         User user = new User();
         user.setEmail(email.getText());
         user.setPassword(password.getText());
-        validateUserSuccess(user);
+        if(isUserValid)
+            validateUserSuccess(user);
         String validMsg = "You have access";
         String errMsg = "Email or password invalid";
         showResponseMessage(signInMessage,validMsg, errMsg, getClass().getSimpleName());

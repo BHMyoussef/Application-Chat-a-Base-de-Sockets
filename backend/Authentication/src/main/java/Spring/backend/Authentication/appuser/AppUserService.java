@@ -3,6 +3,8 @@ package Spring.backend.Authentication.appuser;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.Optional;
+
 @Service
 @AllArgsConstructor
 public class AppUserService{
@@ -15,6 +17,11 @@ public class AppUserService{
         }
         appuserrepository.save(appUser);
         return appUser;
+    }
+    public Optional<AppUser> getByEmail(String email) {
+        if(!appuserrepository.findByEmail(email).isPresent()) throw new IllegalStateException("User with email "+email+" doesnt exists!");
+        else
+            return appuserrepository.findByEmail(email);
     }
     public String SignInUser(AppUser appUser){
         boolean present1 = appuserrepository.findByEmail(appUser.getEmail()).isPresent();

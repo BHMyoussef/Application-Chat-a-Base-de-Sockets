@@ -2,6 +2,7 @@ package com.chatui.frontendjavafx;
 
 import com.google.gson.Gson;
 
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
@@ -13,7 +14,7 @@ public class GetUserHandler {
         Gson gson = new Gson();
         User[] Users = null;
         try {
-            URL url = new URL(Registration.REGISTRATION_URL);
+            URL url = new URL(Registration.SIGN_IN_URL);
             HttpURLConnection httpConnection = (HttpURLConnection) url.openConnection();
             InputStreamReader reader = new InputStreamReader(httpConnection.getInputStream());
             Users = gson.fromJson(reader, User[].class);
@@ -22,5 +23,20 @@ public class GetUserHandler {
             ex.printStackTrace();
         }
         return Users;
+    }
+
+    public static User getUser(String email) {
+        Gson gson = new Gson();
+        User User = new User();
+        try {
+                URL url = new URL(Registration.SIGN_IN_URL + "/users/" + email);
+                HttpURLConnection httpConnection = (HttpURLConnection) url.openConnection();
+                InputStreamReader reader = new InputStreamReader(httpConnection.getInputStream());
+                User = gson.fromJson(reader, User.class);
+
+        } catch (IOException ex) {
+            ex.printStackTrace();
+        }
+        return User;
     }
 }
