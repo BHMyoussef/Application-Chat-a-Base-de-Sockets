@@ -27,34 +27,33 @@ public class SignIn extends Registration{
 
     public void SignInHandler(ActionEvent event) throws IOException {
         registrationHandler(event, SIGN_UP_PATH);
-        authSuccess();
-
     }
 
     public void goSignUp(ActionEvent event){
         goTo(event, SIGN_UP_PATH);
     }
-
+    /*
     @Override
     public void authSuccess() {
         User user = new User();
         user.setEmail(email.getText());
         user.setPassword(password.getText());
-        if(isUserValid)
-            validateUserSuccess(user);
+        if(isUserValid) validateUserSuccess(user);
         String validMsg = "You have access";
         String errMsg = "Email or password invalid";
         showResponseMessage(signInMessage,validMsg, errMsg, getClass().getSimpleName());
     }
-
+    */
     @Override
     public void postToServer(ActionEvent event)  {
         User user = new User();
         user.setEmail(email.getText());
         user.setPassword(password.getText());
-
         PostUserHandler postUser = new PostUserHandler(user, SIGN_IN_URL);
-        postUser.setOnSucceeded(e -> System.out.println("Succeeded"));
+        postUser.call();
+        String res = postUser.getRes();
+        showResponseMessage(signInMessage,res);
+        System.out.println(res);
         new Thread(postUser).start();
     }
 

@@ -13,7 +13,7 @@ public class AppUserService{
     public AppUser SignUpUser(AppUser appUser){
         boolean present = appuserrepository.findByEmail(appUser.getEmail()).isPresent();
         if(present){
-            throw new IllegalStateException("this email already exist!");
+            throw new IllegalStateException("This email Is already exist!");
         }
         appuserrepository.save(appUser);
         return appUser;
@@ -23,17 +23,17 @@ public class AppUserService{
         else
             return appuserrepository.findByEmail(email);
     }
-    public String SignInUser(AppUser appUser){
+    public AppUser SignInUser(AppUser appUser){
         boolean present1 = appuserrepository.findByEmail(appUser.getEmail()).isPresent();
         if(present1){
             AppUser value = appuserrepository.findByEmail(appUser.getEmail()).get();
             if(value.getPassword().equals(appUser.getPassword())){
-                return "you have access";
+                return value;
             }else{
-                return "email or password invalid";
+                throw new IllegalStateException("email or password invalid");
             }
         }else {
-            return "email or password invalid";
+            throw new IllegalStateException("email or password invalid");
         }
     }
 }

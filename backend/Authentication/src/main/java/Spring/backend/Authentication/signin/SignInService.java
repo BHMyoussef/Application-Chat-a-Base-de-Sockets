@@ -12,7 +12,7 @@ import java.util.Optional;
 public class SignInService {
     private final AppUserService appUserService;
 
-    public String signin(AppUser appUser){
+    public AppUser signin(AppUser appUser){
        return appUserService.SignInUser(appUser);
     }
     public Optional<AppUser> getUserByEmail(String email) { return appUserService.getByEmail(email); }

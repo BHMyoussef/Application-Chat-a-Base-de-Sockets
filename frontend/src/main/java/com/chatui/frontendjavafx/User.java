@@ -4,9 +4,11 @@ import java.util.Objects;
 
 public class User {
 
+    private Long id;
     private String name;
     private String email;
     private String password;
+    private int totalFriends = 0;
 
     public User(String name, String email, String password) {
         this.name = name.trim().toLowerCase();

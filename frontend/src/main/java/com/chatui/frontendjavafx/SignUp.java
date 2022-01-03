@@ -1,5 +1,6 @@
 package com.chatui.frontendjavafx;
 
+import com.google.gson.Gson;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -36,7 +37,7 @@ public class SignUp extends Registration{
 
     public void SignUpHandler(ActionEvent event) throws IOException {
         registrationHandler(event, SIGN_IN_PATH);
-        authSuccess();
+        /*authSuccess();*/
     }
 
     public void goSignIn(ActionEvent event){
@@ -49,7 +50,7 @@ public class SignUp extends Registration{
 
         return !isEmptyBox(firstPasswordField) && !isEmptyBox(secondPasswordField) && firstPassword.equals(secondPassword);
     }
-
+    /*
     @Override
     public void authSuccess() {
         User user = new User();
@@ -59,18 +60,19 @@ public class SignUp extends Registration{
         String errMsg = "Email already exists";
         showResponseMessage(welcomeMessage,validMsg, errMsg, getClass().getSimpleName());
     }
-
+    */
     @Override
     public void postToServer(ActionEvent event)  {
         User user = new User();
         user.setName(name.getText());
         user.setEmail(email.getText());
         user.setPassword(password.getText());
-
         PostUserHandler postUser = new PostUserHandler(user, REGISTRATION_URL);
-        postUser.setOnSucceeded(e -> System.out.println("Succeeded"));
-        postUser.setOnFailed(e -> System.out.println("failed"));
-        postUser.setOnCancelled(e -> System.out.println("cancelled"));
+        postUser.call();
+        String res = postUser.getRes();
+        showResponseMessage(welcomeMessage,res);
+        System.out.println(res);
+        Gson gson = new Gson();
         new Thread(postUser).start();
     }
 

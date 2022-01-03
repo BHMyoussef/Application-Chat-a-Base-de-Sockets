@@ -10,11 +10,10 @@ import java.util.Optional;
 public class SignInController {
     private SignInService signInService;
     @PostMapping
-    public String signin(@RequestBody AppUser appUser){
+    public AppUser signin(@RequestBody AppUser appUser){
+        if(appUser.getPassword()=="" || appUser.getEmail()==""){
+            throw new IllegalStateException("Please Fill All Inputs!");
+        }
         return signInService.signin(appUser);
-    }
-    @GetMapping(path = "/users/{UserEmail}")
-    public Optional<AppUser> getusers(@PathVariable("UserEmail") String UserEmail) {
-        return this.signInService.getUserByEmail(UserEmail);
     }
 }

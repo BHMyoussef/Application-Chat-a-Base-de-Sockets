@@ -10,7 +10,7 @@
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane id="container" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1280.0" style="-fx-background-color: #91bbf2;" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.chatui.frontendjavafx.SignIn">
+<BorderPane id="container" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1280.0" style="-fx-background-color: #91bbf2;" xmlns="http://javafx.com/javafx/" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.chatui.frontendjavafx.SignIn">
    <left>
       <AnchorPane prefHeight="800.0" prefWidth="475.0" BorderPane.alignment="CENTER">
          <children>
@@ -57,7 +57,7 @@
                   <Font name="Oswald Regular" size="24.0" />
                </font>
             </Button>
-            <Label fx:id="signInMessage" layoutX="-586.0" layoutY="650.0" style="visibility: hidden;" text="You have access" textFill="#35b874">
+            <Label prefHeight="52.0" prefWidth="337.0" alignment="CENTER" fx:id="signInMessage" layoutX="-586.0" layoutY="650.0" style="visibility: hidden;-fx-padding:15;" textFill="#35b874">
                <font>
                   <Font size="26.0" />
                </font>

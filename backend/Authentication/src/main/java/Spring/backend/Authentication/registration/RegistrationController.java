@@ -15,9 +15,11 @@ public class RegistrationController {
     private RegistrationService registrationService;
     private AppUserRepository appUserRepository;
     @PostMapping
-    public AppUser registration (@RequestBody AppUser request){ return registrationService.register(request); }
-    @GetMapping
-    public List<AppUser> getusers(){
-        return appUserRepository.findAll();
+    public AppUser registration (@RequestBody AppUser request){
+        if(request.getPassword()=="" || request.getName()=="" || request.getEmail()==""){
+            throw new IllegalStateException("All Inputs Are Required!");
+        }else{
+            return registrationService.register(request);
+        }
     }
 }

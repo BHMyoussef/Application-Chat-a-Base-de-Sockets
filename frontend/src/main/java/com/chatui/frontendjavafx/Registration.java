@@ -37,7 +37,7 @@ public abstract class Registration {
         ScenesController scenesController = new ScenesController();
         scenesController.switchScene(event, fileName);
     }
-
+    /*
     public void validateUserSuccess(User user) {
         User userFromServer = GetUserHandler.getUser(user.getEmail());
             if (userFromServer != null && userFromServer.equals(user)) {
@@ -45,19 +45,19 @@ public abstract class Registration {
             }
             else
                 isSuccess = false;
-        }
-
-    public void showResponseMessage(Label label, String validMsg, String errMsg, String className){
+    }
+    */
+    public void showResponseMessage(Label label, String message){
         // if we are in SignUp class success means user doesn't exist in db
-        if(className.equals("SignUp")) isSuccess = !isSuccess;
+        /*if(className.equals("SignUp")) isSuccess = !isSuccess;*/
 
-        if(isSuccess){
-            label.setText(validMsg);
-            label.setStyle(label.getStyle() + " visibility: visible; " + validColor );
+        if(message.equals("success")){
+            label.setText(message);
+            label.setStyle(label.getStyle() + " visibility: visible; " + validColor + validBorder );
         }
-        else {
-            label.setText(errMsg);
-            label.setStyle(label.getStyle() + " visibility: visible; " + errorColor);
+        else{
+            label.setText(message);
+            label.setStyle(label.getStyle() + " visibility: visible; " + errorColor + errorBorder);
         }
     }
 
@@ -107,5 +107,5 @@ public abstract class Registration {
 
     public abstract void postToServer(ActionEvent event);
 
-    public abstract void authSuccess() throws FileNotFoundException;
+   /* public abstract void authSuccess() throws FileNotFoundException; */
 }
