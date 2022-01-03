@@ -1,8 +1,12 @@
 package com.chatui.frontendjavafx;
 
 import javafx.event.ActionEvent;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.Pane;
 
 import java.io.FileNotFoundException;
 import java.util.regex.Matcher;
@@ -33,9 +37,9 @@ public abstract class Registration {
         }
     }
 
-    public void goTo(ActionEvent event, String fileName) {
+    public void goTo(ActionEvent event, String fileName, Pane parentContainer, BorderPane childContainer, Button button1) {
         ScenesController scenesController = new ScenesController();
-        scenesController.switchScene(event, fileName);
+        scenesController.switchScene(event, fileName, parentContainer, childContainer, button1);
     }
     /*
     public void validateUserSuccess(User user) {

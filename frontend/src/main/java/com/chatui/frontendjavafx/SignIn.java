@@ -4,9 +4,13 @@ import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
+import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 
 import java.io.FileNotFoundException;
@@ -24,13 +28,19 @@ public class SignIn extends Registration{
     private Label passwordErrorMessage;
     @FXML
     private Label signInMessage;
+    @FXML
+    private Pane parentContainer1;
+    @FXML
+    private BorderPane childContainer;
+    @FXML
+    private Button button1;
 
     public void SignInHandler(ActionEvent event) throws IOException {
         registrationHandler(event, SIGN_UP_PATH);
     }
 
     public void goSignUp(ActionEvent event){
-        goTo(event, SIGN_UP_PATH);
+        goTo(event, SIGN_UP_PATH, this.parentContainer1, this.childContainer, this.button1);
     }
     /*
     @Override

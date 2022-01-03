@@ -9,10 +9,11 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.text.Font?>
-
-<BorderPane id="container" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1280.0" style="-fx-background-color: #91bbf2;" xmlns="http://javafx.com/javafx/" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.chatui.frontendjavafx.SignIn">
+<?import javafx.scene.layout.Pane?>
+<Pane id="parentContainer1" fx:id="parentContainer1" style="-fx-background-color: #91bbf2;" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.chatui.frontendjavafx.SignIn">
+<BorderPane id="childContainer" fx:id="childContainer" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1280.0" style="-fx-background-color: #91bbf2;" >
    <left>
-      <AnchorPane prefHeight="800.0" prefWidth="475.0" BorderPane.alignment="CENTER">
+      <AnchorPane fx:id="anchorContainer" prefHeight="800.0" prefWidth="475.0" BorderPane.alignment="CENTER">
          <children>
             <ImageView fitHeight="655.0" fitWidth="614.0" layoutX="-11.0" layoutY="60.0" pickOnBounds="true" preserveRatio="true">
                <image>
@@ -68,3 +69,4 @@
       </AnchorPane>
    </right>
 </BorderPane>
+</Pane>

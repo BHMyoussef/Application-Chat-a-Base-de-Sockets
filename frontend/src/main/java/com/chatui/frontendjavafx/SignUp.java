@@ -7,6 +7,10 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
+import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.Pane;
+import javafx.stage.PopupWindow;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -31,6 +35,12 @@ public class SignUp extends Registration{
     private PasswordField repeatPassword;
     @FXML
     private Label welcomeMessage;
+    @FXML
+    private Pane parentContainer1;
+    @FXML
+    private BorderPane childContainer;
+    @FXML
+    private Button button1;
 
     private boolean isSuccess = false;
 
@@ -41,7 +51,7 @@ public class SignUp extends Registration{
     }
 
     public void goSignIn(ActionEvent event){
-        goTo(event, SIGN_IN_PATH);
+        goTo(event, SIGN_IN_PATH, this.parentContainer1, this.childContainer, this.button1);
     }
 
     private boolean isPasswordsMatch(PasswordField firstPasswordField, PasswordField secondPasswordField){
