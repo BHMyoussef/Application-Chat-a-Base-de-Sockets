@@ -4,6 +4,8 @@ import javafx.event.ActionEvent;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Pane;
@@ -22,12 +24,13 @@ public abstract class Registration {
 
     public final static String SIGN_UP_PATH = "SignUpUI.fxml";
     public final static String SIGN_IN_PATH = "SignInUI.fxml";
+    public final static String HOME_PATH = "home.fxml";
 
     public final static String REGISTRATION_URL = "http://localhost:8080/api/v1/registration";
     public final static String SIGN_IN_URL = "http://localhost:8080/api/v1/signin";
 
     public boolean isUserValid = false;
-    private boolean isSuccess = false;
+    public boolean isSuccess = false;
 
     public void registrationHandler(ActionEvent event, String fileName){
         updateBoxes();
@@ -40,6 +43,10 @@ public abstract class Registration {
     public void goTo(ActionEvent event, String fileName, Pane parentContainer, BorderPane childContainer, Button button1) {
         ScenesController scenesController = new ScenesController();
         scenesController.switchScene(event, fileName, parentContainer, childContainer, button1);
+    }
+    public void goTo(MouseEvent event, String fileName, Pane parentContainer, BorderPane childContainer, ImageView image) {
+        ScenesController scenesController = new ScenesController();
+        scenesController.switchScene(event, fileName, parentContainer, childContainer, image);
     }
     /*
     public void validateUserSuccess(User user) {
@@ -58,10 +65,12 @@ public abstract class Registration {
         if(message.equals("success")){
             label.setText(message);
             label.setStyle(label.getStyle() + " visibility: visible; " + validColor + validBorder );
+            isSuccess = true;
         }
         else{
             label.setText(message);
             label.setStyle(label.getStyle() + " visibility: visible; " + errorColor + errorBorder);
+            isSuccess = false;
         }
     }
 

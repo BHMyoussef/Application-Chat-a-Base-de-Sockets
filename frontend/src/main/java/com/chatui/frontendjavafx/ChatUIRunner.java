@@ -11,7 +11,7 @@ public class ChatUIRunner extends Application {
     @Override
     public void start(Stage stage) throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader(ChatUIRunner.class.getResource("SignUpUI.fxml"));
-        Scene scene = new Scene(fxmlLoader.load(), 1280, 800);
+        Scene scene = new Scene(fxmlLoader.load());
         stage.setTitle("Chat With Me");
         stage.setScene(scene);
         stage.setMaximized(true);

@@ -34,9 +34,14 @@ public class SignIn extends Registration{
     private BorderPane childContainer;
     @FXML
     private Button button1;
+    @FXML
+    private Button button;
 
     public void SignInHandler(ActionEvent event) throws IOException {
         registrationHandler(event, SIGN_UP_PATH);
+        if(isSuccess){
+            goTo(event, HOME_PATH, this.parentContainer1, this.childContainer, this.button);
+        }
     }
 
     public void goSignUp(ActionEvent event){

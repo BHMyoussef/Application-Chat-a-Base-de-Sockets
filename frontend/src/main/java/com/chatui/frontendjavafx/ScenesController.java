@@ -11,6 +11,8 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Pane;
@@ -30,6 +32,28 @@ public class ScenesController {
         try {
             root = FXMLLoader.load(getClass().getResource(fileName));
             scene= button1.getScene();
+            root.translateXProperty().set(scene.getWidth());
+            parentContainer.getChildren().add(root);
+            Timeline timeline = new Timeline();
+            KeyValue keyValue = new KeyValue(root.translateXProperty(), 0, Interpolator.EASE_IN);
+            KeyFrame keyFrame = new KeyFrame(Duration.seconds(1), keyValue);
+            timeline.getKeyFrames().add(keyFrame);
+            timeline.setOnFinished(event1 -> {
+                parentContainer.getChildren().remove(childContainer);
+            });
+            timeline.play();
+
+        }catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+
+    }
+
+
+    public void switchScene(MouseEvent event, String fileName, Pane parentContainer, BorderPane childContainer, ImageView image) {
+        try {
+            root = FXMLLoader.load(getClass().getResource(fileName));
+            scene= image.getScene();
             root.translateXProperty().set(scene.getWidth());
             parentContainer.getChildren().add(root);
             Timeline timeline = new Timeline();
