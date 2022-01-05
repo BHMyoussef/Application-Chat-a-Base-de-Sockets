@@ -1,3 +1,4 @@
+/*
 package Spring.backend.chat.friends;
 
 import Spring.backend.Authentication.appuser.AppUser;
@@ -15,7 +16,7 @@ public class FriendsService {
         this.friendsRepository = friendsRepository;
         this.appUserRepository = appUserRepository;
     }
-
+    /*
     public Friends sendRequestFriendship(FriendsKey friendsKey){
         if(isValidInvitation(friendsKey)){
             Friends pendingRelation = new Friends(friendsKey, Status.PENDING);
@@ -24,7 +25,6 @@ public class FriendsService {
             throw new IllegalStateException("request is not valid");
         }
     }
-
     public Friends acceptRequestFriendship(FriendsKey friendsKey){
         if(isValidFriendship(friendsKey)){
             //TODO: check before accept request if auth user is the one who has receiver_id
@@ -51,12 +51,10 @@ public class FriendsService {
     private boolean isPendingInvitation(FriendsKey friendsKey){
         return friendsRepository.findById(friendsKey).get().getStatus() == Status.PENDING;
     }
-
     private boolean isFriendsExistsAsUsers(FriendsKey friendsKey){
         return appUserRepository.existsById(friendsKey.getSenderId()) &&
                 appUserRepository.existsById(friendsKey.getReceiverId());
     }
-
     private boolean isAlreadyFriends(FriendsKey friendsKey){
         FriendsKey friendsKey1 = new FriendsKey(friendsKey.getSenderId(), friendsKey.getReceiverId());
         FriendsKey friendsKey2 = new FriendsKey(friendsKey.getReceiverId(), friendsKey.getSenderId());
@@ -66,7 +64,6 @@ public class FriendsService {
     private boolean isDifferentFriends(FriendsKey friendsKey){
         return friendsKey.getSenderId() != friendsKey.getReceiverId();
     }
-
     private boolean isValidInvitation(FriendsKey friendsKey){
         if(isDifferentFriends(friendsKey)){
             if(isFriendsExistsAsUsers(friendsKey)){
@@ -88,7 +85,6 @@ public class FriendsService {
         }
         return false;
     }
-
     private void removeFriend(AppUser user1, AppUser user2){
         user1.setTotalFriends(user1.getTotalFriends()-1);
         user2.setTotalFriends(user2.getTotalFriends()-1);
@@ -108,3 +104,4 @@ public class FriendsService {
         }
     }
 }
+*/

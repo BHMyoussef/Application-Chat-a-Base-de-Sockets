@@ -1,8 +1,11 @@
 package Spring.backend.Authentication.appuser;
 
 import lombok.*;
+import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
+import java.io.Serializable;
+import java.util.UUID;
 
 @Getter
 @Setter
@@ -10,11 +13,12 @@ import javax.persistence.*;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-public class AppUser{
-
+public class AppUser implements Serializable {
     @Id
-    @GeneratedValue(strategy=GenerationType.IDENTITY)
-    private Long id;
+    @GeneratedValue(generator = "uuid2")
+    @GenericGenerator(name = "uuid2", strategy = "org.hibernate.id.UUIDGenerator")
+    @Column(name = "user_id", columnDefinition = "VARCHAR(255)")
+    private String userId;
     private String name;
     private String email;
     private String password;

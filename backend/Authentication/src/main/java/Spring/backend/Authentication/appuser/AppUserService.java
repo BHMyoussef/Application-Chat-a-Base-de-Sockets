@@ -1,6 +1,7 @@
 package Spring.backend.Authentication.appuser;
 
 import lombok.AllArgsConstructor;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;
@@ -8,6 +9,7 @@ import java.util.Optional;
 @Service
 @AllArgsConstructor
 public class AppUserService{
+    private final BCryptPasswordEncoder bCryptPasswordEncoder;
     private final static String USER_NOT_FOUND = "user with email %s not found";
     private final AppUserRepository appuserrepository;
     public AppUser SignUpUser(AppUser appUser){
@@ -15,6 +17,9 @@ public class AppUserService{
         if(present){
             throw new IllegalStateException("This email Is already exist!");
         }
+        String encodedPassword = bCryptPasswordEncoder
+                .encode(appUser.getPassword());
+        appUser.setPassword(encodedPassword);
         appuserrepository.save(appUser);
         return appUser;
     }
