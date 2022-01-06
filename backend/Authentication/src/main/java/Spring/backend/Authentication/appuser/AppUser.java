@@ -20,6 +20,7 @@ public class AppUser implements Serializable {
     @Column(name = "user_id", columnDefinition = "VARCHAR(255)")
     private String userId;
     private String name;
+    @Column(unique = true)
     private String email;
     private String password;
     private int totalFriends = 0;

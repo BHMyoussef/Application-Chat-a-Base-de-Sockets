@@ -1,7 +1,6 @@
 package com.chatui.frontendjavafx;
 
-import com.google.gson.JsonObject;
-import com.google.gson.JsonParser;
+
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -37,9 +36,12 @@ public class SignIn extends Registration{
     @FXML
     private Button button;
 
+    private String token;
+
     public void SignInHandler(ActionEvent event) throws IOException {
         registrationHandler(event, SIGN_UP_PATH);
         if(isSuccess){
+            UserToken.getInstance(token);
             goTo(event, HOME_PATH, this.parentContainer1, this.childContainer, this.button);
         }
     }
@@ -67,6 +69,7 @@ public class SignIn extends Registration{
         PostUserHandler postUser = new PostUserHandler(user, SIGN_IN_URL);
         postUser.call();
         String res = postUser.getRes();
+        this.token = postUser.getToken();
         showResponseMessage(signInMessage,res);
         System.out.println(res);
         new Thread(postUser).start();

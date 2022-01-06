@@ -13,10 +13,15 @@ public class PostUserHandler extends Task<Void> {
     private String url;
     private User session;
     private String res;
+    private String token;
 
     public PostUserHandler(User user, String url) {
         this.user = user;
         this.url = url;
+    }
+
+    public String getToken() {
+        return token;
     }
 
     public String getRes() {
@@ -34,7 +39,11 @@ public class PostUserHandler extends Task<Void> {
                     .build();
             HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
             System.out.println(response.body());
-
+            System.out.println("***************************************");
+            if(response.headers().firstValue("Authorization").isPresent()){
+                this.token = response.headers().firstValue("Authorization").get();
+                System.out.println(token);
+            }
             if(response.statusCode()==500){
                     String [] tab = response.body().split(",");
                     String [] message = tab[3].split(":");

@@ -2,17 +2,26 @@ package Spring.backend.Authentication.appuser;
 
 import lombok.AllArgsConstructor;
 import org.springframework.beans.BeanUtils;
+import org.springframework.security.core.userdetails.User;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 @Service
 @AllArgsConstructor
-public class AppUserService{
+public class AppUserService implements UserDetailsService {
     private final BCryptPasswordEncoder bCryptPasswordEncoder;
     private final static String USER_NOT_FOUND = "user with email %s not found";
     private final AppUserRepository appuserrepository;
+    public List<AppUser> findUsers(){
+        return appuserrepository.findAll();
+    }
     public ResponseUser SignUpUser(AppUser appUser){
         boolean present = appuserrepository.findByEmail(appUser.getEmail()).isPresent();
         if(present){
@@ -45,5 +54,14 @@ public class AppUserService{
         }else {
             throw new IllegalStateException("email or password invalid");
         }
+    }
+
+    @Override
+    public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
+        boolean isUserExists = appuserrepository.findByEmail(email).isPresent();
+        if (isUserExists) {
+            AppUser appUser =  appuserrepository.findByEmail(email).get();
+            return new User(appUser.getEmail(), appUser.getPassword(),new ArrayList<>());
+        }else throw new UsernameNotFoundException(email);
     }
 }
