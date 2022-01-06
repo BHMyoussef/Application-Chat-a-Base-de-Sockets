@@ -32,7 +32,7 @@ public class AppUserService{
         boolean present1 = appuserrepository.findByEmail(appUser.getEmail()).isPresent();
         if(present1){
             AppUser value = appuserrepository.findByEmail(appUser.getEmail()).get();
-            if(value.getPassword().equals(appUser.getPassword())){
+            if(bCryptPasswordEncoder.matches(appUser.getPassword(), value.getPassword())){
                 return value;
             }else{
                 throw new IllegalStateException("email or password invalid");
