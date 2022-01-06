@@ -1,6 +1,7 @@
 package Spring.backend.Authentication.signin;
 
 import Spring.backend.Authentication.appuser.AppUser;
+import Spring.backend.Authentication.appuser.ResponseUser;
 import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 import java.util.Optional;
@@ -10,7 +11,7 @@ import java.util.Optional;
 public class SignInController {
     private SignInService signInService;
     @PostMapping
-    public AppUser signin(@RequestBody AppUser appUser){
+    public ResponseUser signin(@RequestBody AppUser appUser){
         if(appUser.getPassword()=="" || appUser.getEmail()==""){
             throw new IllegalStateException("Please Fill All Inputs!");
         }

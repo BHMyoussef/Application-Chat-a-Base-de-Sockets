@@ -2,6 +2,7 @@ package Spring.backend.Authentication.registration;
 
 import Spring.backend.Authentication.appuser.AppUser;
 import Spring.backend.Authentication.appuser.AppUserService;
+import Spring.backend.Authentication.appuser.ResponseUser;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -25,7 +26,7 @@ public class RegistrationService {
         return false;
     }
 
-    public AppUser register(AppUser request){
+    public ResponseUser register(AppUser request){
         boolean is_valid_email = test(request.getEmail());
         if(!is_valid_email){
             throw new IllegalStateException("email entred is not valid");

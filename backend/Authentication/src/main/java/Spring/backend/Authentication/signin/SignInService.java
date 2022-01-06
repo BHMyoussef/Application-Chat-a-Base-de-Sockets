@@ -2,6 +2,7 @@ package Spring.backend.Authentication.signin;
 
 import Spring.backend.Authentication.appuser.AppUser;
 import Spring.backend.Authentication.appuser.AppUserService;
+import Spring.backend.Authentication.appuser.ResponseUser;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -12,7 +13,7 @@ import java.util.Optional;
 public class SignInService {
     private final AppUserService appUserService;
 
-    public AppUser signin(AppUser appUser){
+    public ResponseUser signin(AppUser appUser){
        return appUserService.SignInUser(appUser);
     }
     public Optional<AppUser> getUserByEmail(String email) { return appUserService.getByEmail(email); }
