@@ -6,6 +6,7 @@ import java.net.URI;
 import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
+import java.util.List;
 
 public class PostUserHandler extends Task<Void> {
     private Gson gson = new Gson();
@@ -40,21 +41,33 @@ public class PostUserHandler extends Task<Void> {
             HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
             System.out.println(response.body());
             System.out.println("***************************************");
-            if(response.headers().firstValue("Authorization").isPresent()){
-                this.token = response.headers().firstValue("Authorization").get();
-                System.out.println(token);
+            String [] tab = response.body().split(",");
+            List<String> message = null;
+            switch (this.url) {
+                case Registration.REGISTRATION_URL:
+                    if(response.statusCode()==500){
+                        message = List.of(tab[3].split(":"));
+                    }
+                    else if(response.statusCode()==200){
+                        this.session= gson.fromJson(response.body(),User.class);
+                        this.res = "success";
+                        // here the user has a succesfull login start chat session containe all user info
+                    }
+                    break;
+                case Registration.SIGN_IN_URL:
+                    if(response.headers().firstValue("Authorization").isPresent()){
+                        this.token = response.headers().firstValue("Authorization").get();
+                        System.out.println(token);
+                        message = List.of(tab[0].split(":"));
+                        System.out.println(this.res);
+                    }
+                    else {
+                        message = List.of(tab[1].split(":"));
+                    }
+                    break;
             }
-            if(response.statusCode()==500){
-                    String [] tab = response.body().split(",");
-                    String [] message = tab[3].split(":");
-                   this.res = message[1].substring(1,message[1].length()-1);
-                }
-            else if(response.statusCode()==200){
-                    this.session= gson.fromJson(response.body(),User.class);
-                    this.res = "success";
-                    // here the user has a succesfull login start chat session containe all user info
-               }
-            }
+            this.res = message.get(1).substring(1,message.get(1).length()-1);
+        }
         catch(Exception e) {
             System.out.println(e.getMessage());
         }
