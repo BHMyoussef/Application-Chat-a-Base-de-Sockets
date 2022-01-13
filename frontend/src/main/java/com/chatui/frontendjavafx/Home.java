@@ -2,17 +2,20 @@ package com.chatui.frontendjavafx;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.Node;
+import javafx.scene.Parent;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
+import javafx.scene.text.TextAlignment;
 
-import java.net.URI;
-import java.net.http.HttpClient;
-import java.net.http.HttpRequest;
+import java.nio.Buffer;
+import java.util.ArrayList;
 
 public class Home extends Registration{
 
@@ -29,23 +32,61 @@ public class Home extends Registration{
     @FXML
     private TextField messageBar;
     @FXML
+    private  Pane chatPage;
+    @FXML
     private ImageView emo00, emo01, emo02, emo03, emo04, emo05, emo10, emo11, emo12, emo13, emo14, emo15, emo20, emo21, emo22, emo23, emo24, emo25, emo30, emo31, emo32, emo33, emo34, emo35;
+
+    private Node last_msg_node;
 
     private boolean isEmojiMenuShown = false;
 
     public void Exit(MouseEvent event) {
             goTo(event, SIGN_IN_PATH, this.parentContainer1, this.childContainer, this.exit);
     }
-
+    public static ArrayList<Node> getAllNodes(Parent root) {
+        ArrayList<Node> nodes = new ArrayList<Node>();
+        addAllDescendents(root, nodes);
+        return nodes;
+    }
+    private static void addAllDescendents(Parent parent, ArrayList<Node> nodes) {
+        for (Node node : parent.getChildrenUnmodifiable()) {
+            nodes.add(node);
+            if (node instanceof Parent)
+                addAllDescendents((Parent)node, nodes);
+        }
+    }
+    public void sendHandler(MouseEvent event) {
+        Label msg = new Label(messageBar.getText().trim());
+        msg.setWrapText(true);
+        msg.setTextAlignment(TextAlignment.JUSTIFY);
+        msg.setMaxWidth(350.0);
+        msg.setMinWidth(messageBar.getLength());
+        last_msg_node =  this.getAllNodes(chatPage).get(this.getAllNodes(chatPage).size()-3);
+        ImageView image = new ImageView(new Image("file:\\C:\\Users\\Zakaria Dani\\Desktop\\appChat\\Application-Chat-a-Base-de-Sockets\\frontend\\src\\main\\resources\\com\\chatui\\frontendjavafx\\icon\\me.png"));
+        msg.setStyle("-fx-background-color: #50c984; -fx-background-radius: 20.0; -fx-font-family: Ebrima; -fx-font-size: 20.0; -fx-text-fill: #fff; -fx-padding: 5.0 5.0 5.0 5.0;");
+        chatPage.setMinHeight(chatPage.getHeight()+1000);
+        System.out.println(msg.getMinWidth());
+        if(msg.getMinWidth() <= 31)
+            msg.setLayoutX(700 - 11.3*msg.getMinWidth());
+        else
+            msg.setLayoutX(700 - msg.getMaxWidth());
+        image.setLayoutY(last_msg_node.getLayoutY() + 108);
+        System.out.println(last_msg_node.getLayoutY());
+        msg.setLayoutY(last_msg_node.getLayoutY() + 135.0);
+        image.setLayoutX(708.0);
+        image.setFitHeight(70.0);
+        image.setFitWidth(70.0);
+        chatPage.getChildren().add(msg);
+        chatPage.getChildren().add(image);
+        System.out.println(last_msg_node);
+    }
     public void ShowEmojis(MouseEvent event) {
-        if(!isEmojiMenuShown) {
-            emojis.setStyle(emojis.getStyle() + " visibility: visible; ");
+        if(!isEmojiMenuShown)
             isEmojiMenuShown = true;
-        }
-        else{
-            emojis.setStyle(emojis.getStyle() + " visibility: hidden; ");
+        else
             isEmojiMenuShown = false;
-        }
+
+        emojis.setVisible(isEmojiMenuShown);
     }
     public void emojiHandler(MouseEvent event) {
         if(emo00.equals(event.getSource())) {
@@ -98,6 +139,7 @@ public class Home extends Registration{
         if(emo35.equals(event.getSource()))
             messageBar.setText(messageBar.getText()+ "\uD83D\uDCA3");
     }
+
 
     @Override
     public void updateBoxes() {
