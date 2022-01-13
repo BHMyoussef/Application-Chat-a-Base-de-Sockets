@@ -6,12 +6,14 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.scene.effect.BlendMode;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
+import javafx.scene.layout.VBox;
 import javafx.scene.text.TextAlignment;
 
 import java.nio.Buffer;
@@ -24,7 +26,15 @@ public class Home extends Registration{
     @FXML
     private Pane parentContainer1;
     @FXML
-    private BorderPane childContainer;
+    private BorderPane childContainer1;
+    @FXML
+    private BorderPane profileUser;
+    @FXML
+    private ImageView profile;
+    @FXML
+    private ImageView conversation;
+    @FXML
+    private VBox chat;
     @FXML
     private GridPane emojis;
     @FXML
@@ -41,8 +51,23 @@ public class Home extends Registration{
     private boolean isEmojiMenuShown = false;
 
     public void Exit(MouseEvent event) {
-            goTo(event, SIGN_IN_PATH, this.parentContainer1, this.childContainer, this.exit);
+            goTo(event, SIGN_IN_PATH, this.parentContainer1, this.childContainer1, this.exit);
     }
+
+    public void Profile(MouseEvent event) {
+        chat.setVisible(false);
+        profile.setBlendMode(BlendMode.valueOf("GREEN"));
+        conversation.setBlendMode(BlendMode.valueOf("SRC_OVER"));
+        profileUser.setVisible(true);
+    }
+    public void Conversation(MouseEvent event) {
+        chat.setVisible(true);
+        conversation.setBlendMode(BlendMode.valueOf("GREEN"));
+        profile.setBlendMode(BlendMode.valueOf("SRC_OVER"));
+        profileUser.setVisible(false);
+    }
+
+
     public static ArrayList<Node> getAllNodes(Parent root) {
         ArrayList<Node> nodes = new ArrayList<Node>();
         addAllDescendents(root, nodes);
@@ -56,29 +81,34 @@ public class Home extends Registration{
         }
     }
     public void sendHandler(MouseEvent event) {
-        Label msg = new Label(messageBar.getText().trim());
-        msg.setWrapText(true);
-        msg.setTextAlignment(TextAlignment.JUSTIFY);
-        msg.setMaxWidth(350.0);
-        msg.setMinWidth(messageBar.getLength());
-        last_msg_node =  this.getAllNodes(chatPage).get(this.getAllNodes(chatPage).size()-3);
-        ImageView image = new ImageView(new Image("file:\\C:\\Users\\Zakaria Dani\\Desktop\\appChat\\Application-Chat-a-Base-de-Sockets\\frontend\\src\\main\\resources\\com\\chatui\\frontendjavafx\\icon\\me.png"));
-        msg.setStyle("-fx-background-color: #50c984; -fx-background-radius: 20.0; -fx-font-family: Ebrima; -fx-font-size: 20.0; -fx-text-fill: #fff; -fx-padding: 5.0 5.0 5.0 5.0;");
-        chatPage.setMinHeight(chatPage.getHeight()+1000);
-        System.out.println(msg.getMinWidth());
-        if(msg.getMinWidth() <= 31)
-            msg.setLayoutX(700 - 11.3*msg.getMinWidth());
-        else
-            msg.setLayoutX(700 - msg.getMaxWidth());
-        image.setLayoutY(last_msg_node.getLayoutY() + 108);
-        System.out.println(last_msg_node.getLayoutY());
-        msg.setLayoutY(last_msg_node.getLayoutY() + 135.0);
-        image.setLayoutX(708.0);
-        image.setFitHeight(70.0);
-        image.setFitWidth(70.0);
-        chatPage.getChildren().add(msg);
-        chatPage.getChildren().add(image);
-        System.out.println(last_msg_node);
+        if(!messageBar.getText().trim().isEmpty()) {
+            Label msg = new Label(messageBar.getText().trim());
+            msg.setWrapText(true);
+            msg.setTextAlignment(TextAlignment.JUSTIFY);
+            msg.setMaxWidth(350.0);
+            msg.setMinWidth(messageBar.getLength());
+            last_msg_node = this.getAllNodes(chatPage).get(this.getAllNodes(chatPage).size() - 3);
+            ImageView image = new ImageView(new Image("file:\\C:\\Users\\Zakaria Dani\\Desktop\\appChat\\Application-Chat-a-Base-de-Sockets\\frontend\\src\\main\\resources\\com\\chatui\\frontendjavafx\\icon\\me.png"));
+            msg.setStyle("-fx-background-color: #50c984; -fx-background-radius: 20.0; -fx-font-family: Ebrima; -fx-font-size: 20.0; -fx-text-fill: #fff; -fx-padding: 5.0 5.0 5.0 5.0;");
+            chatPage.setMinHeight(chatPage.getHeight() + 500);
+            System.out.println(msg.getMinWidth());
+            if (msg.getMinWidth() <= 31) {
+                msg.setLayoutX(700 - 11.3 * msg.getMinWidth());
+                if (msg.getMinWidth() > 10)
+                    msg.setLayoutX(700 - 11.0 * msg.getMinWidth());
+            } else
+                msg.setLayoutX(700 - msg.getMaxWidth());
+            image.setLayoutY(last_msg_node.getLayoutY() + 108);
+            System.out.println(last_msg_node.getLayoutY());
+            msg.setLayoutY(last_msg_node.getLayoutY() + 135.0);
+            image.setLayoutX(708.0);
+            image.setFitHeight(70.0);
+            image.setFitWidth(70.0);
+            chatPage.getChildren().add(msg);
+            chatPage.getChildren().add(image);
+            messageBar.setText("");
+            System.out.println(last_msg_node);
+        }
     }
     public void ShowEmojis(MouseEvent event) {
         if(!isEmojiMenuShown)
