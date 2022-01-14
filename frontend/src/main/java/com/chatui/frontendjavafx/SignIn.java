@@ -37,7 +37,7 @@ public class SignIn extends Registration{
     private Button button;
 
     private String token;
-
+    public static PostUserHandler postUser;
     public void SignInHandler(ActionEvent event) throws IOException {
         registrationHandler(event, SIGN_UP_PATH);
         if(isSuccess){
@@ -66,12 +66,13 @@ public class SignIn extends Registration{
         User user = new User();
         user.setEmail(email.getText());
         user.setPassword(password.getText());
-        PostUserHandler postUser = new PostUserHandler(user, SIGN_IN_URL);
+        postUser = new PostUserHandler(user, SIGN_IN_URL);
         postUser.call();
         String res = postUser.getRes();
         this.token = postUser.getToken();
         showResponseMessage(signInMessage,res);
         System.out.println(res);
+        System.out.println(postUser.getSession().getEmail());
         new Thread(postUser).start();
     }
 

@@ -2,6 +2,7 @@ package Spring.backend.Authentication.Security;
 
 import Spring.backend.Authentication.appuser.AppUser;
 import Spring.backend.Authentication.appuser.AppUserService;
+import Spring.backend.Authentication.appuser.ResponseUser;
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.algorithms.Algorithm;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -19,10 +20,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
 
 public class AuthenticationFilter extends UsernamePasswordAuthenticationFilter {
     private final AuthenticationManager authenticationManager;
@@ -62,11 +60,17 @@ public class AuthenticationFilter extends UsernamePasswordAuthenticationFilter {
     protected void successfulAuthentication(HttpServletRequest request, HttpServletResponse response, FilterChain chain, Authentication authResult) throws IOException, ServletException {
         User springUser = (User) authResult.getPrincipal();
         Algorithm algorithm = Algorithm.HMAC256(SecurityConstants.TOKEN_SECRET.getBytes());
-        String email = springUser.getUsername();
-
+        String emailS = springUser.getUsername();
+        Optional<AppUser> user = appUserService.getByEmail(emailS);
+        String name = user.get().getName();
+        String email = user.get().getEmail();
+        List<String> user_info = new ArrayList<>();
+        user_info.add(email);
+        user_info.add(name);
         //generate jwt
-        String jwtToken = JWT.create().withSubject(email)
+        String jwtToken = JWT.create().withSubject(emailS)
                 .withExpiresAt(new Date(System.currentTimeMillis()+SecurityConstants.EXPIRATION_TIME))
+                .withClaim("user-info", user_info)
                 .sign(algorithm);
 
         response.addHeader(SecurityConstants.HEADER_NAME, SecurityConstants.TOKEN_PREFIX + jwtToken);

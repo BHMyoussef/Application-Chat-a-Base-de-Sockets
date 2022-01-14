@@ -415,12 +415,12 @@
                         <Insets top="50.0" />
                      </VBox.margin>
                   </ImageView>
-                  <Label alignment="CENTER" prefHeight="114.0" prefWidth="374.0" text="Name" textFill="#f7fafa">
+                  <Label fx:id="nameProfile" alignment="CENTER" prefHeight="114.0" prefWidth="374.0" text="Name" textFill="#f7fafa">
                      <font>
                         <Font name="Ebrima Bold" size="53.0" />
                      </font>
                   </Label>
-                  <Label alignment="CENTER" layoutX="455.0" layoutY="230.0" prefHeight="73.0" prefWidth="374.0" text="Email@email.com" textFill="#f7fafa">
+                  <Label fx:id="emailProfile" alignment="CENTER" layoutX="455.0" layoutY="230.0" prefHeight="73.0" prefWidth="374.0" text="Email@email.com" textFill="#f7fafa">
                      <font>
                         <Font name="Ebrima Bold" size="36.0" />
                      </font>

@@ -45,7 +45,8 @@ public class Home extends Registration{
     private  Pane chatPage;
     @FXML
     private ImageView emo00, emo01, emo02, emo03, emo04, emo05, emo10, emo11, emo12, emo13, emo14, emo15, emo20, emo21, emo22, emo23, emo24, emo25, emo30, emo31, emo32, emo33, emo34, emo35;
-
+    @FXML
+    private Label nameProfile, emailProfile;
     private Node last_msg_node;
 
     private boolean isEmojiMenuShown = false;
@@ -59,6 +60,9 @@ public class Home extends Registration{
         profile.setBlendMode(BlendMode.valueOf("GREEN"));
         conversation.setBlendMode(BlendMode.valueOf("SRC_OVER"));
         profileUser.setVisible(true);
+        User profile = SignIn.postUser.getSession();
+        emailProfile.setText(profile.getEmail());
+        nameProfile.setText(profile.getName());
     }
     public void Conversation(MouseEvent event) {
         chat.setVisible(true);

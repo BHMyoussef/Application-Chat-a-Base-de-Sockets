@@ -6,13 +6,14 @@ import java.net.URI;
 import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
+import java.util.Base64;
 import java.util.List;
 
 public class PostUserHandler extends Task<Void> {
     private Gson gson = new Gson();
     private User user;
     private String url;
-    private User session;
+    private User session = new User();
     private String res;
     private String token;
 
@@ -27,6 +28,10 @@ public class PostUserHandler extends Task<Void> {
 
     public String getRes() {
         return res;
+    }
+
+    public User getSession() {
+        return session;
     }
 
     @Override
@@ -60,6 +65,18 @@ public class PostUserHandler extends Task<Void> {
                         System.out.println(token);
                         message = List.of(tab[0].split(":"));
                         System.out.println(this.res);
+                        String[] tk1 = token.split(" ");
+                        System.out.println(tk1[1]);
+                        String[] chunks = tk1[1].split("\\.");
+                        String responseInfo = new String(new String(Base64.getDecoder().decode(chunks[1].replaceAll(" ", "")), "UTF-8"));
+                        String [] tab1 = responseInfo.split("\\[");
+                        String [] tab2 = tab1[1].split("\\]");
+                        String [] info = tab2[0].split(",");
+                        String email = info[0];
+                        String name = info[1];
+                        session.setEmail(email);
+                        session.setName(name);
+                        System.out.println(token + " " + name + " " + email);
                     }
                     else {
                         message = List.of(tab[1].split(":"));
