@@ -69,9 +69,9 @@ public class PostUserHandler extends Task<Void> {
                         System.out.println(tk1[1]);
                         String[] chunks = tk1[1].split("\\.");
                         String responseInfo = new String(new String(Base64.getDecoder().decode(chunks[1].replaceAll(" ", "")), "UTF-8"));
-                        String [] tab1 = responseInfo.split("\\[");
-                        String [] tab2 = tab1[1].split("\\]");
-                        String [] info = tab2[0].split(",");
+                        String [] tab1 = responseInfo.split("\\["+"\"");
+                        String [] tab2 = tab1[1].split("\""+"\\]");
+                        String [] info = tab2[0].split("\""+","+"\"");
                         String email = info[0];
                         String name = info[1];
                         session.setEmail(email);
