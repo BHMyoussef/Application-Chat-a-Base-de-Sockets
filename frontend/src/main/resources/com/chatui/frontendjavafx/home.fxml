@@ -298,82 +298,14 @@
                      </ImageView>
                   </children>
                </HBox>
-               <ScrollPane fx:id="scrollPage" minHeight="539.0" minWidth="726.0" prefHeight="561.0" prefWidth="816.0">
+               <ScrollPane fx:id="scrollPage" pannable="true" vbarPolicy="ALWAYS" VBox.vgrow="ALWAYS" maxHeight="561.0" maxWidth="816.0" style="-fx-background-color: #dadada;">
                   <content>
-                     <Pane fx:id="chatPage" minHeight="542.0" minWidth="724.0" prefHeight="593.0" prefWidth="800.0" style="-fx-background-color: #dadada;">
-                        <children>
-                           <ImageView fitHeight="70.0" fitWidth="70.0" layoutX="14.0" layoutY="16.0" pickOnBounds="true" preserveRatio="true">
-                              <image>
-                                 <Image url="@icon/user.png" />
-                              </image>
-                           </ImageView>
-                           <Label alignment="CENTER" layoutX="84.0" layoutY="51.0" prefHeight="40.0" prefWidth="154.0" style="-fx-background-color: #fff; -fx-background-radius: 20.0;" text="Hi what's app ?" textFill="#14bca6">
-                              <font>
-                                 <Font name="Ebrima" size="20.0" />
-                              </font>
-                              <padding>
-                                 <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
-                              </padding>
-                           </Label>
-                           <ImageView fitHeight="70.0" fitWidth="70.0" layoutX="708.0" layoutY="86.0" pickOnBounds="true" preserveRatio="true">
-                              <image>
-                                 <Image url="@icon/me.png" />
-                              </image>
-                           </ImageView>
-                           <Label alignment="CENTER" layoutX="588.0" layoutY="121.0" prefHeight="40.0" prefWidth="120.0" style="-fx-background-color: #50c984; -fx-background-radius: 20.0;" text="Hey man !" textFill="WHITE">
-                              <font>
-                                 <Font name="Ebrima" size="20.0" />
-                              </font>
-                              <padding>
-                                 <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
-                              </padding>
-                           </Label>
-                           <Label alignment="CENTER" layoutX="82.0" layoutY="191.0" prefHeight="107.0" prefWidth="327.0" style="-fx-background-color: #fff; -fx-background-radius: 20.0;" text="Good look on your test tomorrow .&#10;I know you can do it " textFill="#14bca6">
-                              <font>
-                                 <Font name="Ebrima" size="20.0" />
-                              </font>
-                              <padding>
-                                 <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
-                              </padding>
-                           </Label>
-                           <ImageView fitHeight="70.0" fitWidth="70.0" layoutX="14.0" layoutY="156.0" pickOnBounds="true" preserveRatio="true">
-                              <image>
-                                 <Image url="@icon/user.png" />
-                              </image>
-                           </ImageView>
-                           <Label alignment="CENTER" layoutX="502.0" layoutY="333.0" prefHeight="40.0" prefWidth="206.0" style="-fx-background-color: #50c984; -fx-background-radius: 20.0;" text="Thank you my friend" textFill="WHITE">
-                              <font>
-                                 <Font name="Ebrima" size="20.0" />
-                              </font>
-                              <padding>
-                                 <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
-                              </padding>
-                           </Label>
-                           <ImageView fitHeight="70.0" fitWidth="70.0" layoutX="708.0" layoutY="298.0" pickOnBounds="true" preserveRatio="true">
-                              <image>
-                                 <Image url="@icon/me.png" />
-                              </image>
-                           </ImageView>
-                           <Label alignment="CENTER" layoutX="502.0" layoutY="441.0" prefHeight="83.0" prefWidth="206.0" style="-fx-background-color: #50c984; -fx-background-radius: 20.0;" text="Hey bro don't forget &#10;my book !" textFill="WHITE">
-                              <font>
-                                 <Font name="Ebrima" size="20.0" />
-                              </font>
-                              <padding>
-                                 <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
-                              </padding>
-                           </Label>
-                           <ImageView fitHeight="70.0" fitWidth="70.0" layoutX="708.0" layoutY="406.0" pickOnBounds="true" preserveRatio="true">
-                              <image>
-                                 <Image url="@icon/me.png" />
-                              </image>
-                           </ImageView>
-                        </children>
-                     </Pane>
+                     <ListView fx:id="chatPage" minHeight="542.0" minWidth="724.0" prefHeight="593.0" prefWidth="800.0" mouseTransparent="true" style="-fx-background-color: transparent; -fx-control-inner-background: transparent" />
                   </content>
                </ScrollPane>
                <HBox alignment="CENTER" prefHeight="93.0" prefWidth="816.0">
                   <children>
-                     <ImageView fx:id="emojisButton" fitHeight="50.0" fitWidth="50.0" onMouseClicked="#ShowEmojis" pickOnBounds="true" preserveRatio="true">
+                     <ImageView fx:id="emojisButton" fitHeight="50.0" fitWidth="50.0" onMouseClicked="#ShowEmojis" pickOnBounds="true" preserveRatio="true" >
                         <image>
                            <Image url="@icon/emoji.png" />
                         </image>
