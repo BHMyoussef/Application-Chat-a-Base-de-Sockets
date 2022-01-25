@@ -1,6 +1,7 @@
 package Spring.backend.Authentication.signin;
 
 import Spring.backend.Authentication.appuser.AppUser;
+import Spring.backend.Authentication.appuser.AppUserRepository;
 import Spring.backend.Authentication.appuser.ResponseUser;
 import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.*;

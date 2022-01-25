@@ -64,18 +64,21 @@ public class AuthenticationFilter extends UsernamePasswordAuthenticationFilter {
         Optional<AppUser> user = appUserService.getByEmail(email);
         String name = user.get().getName();
         String userID = user.get().getUserId();
+        boolean is_connected = user.get().is_connected();
 
         String jwtToken = JWT.create().withSubject(email)
                 .withExpiresAt(new Date(System.currentTimeMillis()+SecurityConstants.EXPIRATION_TIME))
                 .sign(algorithm);
 
         response.addHeader(SecurityConstants.HEADER_NAME, SecurityConstants.TOKEN_PREFIX + jwtToken);
-        Map<String, String> responseBody = new HashMap<>();
+        Map<String, Object> responseBody = new HashMap<>();
         responseBody.put("token", jwtToken);
         responseBody.put("message", "success");
         responseBody.put("name", name);
         responseBody.put("email", email);
         responseBody.put("userID", userID);
+        responseBody.put("is_connected", is_connected);
+
         response.setContentType("application/json");
         new ObjectMapper().writeValue(response.getOutputStream(), responseBody);
     }

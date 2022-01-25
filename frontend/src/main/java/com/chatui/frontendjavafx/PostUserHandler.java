@@ -36,6 +36,7 @@ public class PostUserHandler extends Task<Void> {
 
     @Override
     public Void call()  {
+
         try {
             HttpClient client = HttpClient.newHttpClient();
             HttpRequest request = HttpRequest.newBuilder()
@@ -64,6 +65,15 @@ public class PostUserHandler extends Task<Void> {
                         this.token = response.headers().firstValue("Authorization").get();
                         this.session = gson.fromJson(response.body(),User.class);
                         this.res = "success";
+
+                        HttpRequest getRequest = HttpRequest.newBuilder()
+                                .uri(URI.create("http://localhost:8080/api/v1/users"))
+                                .header("Content-Type", "application/json")
+                                .header("Authorization", UserToken.token)
+                                .GET()
+                                .build();
+                        HttpResponse<String> getResponse = client.send(getRequest, HttpResponse.BodyHandlers.ofString());
+                        System.out.println(getResponse.body());
                     }
                     else {
                         message = List.of(tab[1].split(":"));

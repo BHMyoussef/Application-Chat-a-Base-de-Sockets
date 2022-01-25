@@ -36,6 +36,11 @@ public class AppUserService implements UserDetailsService {
         BeanUtils.copyProperties(appUser, responseUser);
         return responseUser;
     }
+
+    public AppUser updateUser(AppUser appUser){
+        return appuserrepository.save(appUser);
+    }
+
     public Optional<AppUser> getByEmail(String email) {
         if(!appuserrepository.findByEmail(email).isPresent()) throw new IllegalStateException("User with email "+email+" doesnt exists!");
         else
@@ -64,6 +69,8 @@ public class AppUserService implements UserDetailsService {
         boolean isUserExists = appuserrepository.findByEmail(email).isPresent();
         if (isUserExists) {
             AppUser appUser =  appuserrepository.findByEmail(email).get();
+           // appUser.set_connected(true);
+            //appuserrepository.save(appUser);
             return new User(appUser.getEmail(), appUser.getPassword(),new ArrayList<>());
         }else throw new UsernameNotFoundException(email);
     }

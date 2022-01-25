@@ -102,6 +102,8 @@ public class SignIn extends Registration{
         User user = new User();
         user.setEmail(email.getText());
         user.setPassword(password.getText());
+        user.setIs_connected(true);
+        System.out.println(user);
         postUser = new PostUserHandler(user, SIGN_IN_URL);
         postUser.call();
         String res = postUser.getRes();

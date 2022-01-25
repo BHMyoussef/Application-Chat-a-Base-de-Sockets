@@ -1,5 +1,6 @@
 package com.chatui.frontendjavafx;
 
+import com.google.gson.Gson;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.geometry.Pos;
@@ -15,8 +16,12 @@ import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.*;
 import javafx.scene.text.TextAlignment;
+
 import java.io.IOException;
 import java.io.InputStream;
+import java.net.URI;
+import java.net.http.HttpClient;
+import java.net.http.HttpRequest;
 import java.util.ArrayList;
 
 public class Home extends Registration{
@@ -58,6 +63,16 @@ public class Home extends Registration{
 
     public void Exit(MouseEvent event) {
             goTo(event, SIGN_IN_PATH, this.parentContainer1, this.childContainer1, this.exit);
+            User user = SignIn.postUser.getSession();
+            user.setIs_connected(false);
+            HttpClient client = HttpClient.newHttpClient();
+            Gson gson = new Gson();
+            HttpRequest request = HttpRequest.newBuilder()
+                    .uri(URI.create("http://localhost:8080/api/v1/users"))
+                    .header("Content-Type", "application/json")
+                    .header("Authorization", UserToken.token)
+                    .PUT(HttpRequest.BodyPublishers.ofString(gson.toJson(user)))
+                    .build();
     }
 
     public void Profile(MouseEvent event) {

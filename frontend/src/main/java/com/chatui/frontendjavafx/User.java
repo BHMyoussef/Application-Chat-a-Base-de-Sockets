@@ -10,13 +10,15 @@ public class User {
     private String name;
     private String email;
     private String password;
+    private boolean is_connected;
     private int totalFriends = 0;
 
-    public User(String name, String email, String password, String userId) {
+    public User(String name, String email, String password, String userId, boolean is_connected) {
         this.name = name.trim().toLowerCase();
         this.email = email.trim().toLowerCase();
         this.password = password.trim().toLowerCase();
         this.userId = userId;
+        this.is_connected = is_connected;
     }
 
     public String getUserId() {
@@ -54,6 +56,13 @@ public class User {
         this.password = password.trim().toLowerCase();
     }
 
+    public boolean isIs_connected() {
+        return is_connected;
+    }
+
+    public void setIs_connected(boolean is_connected) {
+        this.is_connected = is_connected;
+    }
 
     @Override
     public String toString() {

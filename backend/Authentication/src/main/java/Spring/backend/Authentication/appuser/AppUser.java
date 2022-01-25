@@ -24,7 +24,7 @@ public class AppUser implements Serializable {
     private String email;
     private String password;
     private int totalFriends = 0;
-    private boolean is_connected=false;
+    private boolean is_connected = false;
 
     public AppUser(String email, String password) {
         this.email = email;
@@ -35,5 +35,13 @@ public class AppUser implements Serializable {
         this.name = name;
         this.email = email;
         this.password = password;
+    }
+
+    public AppUser(String name, String email, String password, int totalFriends, boolean is_connected) {
+        this.name = name;
+        this.email = email;
+        this.password = password;
+        this.totalFriends = totalFriends;
+        this.is_connected = is_connected;
     }
 }
