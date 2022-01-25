@@ -64,7 +64,6 @@ public class PostUserHandler extends Task<Void> {
                         this.token = response.headers().firstValue("Authorization").get();
                         this.session = gson.fromJson(response.body(),User.class);
                         this.res = "success";
-                        System.out.println(session + "hohohoho");
                     }
                     else {
                         message = List.of(tab[1].split(":"));

@@ -63,6 +63,7 @@ public class AuthenticationFilter extends UsernamePasswordAuthenticationFilter {
         String email = springUser.getUsername();
         Optional<AppUser> user = appUserService.getByEmail(email);
         String name = user.get().getName();
+        String userID = user.get().getUserId();
 
         String jwtToken = JWT.create().withSubject(email)
                 .withExpiresAt(new Date(System.currentTimeMillis()+SecurityConstants.EXPIRATION_TIME))
@@ -74,6 +75,7 @@ public class AuthenticationFilter extends UsernamePasswordAuthenticationFilter {
         responseBody.put("message", "success");
         responseBody.put("name", name);
         responseBody.put("email", email);
+        responseBody.put("userID", userID);
         response.setContentType("application/json");
         new ObjectMapper().writeValue(response.getOutputStream(), responseBody);
     }

@@ -20,7 +20,9 @@ import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.scene.text.TextAlignment;
 
+import java.io.FilterInputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.ObjectOutputStream;
 import java.nio.Buffer;
 import java.util.ArrayList;
@@ -114,13 +116,15 @@ public class Home extends Registration{
             x.setMaxWidth(chatPage.getWidth() - 20);
             switch (operation) {
                 case "send":
-                    image.setImage(new Image("file:\\C:\\Users\\Zakaria Dani\\Desktop\\appChat\\Application-Chat-a-Base-de-Sockets\\frontend\\src\\main\\resources\\com\\chatui\\frontendjavafx\\icon\\me.png"));
+                    InputStream input = getClass().getResourceAsStream("/com/chatui/frontendjavafx/icon/me.png");
+                    image.setImage(new Image(input));
                     msg.setStyle(msg.getStyle()+"-fx-background-color: #50c984; -fx-text-fill: #fff");
                     x.setAlignment(Pos.BOTTOM_RIGHT);
                     x.getChildren().addAll(msg, image);
                     break;
                 case "receive" :
-                    image.setImage(new Image("file:\\C:\\Users\\Zakaria Dani\\Desktop\\appChat\\Application-Chat-a-Base-de-Sockets\\frontend\\src\\main\\resources\\com\\chatui\\frontendjavafx\\icon\\user.png"));
+                    input = getClass().getResourceAsStream("/com/chatui/frontendjavafx/icon/user.png");
+                    image.setImage(new Image(input));
                     msg.setStyle(msg.getStyle()+"-fx-background-color: #fff; -fx-text-fill: #000");
                     x.setAlignment(Pos.BOTTOM_LEFT);
                     x.getChildren().addAll(image, msg);
