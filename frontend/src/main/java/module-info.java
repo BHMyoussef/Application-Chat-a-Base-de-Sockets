@@ -5,7 +5,8 @@ module com.chatui.frontendjavafx {
     requires java.net.http;
     requires javafx.graphics;
     requires javafx.base;
+    requires Java.WebSocket;
 
-    opens com.chatui.frontendjavafx to javafx.fxml, com.google.gson;
+    opens com.chatui.frontendjavafx to javafx.fxml, com.google.gson, Jsvs.WebSocket;
     exports com.chatui.frontendjavafx;
 }

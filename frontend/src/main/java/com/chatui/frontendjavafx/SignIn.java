@@ -1,6 +1,7 @@
 package com.chatui.frontendjavafx;
 
 
+import com.eu.mivrenik.stomp.client.StompClient;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -11,10 +12,14 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
+import org.java_websocket.drafts.Draft_6455;
+
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
-
+import java.net.URI;
+import java.util.HashMap;
+import java.util.Map;
 
 public class SignIn extends Registration{
     @FXML
@@ -42,6 +47,28 @@ public class SignIn extends Registration{
         registrationHandler(event, SIGN_UP_PATH);
         if(isSuccess){
             UserToken.getInstance(token);
+            User profile = SignIn.postUser.getSession();
+            String token = UserToken.token;
+            Map<String, String> httpHeaders =new HashMap<>();
+            System.out.println(token);
+            httpHeaders.put("Authorization",token);
+            StompClient stompSocket = new StompClient(
+                    URI.create("ws://localhost:8080/chat"),new Draft_6455(), httpHeaders,0);
+            boolean connected;
+            try {
+                connected = stompSocket.connectBlocking();
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+                return;
+            }
+            if (!connected) {
+                System.out.println("Failed to connect to the socket");
+                return;
+            }
+
+
+
+
             goTo(event, HOME_PATH, this.parentContainer1, this.childContainer, this.button);
         }
     }
