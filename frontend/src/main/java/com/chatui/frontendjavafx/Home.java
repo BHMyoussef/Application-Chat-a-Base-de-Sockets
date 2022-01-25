@@ -94,28 +94,41 @@ public class Home extends Registration{
         }
     }
     public void sendHandler(MouseEvent event) throws IOException {
-        send(event);
+        addToChat(event, "send");
     }
 
-    public void send(MouseEvent event) throws IOException {
+    public void addToChat(MouseEvent event, String operation) throws IOException {
         if(!messageBar.getText().trim().isEmpty()) {
             Label msg = new Label(messageBar.getText().trim());
             msg.setWrapText(true);
             msg.setTextAlignment(TextAlignment.JUSTIFY);
             msg.setMaxWidth(350.0);
-            ImageView image = new ImageView(new Image("file:\\C:\\Users\\Zakaria Dani\\Desktop\\appChat\\Application-Chat-a-Base-de-Sockets\\frontend\\src\\main\\resources\\com\\chatui\\frontendjavafx\\icon\\me.png"));
-            msg.setStyle("-fx-background-color: #50c984; -fx-background-radius: 20.0; -fx-font-family: Ebrima; -fx-font-size: 20.0; -fx-text-fill: #fff; -fx-padding: 5.0 5.0 5.0 5.0;");
+            ImageView image = new ImageView();
+            msg.setStyle("-fx-background-radius: 20.0; -fx-font-family: Ebrima; -fx-font-size: 20.0; -fx-padding: 5.0 5.0 5.0 5.0;");
             image.setFitHeight(70.0);
-            msg.setTranslateY(25);
             image.setFitWidth(70.0);
             HBox x = new HBox();
             x.setMaxWidth(chatPage.getWidth() - 20);
-            x.setAlignment(Pos.TOP_RIGHT);
-            x.getChildren().addAll(msg, image);
+            switch (operation) {
+                case "send":
+                    image.setImage(new Image("file:\\C:\\Users\\Zakaria Dani\\Desktop\\appChat\\Application-Chat-a-Base-de-Sockets\\frontend\\src\\main\\resources\\com\\chatui\\frontendjavafx\\icon\\me.png"));
+                    msg.setStyle(msg.getStyle()+"-fx-background-color: #50c984; -fx-text-fill: #fff");
+                    x.setAlignment(Pos.BOTTOM_RIGHT);
+                    x.getChildren().addAll(msg, image);
+                    break;
+                case "receive" :
+                    image.setImage(new Image("file:\\C:\\Users\\Zakaria Dani\\Desktop\\appChat\\Application-Chat-a-Base-de-Sockets\\frontend\\src\\main\\resources\\com\\chatui\\frontendjavafx\\icon\\user.png"));
+                    msg.setStyle(msg.getStyle()+"-fx-background-color: #fff; -fx-text-fill: #000");
+                    x.setAlignment(Pos.BOTTOM_LEFT);
+                    x.getChildren().addAll(image, msg);
+                    break;
+            }
+            chatPage.setFocusTraversable(false);
             chatPage.getItems().add(x);
             messageBar.setText("");
         }
     }
+
     public void ShowEmojis(MouseEvent event) {
         if(!isEmojiMenuShown)
             isEmojiMenuShown = true;

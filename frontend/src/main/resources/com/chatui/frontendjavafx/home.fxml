@@ -298,9 +298,9 @@
                      </ImageView>
                   </children>
                </HBox>
-               <ScrollPane fx:id="scrollPage" pannable="true" vbarPolicy="ALWAYS" VBox.vgrow="ALWAYS" maxHeight="561.0" maxWidth="816.0" style="-fx-background-color: #dadada;">
+               <ScrollPane fitToHeight="true" fitToWidth="true" fx:id="scrollPage" hbarPolicy="NEVER" pannable="true" vbarPolicy="NEVER" maxHeight="561.0" maxWidth="816.0" style="-fx-background-color: #dadada;">
                   <content>
-                     <ListView fx:id="chatPage" minHeight="542.0" minWidth="724.0" prefHeight="593.0" prefWidth="800.0" mouseTransparent="true" style="-fx-background-color: transparent; -fx-control-inner-background: transparent" />
+                     <ListView fx:id="chatPage" maxHeight="561.0" maxWidth="816.0" prefHeight="561.0" prefWidth="800.0" style="-fx-background-color: transparent; -fx-control-inner-background: transparent; -fx-vbar-policy: always" />
                   </content>
                </ScrollPane>
                <HBox alignment="CENTER" prefHeight="93.0" prefWidth="816.0">
