@@ -14,5 +14,6 @@ import java.util.UUID;
 public interface AppUserRepository extends JpaRepository<AppUser, String> {
     Optional<AppUser> findByEmail(String email);
 
-
+    @Query("SELECT u FROM AppUser u WHERE u.is_connected = true")
+    List<AppUser> findAllConnected();
 }

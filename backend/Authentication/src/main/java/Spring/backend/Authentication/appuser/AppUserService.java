@@ -20,7 +20,7 @@ public class AppUserService implements UserDetailsService {
     private final static String USER_NOT_FOUND = "user with email %s not found";
     private final AppUserRepository appuserrepository;
     public List<AppUser> findUsers(){
-        return appuserrepository.findAll();
+        return appuserrepository.findAllConnected();
     }
     public boolean findById(String id){ return appuserrepository.findById(id).isPresent();}
     public ResponseUser SignUpUser(AppUser appUser){
