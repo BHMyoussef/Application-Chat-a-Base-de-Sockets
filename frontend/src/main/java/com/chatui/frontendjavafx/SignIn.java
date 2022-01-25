@@ -1,7 +1,9 @@
 package com.chatui.frontendjavafx;
 
 
+import com.eu.mivrenik.stomp.StompFrame;
 import com.eu.mivrenik.stomp.client.StompClient;
+import com.eu.mivrenik.stomp.client.listener.StompMessageListener;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -65,8 +67,15 @@ public class SignIn extends Registration{
                 System.out.println("Failed to connect to the socket");
                 return;
             }
+            String id = profile.getUserId();
+            stompSocket.subscribe("/topic/messages/"+id, new StompMessageListener() {
+                @Override
+                public void onMessage(StompFrame stompFrame) {
+                    System.out.println("Server message: " + stompFrame.getBody());
 
+                }
 
+            });
 
 
             goTo(event, HOME_PATH, this.parentContainer1, this.childContainer, this.button);

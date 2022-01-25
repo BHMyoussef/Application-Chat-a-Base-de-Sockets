@@ -69,6 +69,8 @@ public class PostUserHandler extends Task<Void> {
                         message = List.of(tab[1].split(":"));
                     }
                     break;
+                case Registration.Modify_Cox_State:
+
             }
             this.res = message.get(1).substring(1,message.get(1).length()-1);
         }
