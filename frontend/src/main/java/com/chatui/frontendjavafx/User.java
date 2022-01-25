@@ -4,16 +4,27 @@ import java.util.Objects;
 
 public class User {
 
+    private String userId;
+
     private Long id;
     private String name;
     private String email;
     private String password;
     private int totalFriends = 0;
 
-    public User(String name, String email, String password) {
+    public User(String name, String email, String password, String userId) {
         this.name = name.trim().toLowerCase();
         this.email = email.trim().toLowerCase();
         this.password = password.trim().toLowerCase();
+        this.userId = userId;
+    }
+
+    public String getUserId() {
+        return userId;
+    }
+
+    public void setUserId(String userId) {
+        this.userId = userId;
     }
 
     public User() {
