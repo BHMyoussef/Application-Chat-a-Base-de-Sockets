@@ -22,6 +22,7 @@ import java.io.InputStream;
 import java.net.URI;
 import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
+import java.net.http.HttpResponse;
 import java.util.ArrayList;
 
 public class Home extends Registration{
@@ -61,10 +62,9 @@ public class Home extends Registration{
 
     private boolean isEmojiMenuShown = false;
 
-    public void Exit(MouseEvent event) {
+    public void Exit(MouseEvent event) throws IOException, InterruptedException {
             goTo(event, SIGN_IN_PATH, this.parentContainer1, this.childContainer1, this.exit);
             User user = SignIn.postUser.getSession();
-            user.setIs_connected(false);
             HttpClient client = HttpClient.newHttpClient();
             Gson gson = new Gson();
             HttpRequest request = HttpRequest.newBuilder()
@@ -73,6 +73,9 @@ public class Home extends Registration{
                     .header("Authorization", UserToken.token)
                     .PUT(HttpRequest.BodyPublishers.ofString(gson.toJson(user)))
                     .build();
+        HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
+        System.out.println(response.body());
+
     }
 
     public void Profile(MouseEvent event) {

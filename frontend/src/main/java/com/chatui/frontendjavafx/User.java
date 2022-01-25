@@ -4,30 +4,31 @@ import java.util.Objects;
 
 public class User {
 
-    private String userId;
+    private String userID;
 
     private Long id;
     private String name;
     private String email;
     private String password;
-    private boolean is_connected;
     private int totalFriends = 0;
 
-    public User(String name, String email, String password, String userId, boolean is_connected) {
-        this.name = name.trim().toLowerCase();
-        this.email = email.trim().toLowerCase();
-        this.password = password.trim().toLowerCase();
-        this.userId = userId;
-        this.is_connected = is_connected;
+    public User(String userID, Long id, String name, String email, String password, int totalFriends) {
+        this.userID = userID;
+        this.id = id;
+        this.name = name;
+        this.email = email;
+        this.password = password;
+        this.totalFriends = totalFriends;
     }
 
-    public String getUserId() {
-        return userId;
+    public String getUserID() {
+        return userID;
     }
 
-    public void setUserId(String userId) {
-        this.userId = userId;
+    public void setUserID(String userID) {
+        this.userID = userID;
     }
+
 
     public User() {
     }
@@ -56,12 +57,20 @@ public class User {
         this.password = password.trim().toLowerCase();
     }
 
-    public boolean isIs_connected() {
-        return is_connected;
+    public Long getId() {
+        return id;
     }
 
-    public void setIs_connected(boolean is_connected) {
-        this.is_connected = is_connected;
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public int getTotalFriends() {
+        return totalFriends;
+    }
+
+    public void setTotalFriends(int totalFriends) {
+        this.totalFriends = totalFriends;
     }
 
     @Override
@@ -83,4 +92,3 @@ public class User {
         return Objects.equals(email, user.email);
     }
 }
-

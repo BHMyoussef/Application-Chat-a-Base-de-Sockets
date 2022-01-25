@@ -67,7 +67,7 @@ public class SignIn extends Registration{
                 System.out.println("Failed to connect to the socket");
                 return;
             }
-            String id = profile.getUserId();
+            String id = profile.getUserID();
             stompSocket.subscribe("/topic/messages/"+id, new StompMessageListener() {
                 @Override
                 public void onMessage(StompFrame stompFrame) {
@@ -102,7 +102,6 @@ public class SignIn extends Registration{
         User user = new User();
         user.setEmail(email.getText());
         user.setPassword(password.getText());
-        user.setIs_connected(true);
         System.out.println(user);
         postUser = new PostUserHandler(user, SIGN_IN_URL);
         postUser.call();
