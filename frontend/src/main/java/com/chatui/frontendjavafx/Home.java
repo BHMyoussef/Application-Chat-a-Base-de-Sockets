@@ -91,6 +91,7 @@ public class Home extends Registration{
     }
     public void sendHandler(MouseEvent event) throws IOException {
         addToChat(event, "send");
+        addDisscussion(event, "Hamid");
     }
     public void receiveHandler(MouseEvent event) throws IOException {
         addToChat(event, "receive");
