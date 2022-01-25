@@ -62,21 +62,9 @@ public class PostUserHandler extends Task<Void> {
                 case Registration.SIGN_IN_URL:
                     if(response.headers().firstValue("Authorization").isPresent()){
                         this.token = response.headers().firstValue("Authorization").get();
-                        System.out.println(token);
-                        message = List.of(tab[0].split(":"));
-                        System.out.println(this.res);
-                        String[] tk1 = token.split(" ");
-                        System.out.println(tk1[1]);
-                        String[] chunks = tk1[1].split("\\.");
-                        String responseInfo = new String(new String(Base64.getDecoder().decode(chunks[1].replaceAll(" ", "")), "UTF-8"));
-                        String [] tab1 = responseInfo.split("\\["+"\"");
-                        String [] tab2 = tab1[1].split("\""+"\\]");
-                        String [] info = tab2[0].split("\""+","+"\"");
-                        String email = info[0];
-                        String name = info[1];
-                        session.setEmail(email);
-                        session.setName(name);
-                        System.out.println(token + " " + name + " " + email);
+                        this.session = gson.fromJson(response.body(),User.class);
+                        this.res = "success";
+                        System.out.println(session + "hohohoho");
                     }
                     else {
                         message = List.of(tab[1].split(":"));

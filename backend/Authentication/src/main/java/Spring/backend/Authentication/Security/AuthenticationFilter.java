@@ -60,23 +60,20 @@ public class AuthenticationFilter extends UsernamePasswordAuthenticationFilter {
     protected void successfulAuthentication(HttpServletRequest request, HttpServletResponse response, FilterChain chain, Authentication authResult) throws IOException, ServletException {
         User springUser = (User) authResult.getPrincipal();
         Algorithm algorithm = Algorithm.HMAC256(SecurityConstants.TOKEN_SECRET.getBytes());
-        String emailS = springUser.getUsername();
-        Optional<AppUser> user = appUserService.getByEmail(emailS);
+        String email = springUser.getUsername();
+        Optional<AppUser> user = appUserService.getByEmail(email);
         String name = user.get().getName();
-        String email = user.get().getEmail();
-        List<String> user_info = new ArrayList<>();
-        user_info.add(email);
-        user_info.add(name);
-        //generate jwt
-        String jwtToken = JWT.create().withSubject(emailS)
+
+        String jwtToken = JWT.create().withSubject(email)
                 .withExpiresAt(new Date(System.currentTimeMillis()+SecurityConstants.EXPIRATION_TIME))
-                .withClaim("user-info", user_info)
                 .sign(algorithm);
 
         response.addHeader(SecurityConstants.HEADER_NAME, SecurityConstants.TOKEN_PREFIX + jwtToken);
         Map<String, String> responseBody = new HashMap<>();
         responseBody.put("token", jwtToken);
         responseBody.put("message", "success");
+        responseBody.put("name", name);
+        responseBody.put("email", email);
         response.setContentType("application/json");
         new ObjectMapper().writeValue(response.getOutputStream(), responseBody);
     }
