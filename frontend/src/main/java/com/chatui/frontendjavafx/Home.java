@@ -2,7 +2,6 @@ package com.chatui.frontendjavafx;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.geometry.Orientation;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.Parent;
@@ -13,18 +12,11 @@ import javafx.scene.control.TextField;
 import javafx.scene.effect.BlendMode;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.input.KeyCode;
-import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.*;
-import javafx.scene.paint.Color;
 import javafx.scene.text.TextAlignment;
-
-import java.io.FilterInputStream;
 import java.io.IOException;
 import java.io.InputStream;
-import java.io.ObjectOutputStream;
-import java.nio.Buffer;
 import java.util.ArrayList;
 
 public class Home extends Registration{
@@ -51,6 +43,8 @@ public class Home extends Registration{
     private TextField messageBar;
     @FXML
     private ListView chatPage;
+    @FXML
+    private ListView disscussionPage;
     @FXML
     private ImageView emo00, emo01, emo02, emo03, emo04, emo05, emo10, emo11, emo12, emo13, emo14, emo15, emo20, emo21, emo22, emo23, emo24, emo25, emo30, emo31, emo32, emo33, emo34, emo35;
     @FXML
@@ -101,7 +95,33 @@ public class Home extends Registration{
     public void receiveHandler(MouseEvent event) throws IOException {
         addToChat(event, "receive");
     }
-
+    public void addDisscussion(MouseEvent event, String username){
+        HBox container = new HBox();
+        VBox container2 = new VBox();
+        Label name = new Label(username);
+        Label message = new Label("you: hello my friend...");
+        container2.setAlignment(Pos.CENTER_LEFT);
+        container2.setPrefWidth(277.0);
+        container2.setPrefHeight(100.0);
+        name.setPrefWidth(188.0);
+        name.setPrefHeight(17.0);
+        name.setStyle("-fx-font: Ebrima Bold; -fx-font-size: 26.0; -fx-text-fill: #f7fafa");
+        message.setPrefWidth(228.0);
+        message.setPrefHeight(30.0);
+        message.setLayoutX(10.0);
+        message.setLayoutY(10.0);
+        message.setStyle("-fx-font: Ebrima; -fx-font-size: 20.0; -fx-text-fill: #14bca6");
+        container2.getChildren().addAll(name,message);
+        ImageView image = new ImageView();
+        InputStream input = getClass().getResourceAsStream("/com/chatui/frontendjavafx/icon/user.png");
+        image.setImage(new Image(input));
+        image.setFitHeight(90.0);
+        image.setFitWidth(90.0);
+        container.setAlignment(Pos.BOTTOM_LEFT);
+        container.getChildren().addAll(image, container2);
+        disscussionPage.fixedCellSizeProperty();
+        disscussionPage.getItems().add(container);
+    }
     public void addToChat(MouseEvent event, String operation) throws IOException {
         if(!messageBar.getText().trim().isEmpty()) {
             Label msg = new Label(messageBar.getText().trim());
