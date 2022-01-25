@@ -67,12 +67,12 @@ public class SignIn extends Registration{
                 System.out.println("Failed to connect to the socket");
                 return;
             }
-            String id = profile.getUserId();
+            String id = profile.getUserID();
+            System.out.println("id is: ==>"+id);
             stompSocket.subscribe("/topic/messages/"+id, new StompMessageListener() {
                 @Override
                 public void onMessage(StompFrame stompFrame) {
                     System.out.println("Server message: " + stompFrame.getBody());
-
                 }
 
             });

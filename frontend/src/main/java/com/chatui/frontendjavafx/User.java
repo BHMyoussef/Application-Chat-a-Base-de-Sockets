@@ -4,7 +4,7 @@ import java.util.Objects;
 
 public class User {
 
-    private String userId;
+    private String userID;
 
     private Long id;
     private String name;
@@ -12,20 +12,21 @@ public class User {
     private String password;
     private int totalFriends = 0;
 
-    public User(String name, String email, String password, String userId) {
+    public User(String name, String email, String password, String userID) {
         this.name = name.trim().toLowerCase();
         this.email = email.trim().toLowerCase();
         this.password = password.trim().toLowerCase();
-        this.userId = userId;
+        this.userID = userID;
     }
 
-    public String getUserId() {
-        return userId;
+    public String getUserID() {
+        return userID;
     }
 
-    public void setUserId(String userId) {
-        this.userId = userId;
+    public void setUserID(String userID) {
+        this.userID = userID;
     }
+
 
     public User() {
     }
