@@ -72,7 +72,6 @@ public class SignIn extends Registration{
                 @Override
                 public void onMessage(StompFrame stompFrame) {
                     System.out.println("Server message: " + stompFrame.getBody());
-
                 }
 
             });

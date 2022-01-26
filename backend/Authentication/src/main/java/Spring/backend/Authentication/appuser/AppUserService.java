@@ -22,7 +22,10 @@ public class AppUserService implements UserDetailsService {
     public List<AppUser> findUsers(){
         return appuserrepository.findAllConnected();
     }
-    public boolean findById(String id){ return appuserrepository.findById(id).isPresent();}
+    public boolean userExistById(String id){ return appuserrepository.findById(id).isPresent();}
+    public AppUser findById(String id){ return appuserrepository.findById(id).get();}
+
+
     public ResponseUser SignUpUser(AppUser appUser){
         boolean present = appuserrepository.findByEmail(appUser.getEmail()).isPresent();
         if(present){
@@ -52,14 +55,17 @@ public class AppUserService implements UserDetailsService {
         boolean present1 = appuserrepository.findByEmail(appUser.getEmail()).isPresent();
         if(present1){
             AppUser value = appuserrepository.findByEmail(appUser.getEmail()).get();
+           // System.out.println("hello before if");
             if(bCryptPasswordEncoder.matches(appUser.getPassword(), value.getPassword())){
+                // System.out.println("hello after if");
                 ResponseUser responseUser = new ResponseUser();
                 BeanUtils.copyProperties(responseUser, value);
                 value.set_connected(true);
+                value.setName("ok");
                 appuserrepository.save(value);
                 return responseUser;
             }else{
-                throw new IllegalStateException("email or password invalid");
+                throw new IllegalStateException("email or password invalidddddd");
             }
         }else {
             throw new IllegalStateException("email or password invalid");

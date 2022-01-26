@@ -77,6 +77,7 @@ public class AuthenticationFilter extends UsernamePasswordAuthenticationFilter {
         responseBody.put("name", name);
         responseBody.put("email", email);
         responseBody.put("userID", userID);
+
         responseBody.put("is_connected", is_connected);
         response.setContentType("application/json");
         new ObjectMapper().writeValue(response.getOutputStream(), responseBody);
