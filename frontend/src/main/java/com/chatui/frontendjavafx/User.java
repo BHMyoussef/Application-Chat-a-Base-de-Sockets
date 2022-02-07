@@ -4,8 +4,10 @@ import java.util.Objects;
 
 public class User {
 
-    private Long id;
+
     private String userID;
+
+    private Long id;
     private String name;
     private String email;
     private String password;
@@ -19,7 +21,8 @@ public class User {
         this.password = password;
         this.totalFriends = totalFriends;
     }
-
+    public User() {
+    }
     public String getUserID() {
         return userID;
     }
@@ -28,12 +31,10 @@ public class User {
         this.userID = userId;
     }
 
-    public User() {
-    }
 
-    public String getName() {
-        return name;
-    }
+        public String getName() {
+            return name;
+        }
 
     public void setName(String name) {
         this.name = name.trim().toLowerCase();
@@ -55,6 +56,14 @@ public class User {
         this.password = password.trim().toLowerCase();
     }
 
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
 
     public int getTotalFriends() {
         return totalFriends;
@@ -83,4 +92,3 @@ public class User {
         return Objects.equals(email, user.email);
     }
 }
-

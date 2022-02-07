@@ -39,7 +39,7 @@ public class AuthenticationFilter extends UsernamePasswordAuthenticationFilter {
             AppUser appUser = new ObjectMapper().readValue(request.getInputStream(), AppUser.class);
             UsernamePasswordAuthenticationToken authenticationToken =
                     new UsernamePasswordAuthenticationToken(
-                        appUser.getEmail(), appUser.getPassword(), new ArrayList<>()
+                            appUser.getEmail(), appUser.getPassword(), new ArrayList<>()
                     );
             return authenticationManager.authenticate(authenticationToken);
         }catch (Exception e){
@@ -76,6 +76,11 @@ public class AuthenticationFilter extends UsernamePasswordAuthenticationFilter {
         responseBody.put("name", name);
         responseBody.put("email", email);
         responseBody.put("userID", userID);
+<<<<<<< HEAD
+=======
+
+        responseBody.put("is_connected", is_connected);
+>>>>>>> 749c2f5447ceffa149e843cbd9ce5b18393028ea
         response.setContentType("application/json");
         new ObjectMapper().writeValue(response.getOutputStream(), responseBody);
     }

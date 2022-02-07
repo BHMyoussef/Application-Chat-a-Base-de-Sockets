@@ -65,22 +65,21 @@ public class Home extends Registration implements Initializable {
     private Label nameProfile, emailProfile;
     @FXML
     private ScrollPane scrollPage;
-
     private Node last_msg_node;
     public static List<String> friends = new ArrayList<>();
     private boolean isEmojiMenuShown = false;
 
     public void Exit(MouseEvent event) throws IOException, InterruptedException {
-            goTo(event, SIGN_IN_PATH, this.parentContainer1, this.childContainer1, this.exit);
-            User user = SignIn.postUser.getSession();
-            HttpClient client = HttpClient.newHttpClient();
-            Gson gson = new Gson();
-            HttpRequest request = HttpRequest.newBuilder()
-                    .uri(URI.create("http://localhost:8080/api/v1/users"))
-                    .header("Content-Type", "application/json")
-                    .header("Authorization", UserToken.token)
-                    .PUT(HttpRequest.BodyPublishers.ofString(gson.toJson(user)))
-                    .build();
+        goTo(event, SIGN_IN_PATH, this.parentContainer1, this.childContainer1, this.exit);
+        User user = SignIn.postUser.getSession();
+        HttpClient client = HttpClient.newHttpClient();
+        Gson gson = new Gson();
+        HttpRequest request = HttpRequest.newBuilder()
+                .uri(URI.create("http://localhost:8080/api/v1/users"))
+                .header("Content-Type", "application/json")
+                .header("Authorization", UserToken.token)
+                .PUT(HttpRequest.BodyPublishers.ofString(gson.toJson(user)))
+                .build();
         HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
         System.out.println(response.body());
     }
@@ -100,12 +99,12 @@ public class Home extends Registration implements Initializable {
         ListIterator<String> iterator = friends.listIterator();
         System.out.println(friends.toString());
         if(event.getSource() == next){
-                nameInChat.setText(getNext(nameInChat.getText()));
-                System.out.println(iterator.nextIndex());
+            nameInChat.setText(getNext(nameInChat.getText()));
         }
         if(event.getSource() == previous){
-                nameInChat.setText(getPrevious(nameInChat.getText()));
+            nameInChat.setText(getPrevious(nameInChat.getText()));
         }
+        disscussionPage.getSelectionModel().select(friends.indexOf(nameInChat.getText()));
     }
     public void Profile(MouseEvent event) {
         chat.setVisible(false);
@@ -170,6 +169,7 @@ public class Home extends Registration implements Initializable {
         image.setFitHeight(90.0);
         image.setFitWidth(90.0);
         container.setAlignment(Pos.BOTTOM_LEFT);
+        container.setId("chatSelected");
         container.getChildren().addAll(image, container2);
         disscussionPage.fixedCellSizeProperty();
         disscussionPage.getItems().add(container);

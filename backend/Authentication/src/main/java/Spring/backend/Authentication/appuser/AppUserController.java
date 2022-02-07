@@ -20,6 +20,6 @@ public class AppUserController {
 
     @PutMapping
     public AppUser updateUser(@RequestBody AppUser appUser){
-        return appUserService.updateUser(appUser);
+         return appUserService.updateUser(appUser);
     }
 }
