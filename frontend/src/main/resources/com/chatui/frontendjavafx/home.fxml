@@ -81,7 +81,7 @@
                         </VBox.margin>
                      </HBox>
                      <Pane prefHeight="1.5" prefWidth="200.0" style="-fx-background-color: #044bd9;" />
-                      <ScrollPane fitToHeight="true" fitToWidth="true" hbarPolicy="NEVER" pannable="true" vbarPolicy="NEVER" maxHeight="650.0" maxWidth="448.0">
+                      <ScrollPane fitToHeight="true" fitToWidth="true" hbarPolicy="NEVER" maxHeight="650.0" maxWidth="448.0" pannable="true" vbarPolicy="NEVER">
                           <content>
                               <ListView fx:id="disscussionPage" maxHeight="650.0" maxWidth="448.0" prefHeight="700.0" prefWidth="448.0" style="-fx-background-color: #91bbf2; -fx-control-inner-background: transparent; -fx-vbar-policy: always" />
                           </content>
@@ -96,7 +96,7 @@
             <children>
                <HBox alignment="CENTER" prefHeight="97.0" prefWidth="816.0">
                   <children>
-                     <Label prefHeight="43.0" prefWidth="121.0" text="Souhail" textFill="#044bd9">
+                     <Label fx:id="nameInChat" prefHeight="43.0" prefWidth="158.0" text="Souhail" textFill="#044bd9">
                         <font>
                            <Font name="Ebrima Bold" size="33.0" />
                         </font>
@@ -118,12 +118,12 @@
                         </HBox.margin>
                      </Label>
                      <Pane prefHeight="124.0" prefWidth="271.0" />
-                     <ImageView fitHeight="60.0" fitWidth="60.0" pickOnBounds="true" preserveRatio="true">
+                     <ImageView fx:id="previous" fitHeight="60.0" fitWidth="60.0" onMouseClicked="#navigationChat" pickOnBounds="true" preserveRatio="true">
                         <image>
                            <Image url="@icon/back.png" />
                         </image>
                      </ImageView>
-                     <ImageView fitHeight="60.0" fitWidth="60.0" pickOnBounds="true" preserveRatio="true">
+                     <ImageView fx:id="next" fitHeight="60.0" fitWidth="60.0" onMouseClicked="#navigationChat" pickOnBounds="true" preserveRatio="true">
                         <image>
                            <Image url="@icon/next.png" />
                         </image>
@@ -133,14 +133,14 @@
                      </ImageView>
                   </children>
                </HBox>
-               <ScrollPane fitToHeight="true" fitToWidth="true" fx:id="scrollPage" hbarPolicy="NEVER" pannable="true" vbarPolicy="NEVER" maxHeight="561.0" maxWidth="816.0">
+               <ScrollPane fx:id="scrollPage" fitToHeight="true" fitToWidth="true" hbarPolicy="NEVER" maxHeight="561.0" maxWidth="816.0" pannable="true" vbarPolicy="NEVER">
                   <content>
                      <ListView fx:id="chatPage" maxHeight="561.0" maxWidth="816.0" prefHeight="561.0" prefWidth="800.0" style="-fx-background-color: #dadada; -fx-control-inner-background: transparent; -fx-vbar-policy: always" />
                   </content>
                </ScrollPane>
                <HBox alignment="CENTER" prefHeight="93.0" prefWidth="816.0">
                   <children>
-                     <ImageView fx:id="emojisButton" fitHeight="50.0" fitWidth="50.0" onMouseClicked="#ShowEmojis" pickOnBounds="true" preserveRatio="true" >
+                     <ImageView fx:id="emojisButton" fitHeight="50.0" fitWidth="50.0" onMouseClicked="#ShowEmojis" pickOnBounds="true" preserveRatio="true">
                         <image>
                            <Image url="@icon/emoji.png" />
                         </image>

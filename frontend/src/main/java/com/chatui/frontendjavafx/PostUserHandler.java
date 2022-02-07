@@ -69,6 +69,7 @@ public class PostUserHandler extends Task<Void> {
                         HttpRequest getRequest = HttpRequest.newBuilder()
                                 .uri(URI.create("http://localhost:8080/api/v1/users"))
                                 .header("Content-Type", "application/json")
+                                .header("accept", "application/json")
                                 .header("Authorization", UserToken.token)
                                 .GET()
                                 .build();
@@ -80,6 +81,7 @@ public class PostUserHandler extends Task<Void> {
                     }
                     break;
                 case Registration.Modify_Cox_State:
+                    break;
 
             }
             this.res = message.get(1).substring(1,message.get(1).length()-1);

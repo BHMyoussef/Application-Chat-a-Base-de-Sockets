@@ -38,7 +38,9 @@ public class AppUserService implements UserDetailsService {
     }
 
     public AppUser updateUser(AppUser appUser){
-        return appuserrepository.save(appUser);
+        AppUser updatedUser = appuserrepository.findByEmail(appUser.getEmail()).get();
+        updatedUser.set_connected(false);
+        return appuserrepository.save(updatedUser);
     }
 
     public Optional<AppUser> getByEmail(String email) {
@@ -64,13 +66,14 @@ public class AppUserService implements UserDetailsService {
         }
     }
 
+
     @Override
     public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
         boolean isUserExists = appuserrepository.findByEmail(email).isPresent();
         if (isUserExists) {
             AppUser appUser =  appuserrepository.findByEmail(email).get();
-           // appUser.set_connected(true);
-            //appuserrepository.save(appUser);
+            appUser.set_connected(true);
+            appuserrepository.save(appUser);
             return new User(appUser.getEmail(), appUser.getPassword(),new ArrayList<>());
         }else throw new UsernameNotFoundException(email);
     }

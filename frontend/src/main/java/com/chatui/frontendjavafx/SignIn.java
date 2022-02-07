@@ -20,7 +20,9 @@ import org.java_websocket.drafts.Draft_6455;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.net.URI;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 public class SignIn extends Registration{
@@ -42,6 +44,7 @@ public class SignIn extends Registration{
     private Button button1;
     @FXML
     private Button button;
+
 
     private String token;
     public static PostUserHandler postUser;
@@ -67,17 +70,14 @@ public class SignIn extends Registration{
                 System.out.println("Failed to connect to the socket");
                 return;
             }
-            String id = profile.getUserId();
+            String id = profile.getUserID();
             stompSocket.subscribe("/topic/messages/"+id, new StompMessageListener() {
                 @Override
                 public void onMessage(StompFrame stompFrame) {
                     System.out.println("Server message: " + stompFrame.getBody());
-
                 }
 
             });
-
-
             goTo(event, HOME_PATH, this.parentContainer1, this.childContainer, this.button);
         }
     }
@@ -102,7 +102,6 @@ public class SignIn extends Registration{
         User user = new User();
         user.setEmail(email.getText());
         user.setPassword(password.getText());
-        user.setIs_connected(true);
         System.out.println(user);
         postUser = new PostUserHandler(user, SIGN_IN_URL);
         postUser.call();

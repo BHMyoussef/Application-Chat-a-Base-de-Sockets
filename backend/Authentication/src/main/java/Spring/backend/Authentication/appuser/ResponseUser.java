@@ -12,4 +12,5 @@ public class ResponseUser {
     private String name;
     private String email;
     private int totalFriends = 0;
+
 }

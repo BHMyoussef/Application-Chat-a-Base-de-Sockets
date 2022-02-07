@@ -36,12 +36,4 @@ public class AppUser implements Serializable {
         this.email = email;
         this.password = password;
     }
-
-    public AppUser(String name, String email, String password, int totalFriends, boolean is_connected) {
-        this.name = name;
-        this.email = email;
-        this.password = password;
-        this.totalFriends = totalFriends;
-        this.is_connected = is_connected;
-    }
 }

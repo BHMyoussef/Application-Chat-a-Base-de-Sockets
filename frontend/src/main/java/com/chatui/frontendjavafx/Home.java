@@ -2,7 +2,9 @@ package com.chatui.frontendjavafx;
 
 import com.google.gson.Gson;
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
+import javafx.fxml.Initializable;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.Parent;
@@ -20,11 +22,16 @@ import javafx.scene.text.TextAlignment;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URI;
+import java.net.URL;
 import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
+import java.net.http.HttpResponse;
 import java.util.ArrayList;
+import java.util.List;
+import java.util.ListIterator;
+import java.util.ResourceBundle;
 
-public class Home extends Registration{
+public class Home extends Registration implements Initializable {
 
     @FXML
     private ImageView exit;
@@ -43,13 +50,15 @@ public class Home extends Registration{
     @FXML
     private GridPane emojis;
     @FXML
-    private ImageView emojisButton;
+    private ImageView emojisButton, next, previous;
     @FXML
     private TextField messageBar;
     @FXML
     private ListView chatPage;
     @FXML
-    private ListView disscussionPage;
+    private Label nameInChat;
+    @FXML
+    private ListView disscussionPage = new ListView();
     @FXML
     private ImageView emo00, emo01, emo02, emo03, emo04, emo05, emo10, emo11, emo12, emo13, emo14, emo15, emo20, emo21, emo22, emo23, emo24, emo25, emo30, emo31, emo32, emo33, emo34, emo35;
     @FXML
@@ -58,13 +67,12 @@ public class Home extends Registration{
     private ScrollPane scrollPage;
 
     private Node last_msg_node;
-
+    public static List<String> friends = new ArrayList<>();
     private boolean isEmojiMenuShown = false;
 
-    public void Exit(MouseEvent event) {
+    public void Exit(MouseEvent event) throws IOException, InterruptedException {
             goTo(event, SIGN_IN_PATH, this.parentContainer1, this.childContainer1, this.exit);
             User user = SignIn.postUser.getSession();
-            user.setIs_connected(false);
             HttpClient client = HttpClient.newHttpClient();
             Gson gson = new Gson();
             HttpRequest request = HttpRequest.newBuilder()
@@ -73,8 +81,32 @@ public class Home extends Registration{
                     .header("Authorization", UserToken.token)
                     .PUT(HttpRequest.BodyPublishers.ofString(gson.toJson(user)))
                     .build();
+        HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
+        System.out.println(response.body());
+    }
+    public String getNext(String uid) {
+        int idx = friends.indexOf(uid);
+        if (idx < 0 || idx+1 > friends.size()) return friends.get(0);
+        if(idx == friends.size()) return friends.get(friends.size());
+        return friends.get(idx + 1);
     }
 
+    public String getPrevious(String uid) {
+        int idx = friends.indexOf(uid);
+        if (idx <= 0) return friends.get(0);
+        return friends.get(idx - 1);
+    }
+    public void navigationChat(MouseEvent event){
+        ListIterator<String> iterator = friends.listIterator();
+        System.out.println(friends.toString());
+        if(event.getSource() == next){
+                nameInChat.setText(getNext(nameInChat.getText()));
+                System.out.println(iterator.nextIndex());
+        }
+        if(event.getSource() == previous){
+                nameInChat.setText(getPrevious(nameInChat.getText()));
+        }
+    }
     public void Profile(MouseEvent event) {
         chat.setVisible(false);
         profile.setBlendMode(BlendMode.valueOf("GREEN"));
@@ -106,10 +138,14 @@ public class Home extends Registration{
     }
     public void sendHandler(MouseEvent event) throws IOException {
         addToChat(event, "send");
-        addDisscussion(event, "Hamid");
     }
     public void receiveHandler(MouseEvent event) throws IOException {
         addToChat(event, "receive");
+    }
+    public void addDisscussions(MouseEvent event, List<String> friends){
+        nameInChat.setText(friends.get(0));
+        for(String friend: friends)
+            addDisscussion(event, friend);
     }
     public void addDisscussion(MouseEvent event, String username){
         HBox container = new HBox();
@@ -137,6 +173,15 @@ public class Home extends Registration{
         container.getChildren().addAll(image, container2);
         disscussionPage.fixedCellSizeProperty();
         disscussionPage.getItems().add(container);
+        //clickEvent
+        EventHandler<MouseEvent> selectHandler = new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent event) {
+                System.out.println("chat clicked");
+                nameInChat.setText(username);
+            }
+        };
+        container.addEventFilter(MouseEvent.MOUSE_CLICKED, selectHandler);
     }
     public void addToChat(MouseEvent event, String operation) throws IOException {
         if(!messageBar.getText().trim().isEmpty()) {
@@ -255,5 +300,17 @@ public class Home extends Registration{
 //                .header("Content-Type", "application/json")
 //                .header("Authorization", UserToken.token) !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 //                .build();
+    }
+
+    @Override
+    public void initialize(URL url, ResourceBundle resourceBundle) {
+        friends.add("aymane");
+        friends.add("zakaria");
+        friends.add("souhail");
+        friends.add("merouane");
+        friends.add("youssef");
+        friends.add("nejoui");
+        //User profile = SignIn.postUser.getSession();
+        addDisscussions(null, friends);
     }
 }
