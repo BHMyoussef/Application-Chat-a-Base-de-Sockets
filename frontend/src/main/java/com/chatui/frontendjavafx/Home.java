@@ -28,7 +28,9 @@ import java.net.URL;
 import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.ResourceBundle;
 
 public class Home extends Registration implements Initializable {
 
@@ -201,7 +203,7 @@ public class Home extends Registration implements Initializable {
                     msg.setStyle(msg.getStyle()+"-fx-background-color: #50c984; -fx-text-fill: #fff");
                     x.setAlignment(Pos.BOTTOM_RIGHT);
                     x.getChildren().addAll(msg, image);
-                    send(5,messageBar.getText());
+                    send("5",messageBar.getText());
                     break;
                 case "receive" :
                     input = getClass().getResourceAsStream("/com/chatui/frontendjavafx/icon/user.png");
