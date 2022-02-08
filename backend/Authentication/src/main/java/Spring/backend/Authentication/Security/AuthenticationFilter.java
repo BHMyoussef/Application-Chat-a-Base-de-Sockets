@@ -66,7 +66,7 @@ public class AuthenticationFilter extends UsernamePasswordAuthenticationFilter {
         String userID = user.get().getUserId();
         boolean is_connected = user.get().is_connected();
 
-        Set<AppUser> friends = user.get().getFriends();
+        List<AppUser> friends = user.get().getFriends();
         String jwtToken = JWT.create().withSubject(email)
                 .withExpiresAt(new Date(System.currentTimeMillis()+SecurityConstants.EXPIRATION_TIME))
                 .sign(algorithm);
@@ -79,7 +79,8 @@ public class AuthenticationFilter extends UsernamePasswordAuthenticationFilter {
         responseBody.put("email", email);
         responseBody.put("userID", userID);
 
-        responseBody.put("friends", friends);
+
+        responseBody.put("friends",  friends.toString());
 
         responseBody.put("is_connected", is_connected);
         response.setContentType("application/json");

@@ -5,9 +5,7 @@ import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
 import java.io.Serializable;
-import java.util.HashSet;
-import java.util.Set;
-import java.util.UUID;
+import java.util.*;
 
 @Getter
 @Setter
@@ -30,7 +28,7 @@ public class AppUser implements Serializable {
     private boolean is_connected = false;
 
     @OneToMany
-    Set<AppUser> friends = new HashSet<AppUser>();
+    List<AppUser> friends = new ArrayList<>();
 
     public AppUser(String email, String password) {
         this.email = email;
