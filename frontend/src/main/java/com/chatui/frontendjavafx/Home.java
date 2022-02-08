@@ -46,6 +46,10 @@ public class Home extends Registration implements Initializable {
     @FXML
     private ImageView conversation;
     @FXML
+    private ImageView notification;
+    @FXML
+    private ImageView notifCircle;
+    @FXML
     private VBox chat;
     @FXML
     private GridPane emojis;
@@ -121,8 +125,13 @@ public class Home extends Registration implements Initializable {
         profileUser.setVisible(false);
     }
 
-    public void ListUsers(MouseEvent event){
-        
+    public void Notification(MouseEvent event){
+        notifCircle.setVisible(false);
+        notification.setVisible(true);
+        notification.setBlendMode(BlendMode.valueOf("GREEN"));
+        conversation.setBlendMode(BlendMode.valueOf("SRC_OVER"));
+        profile.setBlendMode(BlendMode.valueOf("SRC_OVER"));
+        System.out.println("notif");
     }
 
     public static ArrayList<Node> getAllNodes(Parent root) {

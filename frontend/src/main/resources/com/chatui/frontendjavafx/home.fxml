@@ -1,24 +1,45 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.shape.*?>
-<?import javafx.scene.text.*?>
-<?import javafx.geometry.*?>
-<?import javafx.scene.image.*?>
-<?import java.lang.*?>
-<?import java.util.*?>
-<?import javafx.scene.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ListView?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.shape.Circle?>
+<?import javafx.scene.text.Font?>
 
-<Pane fx:id="parentContainer1" maxHeight="800.0" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1370.0" style="-fx-background-color: #fff;" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.chatui.frontendjavafx.Home">
+<Pane fx:id="parentContainer1" maxHeight="800.0" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1370.0" style="-fx-background-color: #fff;" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.chatui.frontendjavafx.Home">
    <children>
    <BorderPane fx:id="childContainer1" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1370.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
       <left>
          <HBox prefHeight="738.0" prefWidth="554.0" BorderPane.alignment="CENTER">
             <children>
-               <VBox alignment="CENTER" prefHeight="752.0" prefWidth="106.0" style="-fx-background-color: #044bd9;">
+               <VBox alignment="TOP_CENTER" prefHeight="752.0" prefWidth="106.0" style="-fx-background-color: #044bd9;">
                   <children>
-                     <Pane prefHeight="175.0" prefWidth="122.0" />
+                     <ImageView fx:id="notification" fitHeight="56.0" fitWidth="55.0" onMouseClicked="#Notification" pickOnBounds="true" preserveRatio="true">
+                        <image>
+                           <Image url="@icon/notification.png" />
+                        </image>
+                           <VBox.margin>
+                              <Insets top="20.0" />
+                           </VBox.margin>
+
+                     </ImageView>
+                        <ImageView fx:id="notifCircle" fitHeight="12.5" fitWidth="12.5" pickOnBounds="true" preserveRatio="true" translateY="-57.0">
+                           <image>
+                              <Image url="@icon/notif-circle.png" />
+                           </image>
+                        </ImageView>
+                     <Pane prefHeight="175.0" prefWidth="106.0" />
                      <ImageView fx:id="profile" fitHeight="80.0" fitWidth="80.0" onMouseClicked="#Profile" pickOnBounds="true" preserveRatio="true">
                         <image>
                            <Image url="@icon/profile.png" />
@@ -40,7 +61,7 @@
                            <Insets top="20.0" />
                         </VBox.margin>
                      </ImageView>
-                     <Pane prefHeight="145.0" prefWidth="122.0">
+                     <Pane prefHeight="115.0" prefWidth="106.0">
                         <opaqueInsets>
                            <Insets />
                         </opaqueInsets>
