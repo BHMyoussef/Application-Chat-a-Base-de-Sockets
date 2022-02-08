@@ -83,11 +83,11 @@
                      </ImageView>
                   </children>
                </VBox>
-               <VBox fx:id="discussionsView" prefHeight="700.0" prefWidth="448.0" style="-fx-background-color: #91bbf2;" visible="false">
+               <VBox fx:id="discussionsView" prefHeight="700.0" prefWidth="448.0" style="-fx-background-color: #91bbf2;">
                   <children>
                      <HBox alignment="CENTER" prefHeight="55.0" prefWidth="388.0" style="-fx-background-color: #3084f2; -fx-background-radius: 100;">
                         <children>
-                           <ImageView fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true">
+                           <ImageView fx:id="searchButton" fitHeight="50.0" fitWidth="50.0" onMouseClicked="#searchHandler" pickOnBounds="true" preserveRatio="true">
                               <image>
                                  <Image url="@icon/search.png" />
                               </image>
@@ -95,7 +95,7 @@
                                  <Insets right="20.0" />
                               </HBox.margin>
                            </ImageView>
-                           <TextField prefHeight="42.0" prefWidth="235.0" promptText="Search" style="-fx-background-color: transparent; -fx-prompt-text-fill: #16eac4; -fx-text-fill: #70e1d1;">
+                           <TextField fx:id="searchField" prefHeight="42.0" prefWidth="235.0" promptText="Search" style="-fx-background-color: transparent; -fx-prompt-text-fill: #16eac4; -fx-text-fill: #70e1d1;">
                               <HBox.margin>
                                  <Insets right="20.0" />
                               </HBox.margin>
@@ -120,7 +120,7 @@
          </HBox>
       </left>
       <center>
-         <VBox fx:id="chat" alignment="BASELINE_CENTER" maxHeight="870.0" minHeight="700.0" minWidth="726.0" prefHeight="870.0" prefWidth="816.0" visible="false" BorderPane.alignment="CENTER">
+         <VBox fx:id="chat" alignment="BASELINE_CENTER" maxHeight="870.0" minHeight="700.0" minWidth="726.0" prefHeight="870.0" prefWidth="816.0" BorderPane.alignment="CENTER">
             <children>
                <HBox alignment="CENTER" prefHeight="97.0" prefWidth="816.0">
                   <children>
@@ -224,7 +224,7 @@
             </VBox>
          </right>
       </BorderPane>
-      <BorderPane fx:id="notificationUser" layoutX="105.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1265.0" visible="true">
+      <BorderPane fx:id="notificationUser" layoutX="105.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1265.0" visible="false">
          <center>
             <ScrollPane fitToHeight="true" fitToWidth="true" hbarPolicy="NEVER" maxHeight="561.0" maxWidth="816.0" pannable="true" vbarPolicy="NEVER">
                <content>
@@ -233,7 +233,7 @@
             </ScrollPane>
          </center>
       </BorderPane>
-      <BorderPane fx:id="addFriendUser" layoutX="105.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1265.0" visible="true">
+      <BorderPane fx:id="addFriendUser" layoutX="105.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1265.0" visible="false">
          <center>
             <ScrollPane fitToHeight="true" fitToWidth="true" hbarPolicy="NEVER" maxHeight="561.0" maxWidth="816.0" pannable="true" vbarPolicy="NEVER">
                <content>

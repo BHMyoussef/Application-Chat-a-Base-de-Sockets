@@ -63,9 +63,9 @@ public class Home extends Registration implements Initializable {
     @FXML
     private GridPane emojis;
     @FXML
-    private ImageView emojisButton, next, previous;
+    private ImageView emojisButton, next, previous, searchButton;
     @FXML
-    private TextField messageBar;
+    private TextField messageBar, searchField;
     @FXML
     private ListView chatPage, notificationList, addFriendList;
     @FXML
@@ -103,7 +103,6 @@ public class Home extends Registration implements Initializable {
         if(idx == friends.size()) return friends.get(friends.size());
         return friends.get(idx + 1);
     }
-
     public String getPrevious(String uid) {
         int idx = friends.indexOf(uid);
         if (idx <= 0) return friends.get(0);
@@ -184,6 +183,9 @@ public class Home extends Registration implements Initializable {
     public void sendHandler(MouseEvent event) throws IOException {
         addToChat(event, "send");
     }
+    public void searchHandler(MouseEvent event){
+
+    }
     public void receiveHandler(MouseEvent event) throws IOException {
         addToChat(event, "receive");
     }
@@ -227,6 +229,22 @@ public class Home extends Registration implements Initializable {
         container.getChildren().addAll(image, container2, accept, delete);
         notificationList.fixedCellSizeProperty();
         notificationList.getItems().add(container);
+        //Accept request
+        EventHandler<MouseEvent> selectHandlerAccept = new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent event) {
+                System.out.println("accept");
+            }
+        };
+        accept.addEventFilter(MouseEvent.MOUSE_CLICKED, selectHandlerAccept);
+        //Delete request
+        EventHandler<MouseEvent> selectHandlerDelete = new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent event) {
+                System.out.println("delete");
+            }
+        };
+        delete.addEventFilter(MouseEvent.MOUSE_CLICKED, selectHandlerDelete);
     }
     public void addfriends(MouseEvent event, List<String> friends){
         for(String friend: friends)
@@ -258,6 +276,14 @@ public class Home extends Registration implements Initializable {
         container.getChildren().addAll(image, container2, add);
         addFriendList.fixedCellSizeProperty();
         addFriendList.getItems().add(container);
+        //add Image Click
+        EventHandler<MouseEvent> selectHandler = new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent event) {
+                System.out.println("friend added");
+            }
+        };
+        add.addEventFilter(MouseEvent.MOUSE_CLICKED, selectHandler);
     }
     public void addDisscussion(MouseEvent event, String username){
         HBox container = new HBox();
