@@ -53,9 +53,9 @@
                            <Insets top="20.0" />
                         </VBox.margin>
                      </ImageView>
-                     <ImageView fitHeight="80.0" fitWidth="80.0" pickOnBounds="true" preserveRatio="true">
+                     <ImageView fx:id="settingsButton" fitHeight="80.0" fitWidth="80.0" onMouseClicked="#Settings" pickOnBounds="true" preserveRatio="true">
                         <image>
-                           <Image url="@icon/settings.png" />
+                           <Image url="@icon/addfriend.png" />
                         </image>
                         <VBox.margin>
                            <Insets top="20.0" />
@@ -76,7 +76,7 @@
                      </ImageView>
                   </children>
                </VBox>
-               <VBox prefHeight="700.0" prefWidth="448.0" style="-fx-background-color: #91bbf2;">
+               <VBox fx:id="discussionsView" prefHeight="700.0" prefWidth="448.0" style="-fx-background-color: #91bbf2;">
                   <children>
                      <HBox alignment="CENTER" prefHeight="55.0" prefWidth="388.0" style="-fx-background-color: #3084f2; -fx-background-radius: 100;">
                         <children>
