@@ -1,6 +1,8 @@
 package com.chatui.frontendjavafx;
 
+import java.util.HashSet;
 import java.util.Objects;
+import java.util.Set;
 
 public class User {
 
@@ -12,6 +14,7 @@ public class User {
     private String email;
     private String password;
     private int totalFriends = 0;
+    private Set<User> friends = new HashSet<>();
 
     public User(String userID, Long id, String name, String email, String password, int totalFriends) {
         this.userID = userID;

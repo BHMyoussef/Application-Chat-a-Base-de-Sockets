@@ -49,7 +49,7 @@ public class Home extends Registration implements Initializable {
     @FXML
 
     private ImageView settingsButton;
-
+    @FXML
     private ImageView notification;
     @FXML
     private ImageView notifCircle;
@@ -84,7 +84,7 @@ public class Home extends Registration implements Initializable {
         HttpClient client = HttpClient.newHttpClient();
         Gson gson = new Gson();
         HttpRequest request = HttpRequest.newBuilder()
-                .uri(URI.create("http://localhost:1947/api/v1/users"))
+                .uri(URI.create("http://localhost:8080/api/v1/users"))
                 .header("Content-Type", "application/json")
                 .header("Authorization", UserToken.token)
                 .PUT(HttpRequest.BodyPublishers.ofString(gson.toJson(user)))
@@ -120,6 +120,7 @@ public class Home extends Registration implements Initializable {
         profile.setBlendMode(BlendMode.valueOf("GREEN"));
         conversation.setBlendMode(BlendMode.valueOf("SRC_OVER"));
         settingsButton.setBlendMode(BlendMode.valueOf("SRC_OVER"));
+        notification.setBlendMode(BlendMode.valueOf("SRC_OVER"));
         profileUser.setVisible(true);
         User profile = SignIn.postUser.getSession();
         emailProfile.setText(profile.getEmail());
@@ -131,6 +132,7 @@ public class Home extends Registration implements Initializable {
         conversation.setBlendMode(BlendMode.valueOf("GREEN"));
         profile.setBlendMode(BlendMode.valueOf("SRC_OVER"));
         settingsButton.setBlendMode(BlendMode.valueOf("SRC_OVER"));
+        notification.setBlendMode(BlendMode.valueOf("SRC_OVER"));
         profileUser.setVisible(false);
     }
     public void Settings(MouseEvent event) {
@@ -138,16 +140,19 @@ public class Home extends Registration implements Initializable {
         settingsButton.setBlendMode(BlendMode.valueOf("GREEN"));
         profile.setBlendMode(BlendMode.valueOf("SRC_OVER"));
         conversation.setBlendMode(BlendMode.valueOf("SRC_OVER"));
+        notification.setBlendMode(BlendMode.valueOf("SRC_OVER"));
         chat.setVisible(false);
         profileUser.setVisible(false);
     }
 
     public void Notification(MouseEvent event){
         notifCircle.setVisible(false);
-        notification.setVisible(true);
         notification.setBlendMode(BlendMode.valueOf("GREEN"));
         conversation.setBlendMode(BlendMode.valueOf("SRC_OVER"));
         profile.setBlendMode(BlendMode.valueOf("SRC_OVER"));
+        chat.setVisible(false);
+        discussionsView.setVisible(false);
+        profileUser.setVisible(false);
         System.out.println("notif");
     }
 

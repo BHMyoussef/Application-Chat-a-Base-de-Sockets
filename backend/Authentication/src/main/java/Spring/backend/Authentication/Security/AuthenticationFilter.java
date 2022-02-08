@@ -80,7 +80,7 @@ public class AuthenticationFilter extends UsernamePasswordAuthenticationFilter {
         responseBody.put("userID", userID);
 
         responseBody.put("friends", friends);
-
+        System.out.println(friends);
         responseBody.put("is_connected", is_connected);
         response.setContentType("application/json");
         new ObjectMapper().writeValue(response.getOutputStream(), responseBody);
