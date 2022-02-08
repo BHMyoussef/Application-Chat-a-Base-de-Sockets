@@ -1,4 +1,4 @@
-/*
+
 package Spring.backend.chat.friends;
 
 import org.springframework.web.bind.annotation.*;
@@ -25,4 +25,3 @@ public class FriendsController {
         return friendsService.deleteRequestFriendship(friendsKey);
     }
 }
-*/

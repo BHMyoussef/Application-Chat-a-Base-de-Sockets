@@ -58,7 +58,7 @@ public class SignIn extends Registration{
             System.out.println(token);
             httpHeaders.put("Authorization",token);
             StompClient stompSocket = new StompClient(
-                    URI.create("ws://localhost:8080/chat"),new Draft_6455(), httpHeaders,0);
+                    URI.create("ws://localhost:1947/chat"),new Draft_6455(), httpHeaders,0);
             boolean connected;
             try {
                 connected = stompSocket.connectBlocking();
