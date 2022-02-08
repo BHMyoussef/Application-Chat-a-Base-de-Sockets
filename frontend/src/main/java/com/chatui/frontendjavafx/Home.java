@@ -1,5 +1,6 @@
 package com.chatui.frontendjavafx;
 
+import com.eu.mivrenik.stomp.client.StompClient;
 import com.google.gson.Gson;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -18,6 +19,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.*;
 import javafx.scene.text.TextAlignment;
+import org.java_websocket.drafts.Draft_6455;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -315,6 +317,7 @@ public class Home extends Registration implements Initializable {
                     msg.setStyle(msg.getStyle()+"-fx-background-color: #50c984; -fx-text-fill: #fff");
                     x.setAlignment(Pos.BOTTOM_RIGHT);
                     x.getChildren().addAll(msg, image);
+                    send("5",messageBar.getText());
                     break;
                 case "receive" :
                     input = getClass().getResourceAsStream("/com/chatui/frontendjavafx/icon/user.png");
@@ -414,7 +417,17 @@ public class Home extends Registration implements Initializable {
 //                .header("Authorization", UserToken.token) !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 //                .build();
     }
+    public static void send(String idReciever, String message) {
+        // Sending JSON message to a server
+        String token = UserToken.token;
+        Map<String, String> httpHeaders =new HashMap<>();
+        httpHeaders.put("Authorization",token);
+        StompClient stompSocket = new StompClient(
+                URI.create("ws://localhost:8080/chat"),new Draft_6455(), httpHeaders,0);
 
+        String messageJson = "{\"fromLogin\":\""+idReciever+"\", \"message\":\""+ message +"\"}";
+        stompSocket.send("/app/chat/ali", message);
+    }
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         friends = new ArrayList<>();

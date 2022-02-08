@@ -26,6 +26,7 @@ import java.util.List;
 import java.util.Map;
 
 public class SignIn extends Registration{
+
     @FXML
     private TextField email;
     @FXML
