@@ -2,7 +2,10 @@ package com.chatui.frontendjavafx;
 
 import java.util.ArrayList;
 import java.util.List;
+
+
 import java.util.Objects;
+import java.util.Set;
 
 public class User {
 
@@ -15,6 +18,7 @@ public class User {
     private String password;
     private int totalFriends = 0;
     List<User> friends = new ArrayList<>();
+
 
     public User(String userID, Long id, String name, String email, String password, int totalFriends) {
         this.userID = userID;

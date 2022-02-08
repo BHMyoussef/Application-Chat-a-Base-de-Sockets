@@ -26,9 +26,9 @@ public abstract class Registration {
     public final static String SIGN_IN_PATH = "SignInUI.fxml";
     public final static String HOME_PATH = "home.fxml";
 
-    public final static String REGISTRATION_URL = "http://localhost:1947/api/v1/registration";
-    public final static String SIGN_IN_URL = "http://localhost:1947/api/v1/signin";
-    public final static String Modify_Cox_State = "http://localhost:1947/api/v1/ModifyCoxState";
+    public final static String REGISTRATION_URL = "http://localhost:8080/api/v1/registration";
+    public final static String SIGN_IN_URL = "http://localhost:8080/api/v1/signin";
+    public final static String Modify_Cox_State = "http://localhost:8080/api/v1/ModifyCoxState";
 
     public boolean isUserValid = false;
     public boolean isSuccess = false;
