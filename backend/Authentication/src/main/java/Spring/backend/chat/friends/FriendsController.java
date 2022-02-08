@@ -1,7 +1,10 @@
 
 package Spring.backend.chat.friends;
 
+import Spring.backend.Authentication.appuser.AppUser;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequestMapping(path = "api/v1/friends/friendship")
@@ -12,6 +15,11 @@ public class FriendsController {
         this.friendsService = friendsService;
     }
 
+    @GetMapping("/{senderId}")
+    public List<AppUser> getPendingInvitations(@PathVariable String senderId){
+        return friendsService.getPendingInvitations(senderId);
+    }
+
     @PostMapping
     public Friends inviteFriend(@RequestBody FriendsKey friendsKey){
         return friendsService.sendRequestFriendship(friendsKey);
@@ -20,7 +28,7 @@ public class FriendsController {
     public Friends acceptFriend(@RequestBody FriendsKey friendsKey){
         return friendsService.acceptRequestFriendship(friendsKey);
     }
-    @DeleteMapping
+    @PutMapping(path = "/delete")
     public String deleteFriend(@RequestBody FriendsKey friendsKey){
         return friendsService.deleteRequestFriendship(friendsKey);
     }

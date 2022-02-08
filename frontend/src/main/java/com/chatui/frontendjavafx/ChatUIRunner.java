@@ -10,7 +10,7 @@ import java.io.IOException;
 public class ChatUIRunner extends Application {
     @Override
     public void start(Stage stage) throws IOException {
-        FXMLLoader fxmlLoader = new FXMLLoader(ChatUIRunner.class.getResource("home.fxml"));
+        FXMLLoader fxmlLoader = new FXMLLoader(ChatUIRunner.class.getResource("SignInUI.fxml"));
         Scene scene = new Scene(fxmlLoader.load());
         stage.setTitle("Chat With Me");
         stage.setScene(scene);

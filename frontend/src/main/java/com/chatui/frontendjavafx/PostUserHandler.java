@@ -34,6 +34,9 @@ public class PostUserHandler extends Task<Void> {
     public User getSession() {
         return session;
     }
+    public void setSession(User user) {
+         session = user;
+    }
 
     public HttpResponse<String> getListUsers() {
         return listUsers;

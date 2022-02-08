@@ -14,8 +14,17 @@ public class AppUserController {
     }
 
     @GetMapping
-    public List<AppUser> getUsers(){
+    public List<AppUser> getConnectedUsers(){
         return appUserService.findUsers();
+    }
+
+    @GetMapping(path = "/all")
+    public List<AppUser> getAllUsers(){
+        return appUserService.findAllUsers();
+    }
+    @GetMapping(path = "/{userId}")
+    public AppUser getSingleUser(@PathVariable String userId){
+        return appUserService.findById(userId);
     }
 
     @PutMapping

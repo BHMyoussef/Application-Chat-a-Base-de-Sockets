@@ -1,5 +1,6 @@
 package Spring.backend.Authentication.appuser;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
 import org.hibernate.annotations.GenericGenerator;
 
@@ -25,6 +26,7 @@ public class AppUser implements Serializable {
     private String email;
     private String password;
     private int totalFriends = 0;
+    @JsonIgnore
     private boolean is_connected = false;
 
     @OneToMany

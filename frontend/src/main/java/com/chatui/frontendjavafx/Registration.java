@@ -28,6 +28,7 @@ public abstract class Registration {
 
     public final static String REGISTRATION_URL = "http://localhost:8080/api/v1/registration";
     public final static String SIGN_IN_URL = "http://localhost:8080/api/v1/signin";
+    public final static String FRIENDS_URL = "http://localhost:8080/api/v1/friends/friendship";
     public final static String Modify_Cox_State = "http://localhost:8080/api/v1/ModifyCoxState";
 
     public boolean isUserValid = false;

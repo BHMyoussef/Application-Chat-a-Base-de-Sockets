@@ -25,6 +25,11 @@ public class AppUserService implements UserDetailsService {
     public List<AppUser> findUsers(){
         return appuserrepository.findAllConnected();
     }
+
+    @Transactional
+    public List<AppUser> findAllUsers(){
+        return appuserrepository.findAll();
+    }
     public boolean userExistById(String id){ return appuserrepository.findById(id).isPresent();}
     public AppUser findById(String id){ return appuserrepository.findById(id).get();}
 

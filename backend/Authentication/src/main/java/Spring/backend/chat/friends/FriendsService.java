@@ -5,6 +5,8 @@ import Spring.backend.Authentication.appuser.AppUser;
 import Spring.backend.Authentication.appuser.AppUserRepository;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -15,6 +17,15 @@ public class FriendsService {
     public FriendsService(FriendsRepository friendsRepository, AppUserRepository appUserRepository) {
         this.friendsRepository = friendsRepository;
         this.appUserRepository = appUserRepository;
+    }
+
+    public List<AppUser> getPendingInvitations(String senderId){
+        List<AppUser> pendingUsers = new ArrayList<>();
+       List<String> receiverIds =  friendsRepository.findReceiverIds(senderId);
+        for (String receiverId: receiverIds){
+           pendingUsers.add(appUserRepository.findById(receiverId).get());
+        }
+        return pendingUsers;
     }
 
     public Friends sendRequestFriendship(FriendsKey friendsKey){
