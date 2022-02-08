@@ -1,4 +1,4 @@
-/*
+
 package Spring.backend.chat.friends;
 
 import Spring.backend.Authentication.appuser.AppUser;
@@ -16,7 +16,7 @@ public class FriendsService {
         this.friendsRepository = friendsRepository;
         this.appUserRepository = appUserRepository;
     }
-    /*
+
     public Friends sendRequestFriendship(FriendsKey friendsKey){
         if(isValidInvitation(friendsKey)){
             Friends pendingRelation = new Friends(friendsKey, Status.PENDING);
@@ -88,10 +88,14 @@ public class FriendsService {
     private void removeFriend(AppUser user1, AppUser user2){
         user1.setTotalFriends(user1.getTotalFriends()-1);
         user2.setTotalFriends(user2.getTotalFriends()-1);
+        user1.getFriends().remove(user2);
+        user2.getFriends().remove(user1);
     }
     private void addFriend(AppUser user1, AppUser user2){
         user1.setTotalFriends(user1.getTotalFriends()+1);
         user2.setTotalFriends(user2.getTotalFriends()+1);
+        user1.getFriends().add(user2);
+        user2.getFriends().add(user1);
     }
 
     private void updateFriendsList(FriendsKey friendsKey, String operation){
@@ -104,4 +108,3 @@ public class FriendsService {
         }
     }
 }
-*/

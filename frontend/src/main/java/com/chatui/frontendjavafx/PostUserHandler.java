@@ -16,6 +16,7 @@ public class PostUserHandler extends Task<Void> {
     private User session = new User();
     private String res;
     private String token;
+    private HttpResponse<String> listUsers;
 
     public PostUserHandler(User user, String url) {
         this.user = user;
@@ -32,6 +33,10 @@ public class PostUserHandler extends Task<Void> {
 
     public User getSession() {
         return session;
+    }
+
+    public HttpResponse<String> getListUsers() {
+        return listUsers;
     }
 
     @Override
@@ -67,14 +72,14 @@ public class PostUserHandler extends Task<Void> {
                         this.res = "success";
 
                         HttpRequest getRequest = HttpRequest.newBuilder()
-                                .uri(URI.create("http://localhost:8080/api/v1/users"))
+                                .uri(URI.create("http://localhost:1947/api/v1/users"))
                                 .header("Content-Type", "application/json")
                                 .header("accept", "application/json")
                                 .header("Authorization", UserToken.token)
                                 .GET()
                                 .build();
-                        HttpResponse<String> getResponse = client.send(getRequest, HttpResponse.BodyHandlers.ofString());
-                        System.out.println(getResponse.body());
+                        HttpResponse<String> listUsers = client.send(getRequest, HttpResponse.BodyHandlers.ofString());
+                        System.out.println(listUsers.body());
                     }
                     else {
                         message = List.of(tab[1].split(":"));

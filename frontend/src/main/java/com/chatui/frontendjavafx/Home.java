@@ -75,7 +75,7 @@ public class Home extends Registration implements Initializable {
         HttpClient client = HttpClient.newHttpClient();
         Gson gson = new Gson();
         HttpRequest request = HttpRequest.newBuilder()
-                .uri(URI.create("http://localhost:8080/api/v1/users"))
+                .uri(URI.create("http://localhost:1947/api/v1/users"))
                 .header("Content-Type", "application/json")
                 .header("Authorization", UserToken.token)
                 .PUT(HttpRequest.BodyPublishers.ofString(gson.toJson(user)))
@@ -96,7 +96,6 @@ public class Home extends Registration implements Initializable {
         return friends.get(idx - 1);
     }
     public void navigationChat(MouseEvent event){
-        ListIterator<String> iterator = friends.listIterator();
         System.out.println(friends.toString());
         if(event.getSource() == next){
             nameInChat.setText(getNext(nameInChat.getText()));
@@ -122,6 +121,9 @@ public class Home extends Registration implements Initializable {
         profileUser.setVisible(false);
     }
 
+    public void ListUsers(MouseEvent event){
+        
+    }
 
     public static ArrayList<Node> getAllNodes(Parent root) {
         ArrayList<Node> nodes = new ArrayList<Node>();

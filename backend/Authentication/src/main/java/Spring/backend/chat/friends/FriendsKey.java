@@ -14,6 +14,6 @@ import java.io.Serializable;
 @Getter
 @Embeddable
 public class FriendsKey implements Serializable {
-    private Long senderId;
-    private Long receiverId;
+    private String senderId;
+    private String receiverId;
 }
