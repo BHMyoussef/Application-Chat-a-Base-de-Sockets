@@ -28,7 +28,6 @@ import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.ListIterator;
 import java.util.ResourceBundle;
 
 public class Home extends Registration implements Initializable {
@@ -44,7 +43,11 @@ public class Home extends Registration implements Initializable {
     @FXML
     private ImageView profile;
     @FXML
+    private VBox discussionsView = new VBox();
+    @FXML
     private ImageView conversation;
+    @FXML
+    private ImageView settingsButton;
     @FXML
     private VBox chat;
     @FXML
@@ -96,7 +99,6 @@ public class Home extends Registration implements Initializable {
         return friends.get(idx - 1);
     }
     public void navigationChat(MouseEvent event){
-        ListIterator<String> iterator = friends.listIterator();
         System.out.println(friends.toString());
         if(event.getSource() == next){
             nameInChat.setText(getNext(nameInChat.getText()));
@@ -108,8 +110,10 @@ public class Home extends Registration implements Initializable {
     }
     public void Profile(MouseEvent event) {
         chat.setVisible(false);
+        discussionsView.setVisible(false);
         profile.setBlendMode(BlendMode.valueOf("GREEN"));
         conversation.setBlendMode(BlendMode.valueOf("SRC_OVER"));
+        settingsButton.setBlendMode(BlendMode.valueOf("SRC_OVER"));
         profileUser.setVisible(true);
         User profile = SignIn.postUser.getSession();
         emailProfile.setText(profile.getEmail());
@@ -117,8 +121,18 @@ public class Home extends Registration implements Initializable {
     }
     public void Conversation(MouseEvent event) {
         chat.setVisible(true);
+        discussionsView.setVisible(true);
         conversation.setBlendMode(BlendMode.valueOf("GREEN"));
         profile.setBlendMode(BlendMode.valueOf("SRC_OVER"));
+        settingsButton.setBlendMode(BlendMode.valueOf("SRC_OVER"));
+        profileUser.setVisible(false);
+    }
+    public void Settings(MouseEvent event) {
+        discussionsView.setVisible(false);
+        settingsButton.setBlendMode(BlendMode.valueOf("GREEN"));
+        profile.setBlendMode(BlendMode.valueOf("SRC_OVER"));
+        conversation.setBlendMode(BlendMode.valueOf("SRC_OVER"));
+        chat.setVisible(false);
         profileUser.setVisible(false);
     }
 
@@ -309,7 +323,7 @@ public class Home extends Registration implements Initializable {
         friends.add("souhail");
         friends.add("merouane");
         friends.add("youssef");
-        friends.add("nejoui");
+        friends.add("hamid");
         //User profile = SignIn.postUser.getSession();
         addDisscussions(null, friends);
     }
