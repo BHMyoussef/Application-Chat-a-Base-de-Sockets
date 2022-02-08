@@ -41,6 +41,10 @@ public class Home extends Registration implements Initializable {
     @FXML
     private BorderPane profileUser;
     @FXML
+    private BorderPane notificationUser;
+    @FXML
+    private BorderPane addFriendUser;
+    @FXML
     private ImageView profile;
     @FXML
     private VBox discussionsView = new VBox();
@@ -63,7 +67,7 @@ public class Home extends Registration implements Initializable {
     @FXML
     private TextField messageBar;
     @FXML
-    private ListView chatPage;
+    private ListView chatPage, notificationList, addFriendList;
     @FXML
     private Label nameInChat;
     @FXML
@@ -74,8 +78,9 @@ public class Home extends Registration implements Initializable {
     private Label nameProfile, emailProfile;
     @FXML
     private ScrollPane scrollPage;
+    @FXML
     private Node last_msg_node;
-    public static List<String> friends = new ArrayList<>();
+    public static List<String> friends;
     private boolean isEmojiMenuShown = false;
 
     public void Exit(MouseEvent event) throws IOException, InterruptedException {
@@ -116,36 +121,44 @@ public class Home extends Registration implements Initializable {
     }
     public void Profile(MouseEvent event) {
         chat.setVisible(false);
+        addFriendUser.setVisible(false);
         discussionsView.setVisible(false);
         profile.setBlendMode(BlendMode.valueOf("GREEN"));
         conversation.setBlendMode(BlendMode.valueOf("SRC_OVER"));
         settingsButton.setBlendMode(BlendMode.valueOf("SRC_OVER"));
         notification.setBlendMode(BlendMode.valueOf("SRC_OVER"));
         profileUser.setVisible(true);
+        notificationUser.setVisible(false);
         User profile = SignIn.postUser.getSession();
         emailProfile.setText(profile.getEmail());
         nameProfile.setText(profile.getName());
     }
     public void Conversation(MouseEvent event) {
+        addFriendUser.setVisible(false);
         chat.setVisible(true);
         discussionsView.setVisible(true);
+        notificationUser.setVisible(false);
         conversation.setBlendMode(BlendMode.valueOf("GREEN"));
         profile.setBlendMode(BlendMode.valueOf("SRC_OVER"));
         settingsButton.setBlendMode(BlendMode.valueOf("SRC_OVER"));
         notification.setBlendMode(BlendMode.valueOf("SRC_OVER"));
         profileUser.setVisible(false);
     }
-    public void Settings(MouseEvent event) {
+    public void AddFriend(MouseEvent event) {
         discussionsView.setVisible(false);
         settingsButton.setBlendMode(BlendMode.valueOf("GREEN"));
         profile.setBlendMode(BlendMode.valueOf("SRC_OVER"));
         conversation.setBlendMode(BlendMode.valueOf("SRC_OVER"));
         notification.setBlendMode(BlendMode.valueOf("SRC_OVER"));
+        notificationUser.setVisible(false);
         chat.setVisible(false);
         profileUser.setVisible(false);
+        addFriendUser.setVisible(true);
     }
 
     public void Notification(MouseEvent event){
+        addFriendUser.setVisible(false);
+        notificationUser.setVisible(true);
         notifCircle.setVisible(false);
         notification.setBlendMode(BlendMode.valueOf("GREEN"));
         conversation.setBlendMode(BlendMode.valueOf("SRC_OVER"));
@@ -178,6 +191,73 @@ public class Home extends Registration implements Initializable {
         nameInChat.setText(friends.get(0));
         for(String friend: friends)
             addDisscussion(event, friend);
+    }
+    public void addNotifications(MouseEvent event, List<String> friends){
+        for(String friend: friends)
+            addNotification(event, friend);
+    }
+    public void addNotification(MouseEvent event, String username){
+        HBox container = new HBox();
+        VBox container2 = new VBox();
+        Label name = new Label(username);
+        container2.setAlignment(Pos.CENTER_LEFT);
+        container2.setPrefWidth(277.0);
+        container2.setPrefHeight(100.0);
+        name.setPrefWidth(188.0);
+        name.setPrefHeight(17.0);
+        name.setStyle("-fx-font: Ebrima Bold; -fx-font-size: 30.0; -fx-text-fill: #f7fafa");
+        container2.getChildren().add(name);
+        ImageView image = new ImageView();
+        InputStream input = getClass().getResourceAsStream("/com/chatui/frontendjavafx/icon/user.png");
+        ImageView accept = new ImageView();
+        InputStream inputAccept = getClass().getResourceAsStream("/com/chatui/frontendjavafx/icon/accept.png");
+        ImageView delete = new ImageView();
+        InputStream inputDelete = getClass().getResourceAsStream("/com/chatui/frontendjavafx/icon/delete.png");
+        image.setImage(new Image(input));
+        accept.setImage(new Image(inputAccept));
+        delete.setImage(new Image(inputDelete));
+        image.setFitHeight(90.0);
+        image.setFitWidth(90.0);
+        accept.setFitHeight(50.0);
+        accept.setFitWidth(50.0);
+        delete.setFitHeight(50.0);
+        delete.setFitWidth(50.0);
+        container.setAlignment(Pos.CENTER);
+        container.setId("chatSelected");
+        container.getChildren().addAll(image, container2, accept, delete);
+        notificationList.fixedCellSizeProperty();
+        notificationList.getItems().add(container);
+    }
+    public void addfriends(MouseEvent event, List<String> friends){
+        for(String friend: friends)
+            addfriend(event, friend);
+    }
+    public void addfriend(MouseEvent event, String username){
+        HBox container = new HBox();
+        VBox container2 = new VBox();
+        Label name = new Label(username);
+        container2.setAlignment(Pos.CENTER_LEFT);
+        container2.setPrefWidth(277.0);
+        container2.setPrefHeight(100.0);
+        name.setPrefWidth(188.0);
+        name.setPrefHeight(17.0);
+        name.setStyle("-fx-font: Ebrima Bold; -fx-font-size: 30.0; -fx-text-fill: #f7fafa");
+        container2.getChildren().add(name);
+        ImageView image = new ImageView();
+        InputStream input = getClass().getResourceAsStream("/com/chatui/frontendjavafx/icon/user.png");
+        ImageView add = new ImageView();
+        InputStream inputAdd = getClass().getResourceAsStream("/com/chatui/frontendjavafx/icon/add.png");
+        image.setImage(new Image(input));
+        add.setImage(new Image(inputAdd));
+        image.setFitHeight(90.0);
+        image.setFitWidth(90.0);
+        add.setFitHeight(50.0);
+        add.setFitWidth(50.0);
+        container.setAlignment(Pos.CENTER);
+        container.setId("chatSelected");
+        container.getChildren().addAll(image, container2, add);
+        addFriendList.fixedCellSizeProperty();
+        addFriendList.getItems().add(container);
     }
     public void addDisscussion(MouseEvent event, String username){
         HBox container = new HBox();
@@ -337,6 +417,7 @@ public class Home extends Registration implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        friends = new ArrayList<>();
         friends.add("aymane");
         friends.add("zakaria");
         friends.add("souhail");
@@ -345,5 +426,7 @@ public class Home extends Registration implements Initializable {
         friends.add("hamid");
         //User profile = SignIn.postUser.getSession();
         addDisscussions(null, friends);
+        addNotifications(null, friends);
+        addfriends(null, friends);
     }
 }

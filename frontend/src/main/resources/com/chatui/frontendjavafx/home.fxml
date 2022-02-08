@@ -1,5 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import java.lang.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.shape.*?>
+<?import javafx.scene.text.*?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ListView?>
@@ -17,7 +24,7 @@
 <?import javafx.scene.shape.Circle?>
 <?import javafx.scene.text.Font?>
 
-<Pane fx:id="parentContainer1" maxHeight="800.0" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1370.0" style="-fx-background-color: #fff;" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.chatui.frontendjavafx.Home">
+<Pane fx:id="parentContainer1" maxHeight="800.0" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1370.0" style="-fx-background-color: #fff;" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.chatui.frontendjavafx.Home">
    <children>
    <BorderPane fx:id="childContainer1" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1370.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
       <left>
@@ -53,7 +60,7 @@
                            <Insets top="20.0" />
                         </VBox.margin>
                      </ImageView>
-                     <ImageView fx:id="settingsButton" fitHeight="80.0" fitWidth="80.0" onMouseClicked="#Settings" pickOnBounds="true" preserveRatio="true">
+                     <ImageView fx:id="settingsButton" fitHeight="80.0" fitWidth="80.0" onMouseClicked="#AddFriend" pickOnBounds="true" preserveRatio="true">
                         <image>
                            <Image url="@icon/addfriend.png" />
                         </image>
@@ -76,7 +83,7 @@
                      </ImageView>
                   </children>
                </VBox>
-               <VBox fx:id="discussionsView" prefHeight="700.0" prefWidth="448.0" style="-fx-background-color: #91bbf2;">
+               <VBox fx:id="discussionsView" prefHeight="700.0" prefWidth="448.0" style="-fx-background-color: #91bbf2;" visible="false">
                   <children>
                      <HBox alignment="CENTER" prefHeight="55.0" prefWidth="388.0" style="-fx-background-color: #3084f2; -fx-background-radius: 100;">
                         <children>
@@ -113,7 +120,7 @@
          </HBox>
       </left>
       <center>
-         <VBox fx:id="chat" alignment="BASELINE_CENTER" maxHeight="870.0" minHeight="700.0" minWidth="726.0" prefHeight="870.0" prefWidth="816.0" BorderPane.alignment="CENTER">
+         <VBox fx:id="chat" alignment="BASELINE_CENTER" maxHeight="870.0" minHeight="700.0" minWidth="726.0" prefHeight="870.0" prefWidth="816.0" visible="false" BorderPane.alignment="CENTER">
             <children>
                <HBox alignment="CENTER" prefHeight="97.0" prefWidth="816.0">
                   <children>
@@ -216,6 +223,24 @@
                </children>
             </VBox>
          </right>
+      </BorderPane>
+      <BorderPane fx:id="notificationUser" layoutX="105.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1265.0" visible="true">
+         <center>
+            <ScrollPane fitToHeight="true" fitToWidth="true" hbarPolicy="NEVER" maxHeight="561.0" maxWidth="816.0" pannable="true" vbarPolicy="NEVER">
+               <content>
+                  <ListView fx:id="notificationList" maxHeight="561.0" maxWidth="816.0" prefHeight="561.0" prefWidth="800.0" style="-fx-background-color: #dadada; -fx-control-inner-background: transparent; -fx-vbar-policy: always" />
+               </content>
+            </ScrollPane>
+         </center>
+      </BorderPane>
+      <BorderPane fx:id="addFriendUser" layoutX="105.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1265.0" visible="true">
+         <center>
+            <ScrollPane fitToHeight="true" fitToWidth="true" hbarPolicy="NEVER" maxHeight="561.0" maxWidth="816.0" pannable="true" vbarPolicy="NEVER">
+               <content>
+                  <ListView fx:id="addFriendList" maxHeight="561.0" maxWidth="816.0" prefHeight="561.0" prefWidth="800.0" style="-fx-background-color: #dadada; -fx-control-inner-background: transparent; -fx-vbar-policy: always" />
+               </content>
+            </ScrollPane>
+         </center>
       </BorderPane>
       <GridPane fx:id="emojis" alignment="CENTER" hgap="10.0" layoutX="572.0" layoutY="466.0" prefHeight="140.0" prefWidth="273.0" style="-fx-translate-z: 2; -fx-background-color: rgba(255,255,255,0.5); -fx-background-radius: 30; visibility: hidden;" vgap="6.0">
         <columnConstraints>
