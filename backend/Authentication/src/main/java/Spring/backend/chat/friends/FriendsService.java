@@ -19,11 +19,11 @@ public class FriendsService {
         this.appUserRepository = appUserRepository;
     }
 
-    public List<AppUser> getPendingInvitations(String senderId){
+    public List<AppUser> getPendingInvitations(String receiverId){
         List<AppUser> pendingUsers = new ArrayList<>();
-       List<String> receiverIds =  friendsRepository.findReceiverIds(senderId);
-        for (String receiverId: receiverIds){
-           pendingUsers.add(appUserRepository.findById(receiverId).get());
+        List<String> senderIds =  friendsRepository.findSenderIds(receiverId);
+        for (String senderId: senderIds){
+           pendingUsers.add(appUserRepository.findById(senderId).get());
         }
         return pendingUsers;
     }
@@ -38,7 +38,6 @@ public class FriendsService {
     }
     public Friends acceptRequestFriendship(FriendsKey friendsKey){
         if(isValidFriendship(friendsKey)){
-            //TODO: check before accept request if auth user is the one who has receiver_id
             if(isPendingInvitation(friendsKey)){
                 updateFriendsList(friendsKey, "ADD");
                 Friends friends = new Friends(friendsKey, Status.ACCEPTED);

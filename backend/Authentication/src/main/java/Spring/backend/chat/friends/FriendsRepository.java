@@ -8,6 +8,6 @@ import java.util.List;
 
 @Repository
 public interface FriendsRepository extends CrudRepository<Friends, FriendsKey> {
-    @Query("SELECT f.friendsKey.receiverId FROM Friends f WHERE f.status = 'PENDING' AND f.friendsKey.senderId = ?1")
-    List<String> findReceiverIds(String senderId);
+    @Query("SELECT f.friendsKey.senderId FROM Friends f WHERE f.status = 'PENDING' AND f.friendsKey.receiverId = ?1")
+    List<String> findSenderIds(String receiverId);
 }

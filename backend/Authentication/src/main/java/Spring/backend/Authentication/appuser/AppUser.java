@@ -29,6 +29,7 @@ public class AppUser implements Serializable {
     @JsonIgnore
     private boolean is_connected = false;
 
+    @JsonIgnore
     @OneToMany
     List<AppUser> friends = new ArrayList<>();
 

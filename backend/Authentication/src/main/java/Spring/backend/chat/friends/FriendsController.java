@@ -15,9 +15,9 @@ public class FriendsController {
         this.friendsService = friendsService;
     }
 
-    @GetMapping("/{senderId}")
-    public List<AppUser> getPendingInvitations(@PathVariable String senderId){
-        return friendsService.getPendingInvitations(senderId);
+    @GetMapping("/{receiverId}")
+    public List<AppUser> getPendingInvitations(@PathVariable String receiverId){
+        return friendsService.getPendingInvitations(receiverId);
     }
 
     @PostMapping

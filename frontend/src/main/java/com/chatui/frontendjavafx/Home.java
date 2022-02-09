@@ -100,7 +100,6 @@ public class Home extends Registration implements Initializable {
                 .PUT(HttpRequest.BodyPublishers.ofString(gson.toJson(user)))
                 .build();
         HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
-        System.out.println(response.body());
     }
     public String getNext(String uid) {
         int idx = friends.indexOf(uid);
@@ -114,7 +113,6 @@ public class Home extends Registration implements Initializable {
         return friends.get(idx - 1).getName();
     }
     public void navigationChat(MouseEvent event){
-        System.out.println(friends.toString());
         if(event.getSource() == next){
             nameInChat.setText(getNext(nameInChat.getText()));
         }
@@ -137,7 +135,7 @@ public class Home extends Registration implements Initializable {
         emailProfile.setText(profile.getEmail());
         nameProfile.setText(profile.getName());
     }
-    public void Conversation(MouseEvent event) {
+    public void Conversation(MouseEvent event) throws JsonProcessingException {
         addFriendUser.setVisible(false);
         chat.setVisible(true);
         discussionsView.setVisible(true);
@@ -147,6 +145,7 @@ public class Home extends Registration implements Initializable {
         settingsButton.setBlendMode(BlendMode.valueOf("SRC_OVER"));
         notification.setBlendMode(BlendMode.valueOf("SRC_OVER"));
         profileUser.setVisible(false);
+        addDisscussions(null);
     }
     public void AddFriend(MouseEvent event) {
         discussionsView.setVisible(false);
@@ -158,6 +157,7 @@ public class Home extends Registration implements Initializable {
         chat.setVisible(false);
         profileUser.setVisible(false);
         addFriendUser.setVisible(true);
+        addfriends(null);
     }
 
     public void Notification(MouseEvent event){
@@ -170,7 +170,7 @@ public class Home extends Registration implements Initializable {
         chat.setVisible(false);
         discussionsView.setVisible(false);
         profileUser.setVisible(false);
-        System.out.println("notif");
+        addNotifications(null);
     }
 
     public static ArrayList<Node> getAllNodes(Parent root) {
@@ -194,30 +194,40 @@ public class Home extends Registration implements Initializable {
     public void receiveHandler(MouseEvent event) throws IOException {
         addToChat(event, "receive");
     }
-    public void addDisscussions(MouseEvent event) {
+    public void addDisscussions(MouseEvent event) throws JsonProcessingException {
+        friends = new ArrayList<>();
         User user = SignIn.postUser.getSession();
-        HttpClient client = HttpClient.newHttpClient();
-        Gson gson = new Gson();
+        if(user.getUserID() != null){
+            HttpClient client = HttpClient.newHttpClient();
 
-        HttpRequest request = HttpRequest.newBuilder()
-                .uri(URI.create("http://localhost:8080/api/v1/users" + "/" + user.getUserID()))
-                .header("Content-Type", "application/json")
-                .header("Authorization", UserToken.token)
-                .GET()
-                .build();
-        HttpResponse<String> response = null;
-        try {
-            response = client.send(request, HttpResponse.BodyHandlers.ofString());
-        } catch (Exception e) {
-            e.getMessage(); return;
+            HttpRequest request = HttpRequest.newBuilder()
+                    .uri(URI.create("http://localhost:8080/api/v1/users" + "/" + user.getUserID() + "/friends"))
+                    .header("Content-Type", "application/json")
+                    .header("Authorization", UserToken.token)
+                    .GET()
+                    .build();
+            HttpResponse<String> response = null;
+            try {
+                response = client.send(request, HttpResponse.BodyHandlers.ofString());
+            } catch (Exception e) {
+                e.getMessage(); return;
+            }
+            System.out.println(response.body());
+            User[] users = new ObjectMapper().readValue(response.body(), User[].class);
+
+            for (User singleUser: users){
+                friends.add(singleUser);
+                SignIn.postUser.getSession().getFriends().add(singleUser);
+            }
+
+            if(friends.size() > 0){
+                nameInChat.setText(friends.get(0).getName());
+                for(User friend: friends)
+                    addDisscussion(event, friend);
+            }
+
         }
-        System.out.println(response.body());
 
-        SignIn.postUser.setSession(gson.fromJson(response.body(),User.class));
-        friends = SignIn.postUser.getSession().getFriends();
-        nameInChat.setText(friends.get(0).getName());
-        for(User friend: friends)
-            addDisscussion(event, friend);
     }
     public void addNotifications(MouseEvent event){
         friends = new ArrayList<>();
@@ -234,13 +244,15 @@ public class Home extends Registration implements Initializable {
         HttpResponse<String> response = null;
         try {
             response = client.send(request, HttpResponse.BodyHandlers.ofString());
+
             User[] users = new ObjectMapper().readValue(response.body(), User[].class);
 
             for (User singleUser: users){
                     friends.add(singleUser);
             }
         } catch (Exception e) {
-            e.getMessage(); return;
+            System.out.println(e.getMessage());
+            return;
         }
 
         for(User friend: friends)
@@ -284,7 +296,7 @@ public class Home extends Registration implements Initializable {
             @Override
             public void handle(MouseEvent event) {
                 User user = SignIn.postUser.getSession();
-                Invitation invitation = new Invitation(user.getUserID(), container2.getId());
+                Invitation invitation = new Invitation(container2.getId(),user.getUserID());
                 HttpClient client = HttpClient.newHttpClient();
                 Gson gson = new Gson();
                 HttpRequest request = HttpRequest.newBuilder()
@@ -293,13 +305,13 @@ public class Home extends Registration implements Initializable {
                         .header("Authorization", UserToken.token)
                         .PUT(HttpRequest.BodyPublishers.ofString(gson.toJson(invitation)))
                         .build();
-                HttpResponse<String> response = null;
                 try {
-                    response = client.send(request, HttpResponse.BodyHandlers.ofString());
+                    HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
+                    System.out.println(response);
+                    container.setVisible(false);
                 } catch (Exception e) {
                     e.getMessage(); return;
                 }
-                System.out.println(response.body());
             }
         };
         accept.addEventFilter(MouseEvent.MOUSE_CLICKED, selectHandlerAccept);
@@ -308,7 +320,7 @@ public class Home extends Registration implements Initializable {
             @Override
             public void handle(MouseEvent event) {
                 User user = SignIn.postUser.getSession();
-                Invitation invitation = new Invitation(user.getUserID(), container2.getId());
+                Invitation invitation = new Invitation( container2.getId(),user.getUserID());
                 HttpClient client = HttpClient.newHttpClient();
                 Gson gson = new Gson();
                 HttpRequest request = HttpRequest.newBuilder()
@@ -320,17 +332,40 @@ public class Home extends Registration implements Initializable {
                 HttpResponse<String> response = null;
                 try {
                     response = client.send(request, HttpResponse.BodyHandlers.ofString());
+                    container.setVisible(false);
                 } catch (Exception e) {
                     e.getMessage(); return;
                 }
-                System.out.println(response.body());
             }
         };
         delete.addEventFilter(MouseEvent.MOUSE_CLICKED, selectHandlerDelete);
     }
-    public void addfriends(MouseEvent event, List<User> allUsers){
-        for(User user: allUsers){
-            addfriend(event, user);
+    public void addfriends(MouseEvent event){
+        friends = new ArrayList<>();
+        allUsers = new ArrayList<>();
+        try{
+            HttpClient client = HttpClient.newHttpClient();
+            HttpRequest request = HttpRequest.newBuilder()
+                    .uri(URI.create("http://localhost:8080/api/v1/users/all"))
+                    .header("Content-Type", "application/json")
+                    .header("Authorization", UserToken.token)
+                    .GET()
+                    .build();
+            HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
+            User[] users = new ObjectMapper().readValue(response.body(), User[].class);
+
+
+            for (User singleUser: users){
+
+                if(!singleUser.getUserID().equals(SignIn.postUser.getSession().getUserID()))
+                    allUsers.add(singleUser);
+            }
+
+            for(User user: allUsers){
+                addfriend(event, user);
+            }
+        }catch (Exception e){
+            System.out.println(e.getMessage());
         }
     }
     public void addfriend(MouseEvent event, User user){
@@ -366,6 +401,7 @@ public class Home extends Registration implements Initializable {
             @Override
             public void handle(MouseEvent event) {
                 User user = SignIn.postUser.getSession();
+
                 Invitation invitation = new Invitation(user.getUserID(), container2.getId());
                 HttpClient client = HttpClient.newHttpClient();
                 Gson gson = new Gson();
@@ -378,10 +414,11 @@ public class Home extends Registration implements Initializable {
                 HttpResponse<String> response = null;
                 try {
                     response = client.send(request, HttpResponse.BodyHandlers.ofString());
+                    container.setVisible(false);
                 } catch (Exception e) {
-                    e.getMessage(); return;
+                    e.getMessage();
+                    return;
                 }
-                System.out.println(response.body());
             }
         };
         add.addEventFilter(MouseEvent.MOUSE_CLICKED, selectHandler);
@@ -420,7 +457,6 @@ public class Home extends Registration implements Initializable {
             @Override
             public void handle(MouseEvent event) {
                 receiverId = container2.getId();
-                System.out.println("chat clicked");
                 nameInChat.setText(name.getText());
             }
         };
@@ -561,30 +597,16 @@ public class Home extends Registration implements Initializable {
     public void initialize(URL url, ResourceBundle resourceBundle)  {
         friends = new ArrayList<>();
         allUsers = new ArrayList<>();
-    try{
-        HttpClient client = HttpClient.newHttpClient();
-        HttpRequest request = HttpRequest.newBuilder()
-                .uri(URI.create("http://localhost:8080/api/v1/users/all"))
-                .header("Content-Type", "application/json")
-                .header("Authorization", UserToken.token)
-                .GET()
-                .build();
-        HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
-        User[] users = new ObjectMapper().readValue(response.body(), User[].class);
-
-        for (User singleUser: users){
-            if(!singleUser.getUserID().equals(SignIn.postUser.getSession().getUserID()))
-                allUsers.add(singleUser);
-        }
-
         //User profile = SignIn.postUser.getSession();
 
         //addNotifications(null);
-        addfriends(null, allUsers);
-        //addDisscussions(null);
-    }catch (Exception e){
-        System.out.println(e.getMessage());
-    }
+        //addfriends(null);
+        try {
+            addDisscussions(null);
+        } catch (JsonProcessingException e) {
+            e.printStackTrace();
+        }
+
 
     }
 }

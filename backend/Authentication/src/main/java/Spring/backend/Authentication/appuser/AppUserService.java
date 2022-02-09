@@ -30,6 +30,10 @@ public class AppUserService implements UserDetailsService {
     public List<AppUser> findAllUsers(){
         return appuserrepository.findAll();
     }
+
+    public List<AppUser> findUserFriends(String userId){
+        return appuserrepository.findById(userId).get().getFriends();
+    }
     public boolean userExistById(String id){ return appuserrepository.findById(id).isPresent();}
     public AppUser findById(String id){ return appuserrepository.findById(id).get();}
 

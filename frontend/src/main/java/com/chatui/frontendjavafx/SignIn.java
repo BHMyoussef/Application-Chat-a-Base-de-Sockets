@@ -51,34 +51,9 @@ public class SignIn extends Registration{
     public static PostUserHandler postUser;
     public void SignInHandler(ActionEvent event) throws IOException {
         registrationHandler(event, SIGN_UP_PATH);
+       //here
         if(isSuccess){
             UserToken.getInstance(token);
-            User profile = SignIn.postUser.getSession();
-            String token = UserToken.token;
-            Map<String, String> httpHeaders =new HashMap<>();
-            System.out.println(token);
-            httpHeaders.put("Authorization",token);
-            StompClient stompSocket = new StompClient(
-                    URI.create("ws://localhost:8080/chat"),new Draft_6455(), httpHeaders,0);
-            boolean connected;
-            try {
-                connected = stompSocket.connectBlocking();
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-                return;
-            }
-            if (!connected) {
-                System.out.println("Failed to connect to the socket");
-                return;
-            }
-            String id = profile.getUserID();
-            stompSocket.subscribe("/topic/messages/"+id, new StompMessageListener() {
-                @Override
-                public void onMessage(StompFrame stompFrame) {
-                    System.out.println("Server message: " + stompFrame.getBody());
-                }
-
-            });
             goTo(event, HOME_PATH, this.parentContainer1, this.childContainer, this.button);
         }
     }
@@ -110,7 +85,7 @@ public class SignIn extends Registration{
         this.token = postUser.getToken();
         showResponseMessage(signInMessage,res);
         System.out.println(res);
-        System.out.println(postUser.getSession().getEmail());
+        //System.out.println(postUser.getSession().getEmail());
         new Thread(postUser).start();
     }
 

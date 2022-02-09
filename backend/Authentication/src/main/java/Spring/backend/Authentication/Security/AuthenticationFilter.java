@@ -72,17 +72,17 @@ public class AuthenticationFilter extends UsernamePasswordAuthenticationFilter {
                 .sign(algorithm);
 
         response.addHeader(SecurityConstants.HEADER_NAME, SecurityConstants.TOKEN_PREFIX + jwtToken);
+        response.addHeader("userId", userID);
         Map<String, Object> responseBody = new HashMap<>();
-        responseBody.put("token", jwtToken);
-        responseBody.put("message", "success");
+       // responseBody.put("token", jwtToken);
+        //responseBody.put("message", "success");
         responseBody.put("name", name);
         responseBody.put("email", email);
-        responseBody.put("userID", userID);
-
+        responseBody.put("userId", userID);
 
         responseBody.put("friends", friends);
         System.out.println(friends);
-        responseBody.put("is_connected", is_connected);
+       // responseBody.put("is_connected", is_connected);
         response.setContentType("application/json");
         new ObjectMapper().writeValue(response.getOutputStream(), responseBody);
     }

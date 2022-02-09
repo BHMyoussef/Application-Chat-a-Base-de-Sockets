@@ -10,7 +10,7 @@ import java.util.Set;
 public class User {
 
 
-    private String userID;
+    private String userId;
 
     private Long id;
     private String name;
@@ -20,8 +20,8 @@ public class User {
     List<User> friends = new ArrayList<>();
 
 
-    public User(String userID, Long id, String name, String email, String password, int totalFriends) {
-        this.userID = userID;
+    public User(String userId, Long id, String name, String email, String password, int totalFriends) {
+        this.userId = userId;
         this.id = id;
         this.name = name;
         this.email = email;
@@ -31,11 +31,11 @@ public class User {
     public User() {
     }
     public String getUserID() {
-        return userID;
+        return userId;
     }
 
     public void setUserId(String userId) {
-        this.userID = userId;
+        this.userId = userId;
     }
 
 
@@ -91,11 +91,16 @@ public class User {
     @Override
     public String toString() {
         return "User{" +
+                "userId='" + userId + '\'' +
+                ", id=" + id +
                 ", name='" + name + '\'' +
                 ", email='" + email + '\'' +
                 ", password='" + password + '\'' +
+                ", totalFriends=" + totalFriends +
+                ", friends=" + friends +
                 '}';
     }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;

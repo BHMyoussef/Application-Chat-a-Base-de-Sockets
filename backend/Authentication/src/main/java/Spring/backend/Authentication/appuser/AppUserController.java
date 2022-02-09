@@ -26,6 +26,10 @@ public class AppUserController {
     public AppUser getSingleUser(@PathVariable String userId){
         return appUserService.findById(userId);
     }
+    @GetMapping(path = "/{userId}/friends")
+    public List<AppUser> getUserFriends(@PathVariable String userId){
+        return appUserService.findUserFriends(userId);
+    }
 
     @PutMapping
     public AppUser updateUser(@RequestBody AppUser appUser){
