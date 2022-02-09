@@ -117,7 +117,7 @@ public class PostUserHandler extends Task<Void> {
                             stompSocket.subscribe("/topic/messages/"+id, new StompMessageListener() {
                                 @Override
                                 public void onMessage(StompFrame stompFrame) {
-                                    System.out.println("Server Upcoming message: " + stompFrame.getBody());
+                                    Home.message.set(stompFrame.getBody());
                                 }
 
                         });

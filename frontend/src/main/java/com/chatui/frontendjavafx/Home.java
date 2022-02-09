@@ -5,6 +5,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.eu.mivrenik.stomp.client.StompClient;
 import com.fasterxml.jackson.databind.type.TypeFactory;
 import com.google.gson.Gson;
+import javafx.beans.InvalidationListener;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
@@ -33,7 +34,14 @@ import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
 import java.util.*;
 
+import javafx.beans.property.StringProperty;
+import javafx.beans.property.SimpleStringProperty;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
+
 public class Home extends Registration implements Initializable {
+
+    public static StringProperty message;
 
     @FXML
     private ImageView exit;
@@ -88,6 +96,21 @@ public class Home extends Registration implements Initializable {
     private boolean isEmojiMenuShown = false;
     private String receiverId;
 
+    public Home(){
+        message = new SimpleStringProperty("");
+        message.addListener(new StringChangeListener());
+    }
+
+    class StringChangeListener implements ChangeListener<String>
+    {
+        @Override
+        public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
+            handleUiChange(newValue);
+        }
+    }
+    public void handleUiChange(String upComingMessage){
+        System.out.println("upCommingMessage Json is: "+upComingMessage);
+    }
     public void Exit(MouseEvent event) throws IOException, InterruptedException {
         goTo(event, SIGN_IN_PATH, this.parentContainer1, this.childContainer1, this.exit);
         User user = SignIn.postUser.getSession();
