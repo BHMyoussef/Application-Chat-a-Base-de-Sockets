@@ -482,7 +482,7 @@ public class Home extends Registration implements Initializable {
                     x.setAlignment(Pos.BOTTOM_RIGHT);
                     x.getChildren().addAll(msg, image);
                     // USE receiverId attribute
-                    send("5",messageBar.getText());
+                    send(receiverId,messageBar.getText());
                     break;
                 case "receive" :
                     input = getClass().getResourceAsStream("/com/chatui/frontendjavafx/icon/user.png");
@@ -584,14 +584,11 @@ public class Home extends Registration implements Initializable {
     }
     public static void send(String idReciever, String message) {
         // Sending JSON message to a server
-        String token = UserToken.token;
-        Map<String, String> httpHeaders =new HashMap<>();
-        httpHeaders.put("Authorization",token);
-        StompClient stompSocket = new StompClient(
-                URI.create("ws://localhost:8080/chat"),new Draft_6455(), httpHeaders,0);
 
-        String messageJson = "{\"fromLogin\":\""+idReciever+"\", \"message\":\""+ message +"\"}";
-        stompSocket.send("/app/chat/ali", message);
+
+        String messageJson = "{\"fromLogin\":\""+SignIn.postUser.getSession().getUserID()+"\", \"message\":\""+ message +"\"}";
+        System.out.println(idReciever+"\nmessage is:"+messageJson);
+        PostUserHandler.stompSocket.send("/app/chat/"+idReciever, messageJson);
     }
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle)  {

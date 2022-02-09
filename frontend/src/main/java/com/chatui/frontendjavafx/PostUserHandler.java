@@ -25,6 +25,7 @@ public class PostUserHandler extends Task<Void> {
     private String res;
     private String token;
     private HttpResponse<String> listUsers;
+    public static StompClient stompSocket;
 
     public PostUserHandler(User user, String url) {
         this.user = user;
@@ -101,7 +102,7 @@ public class PostUserHandler extends Task<Void> {
                             Map<String, String> httpHeaders =new HashMap<>();
                             System.out.println(token);
                             httpHeaders.put("Authorization",token);
-                            StompClient stompSocket = new StompClient(
+                            stompSocket = new StompClient(
                                     URI.create("ws://localhost:8080/chat"),new Draft_6455(), httpHeaders,0);
                             boolean connected = false;
                             try {
@@ -116,12 +117,10 @@ public class PostUserHandler extends Task<Void> {
                             stompSocket.subscribe("/topic/messages/"+id, new StompMessageListener() {
                                 @Override
                                 public void onMessage(StompFrame stompFrame) {
-                                    System.out.println("Server message: " + stompFrame.getBody());
+                                    System.out.println("Server Upcoming message: " + stompFrame.getBody());
                                 }
 
                         });
-
-
                     }
                     else {
                         message = List.of(tab[1].split(":"));
